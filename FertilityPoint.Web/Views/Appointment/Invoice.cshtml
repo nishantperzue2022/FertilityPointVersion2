@@ -1,0 +1,204 @@
+﻿@{
+    ViewData["Title"] = "Invoice";
+}
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-md-10">
+
+            <form id="frmSubAppointment">
+
+                <div class="thanks-message" id="text-message">
+
+
+                    <div class="success-cont  text-center" id="divmessage">
+                        <img src="/dashboard/assets/img/icons/check-circle.png" alt="logo">
+                        <h3>Appointment has been successfully booked!</h3>
+                        <p>Appointment booked with <span class="text-info"><strong>Fertitly Point</strong></span><br> on <strong>12 Nov 2019 5:00PM to 6:00PM</strong></p>
+                        <p>A copy of your receipt has been sent to your email</p>
+                        <a href="#" onclick="showInvoice()" class="btn btn-primary">View Receipt</a>
+
+                    </div>
+                    <div id="dvinvoice" style="display:none;">
+
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2">
+                                <div class="invoice-content">
+                                    <div class="invoice-item">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="invoice-logo">
+                                                    <div class="row">
+
+                                                        <div class="col-md-6">
+                                                            <a href="#" class="btn btn-primary" style="background-color:#263b6b;"> <i class="fa fa-download"></i> Download </a>
+
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h4 class="" style="color:#263b6b;font-size:24px;">RECEIPT</h4>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="invoice-details">
+                                                    <strong>Order:</strong> #00124 <br>
+                                                    <strong>Issued:</strong> @DateTime.Now.ToString("yyyy-MM-dd")
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="invoice-item">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="invoice-info">
+                                                    <strong class="customer-text">Receipt From</strong>
+                                                    <p class="invoice-details invoice-details-two">
+                                                        Fertility Point, <br>
+                                                        Fortis Suites, Ground Floor 1 & 2, Hospital Road,<br>
+                                                        Nairobi, Kenya. <br>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="invoice-info invoice-info2">
+                                                    <strong class="customer-text">Receipt To</strong>
+                                                    <p class="invoice-details">
+                                                        Peter Kachezi <br>
+                                                        peterkachezi@gmail.com <br>
+                                                        0704509484 <br>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="invoice-item">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="invoice-info">
+                                                    <strong class="customer-text">Payment Method</strong>
+                                                    <p class="invoice-details invoice-details-two">
+                                                        M-Pesa <br>
+                                                        254704509484 <br>                                                  
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="invoice-item invoice-table-wrap">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="invoice-table table table-bordered" id="invoice">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Service Description</th>
+                                                                <th class="text-center">Bill Reference No</th>
+                                                                <th class="text-center">Paid By</th>
+                                                                <th class="text-end">Amount (Ksh)</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Appointment</td>
+                                                                <td class="text-center">1</td>
+                                                                <td class="text-center">Ksh0</td>
+                                                                <td class="text-end">Ksh100</td>
+                                                            </tr>
+                                                           
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-4 ms-auto">
+                                                <div class="table-responsive">
+                                                    <table class="invoice-table-two table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Subtotal:</th>
+                                                                <td><span>Ksh350</span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Discount:</th>
+                                                                <td><span>0</span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Total Amount:</th>
+                                                                <td><span>Ksh315</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+
+
+
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background: #eee
+    }
+
+    .success-cont h3 {
+        font-size: 30px;
+        font-weight: 700;
+        color: #41b883;
+        margin-bottom: 20px;
+    }
+
+    .success-cont {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .text-center {
+        text-align: center !important;
+    }
+
+    #frmSubAppointment {
+        background-color: #ffffff;
+        margin: 0px auto;
+        padding: 40px;
+        border-radius: 10px;
+        margin-bottom: 6rem;
+    }
+
+    .col-md-10 {
+        flex: 0 0 auto;
+        width: 83.33333%;
+    }
+
+</style>
+
+
+<script>
+    function showInvoice() {
+
+        document.getElementById('divmessage').style.display = 'none';
+
+        document.getElementById('dvinvoice').style.display = 'block';
+    }
+
+</script>

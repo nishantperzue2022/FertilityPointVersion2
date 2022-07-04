@@ -1,0 +1,343 @@
+﻿@model IEnumerable<FertilityPoint.DTO.TimeSlotModule.TimeSlotDTO>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link href="~/booking/css/style.css" rel="stylesheet" />
+<link href="~/css/appointment.css" rel="stylesheet" />
+
+<html>
+
+
+
+<body>
+    <div style="margin-top:-3rem;">
+        <form id="frmSubAppointment" method="post" action="">
+            <h1>Book Appointment</h1>
+            <!-- One "tab" for each step in the form: -->
+            <div class="tab">
+                <div class="main-wrapper">
+                    <div class="row mb-5">
+                        <div class="col-12">
+                            <div class="card booking-schedule schedule-widget">
+
+                                <div class="schedule-header">
+                                    <div class="date-booking">
+                                        <div class="row align-items-center">
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Select Appointment Date</label>
+                                                    <input type="text" name="NewAppointmentDate" onchange="GetAppDate(this)" id="txtAppointmentDate" class="form-control" value='@DateTime.Now.ToString("MM/dd/yyyy")' autocomplete="off" />
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="schedule-cont">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div id="slots">
+                                            </div>
+
+                                        </div>
+
+
+                                        <div id="divShowMessage" style="display:none;">
+                                            <div class="alert alert-danger" role="alert" id="error">
+                                                <div id="divmessage"></div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="tab">
+                <div class="main-wrapper">
+
+                    <div class="content" style="transform: none; min-height: 253.5px;">
+                        <div class="container" style="transform: none;">
+
+                            <div class="row" style="transform: none;">
+
+                                <div class="col-md-12 col-lg-12">
+                                    <div class="card book-info">
+                                        <div class="info-widget">
+                                            <div class="card-header">
+                                                <h4 class="card-title">Personal Information</h4>
+                                            </div>
+                                            <div class="card-body">
+
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label>First Name</label>
+                                                            <input class="form-control" type="text" name="FirstName" id="txtFirstName">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label>Last Name</label>
+                                                            <input class="form-control" type="text" name="LastName" id="txtLastName">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label>Email</label>
+                                                            <input class="form-control" type="email" name="Email" id="txtEmail">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label>Phone</label>
+                                                            <input class="form-control" type="text" name="PhoneNumber" id="txtPhoneNumber" placeholder="(254)7XX XXX XXX">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="card-body inf-widget">
+                                                <div class="payment-widget">
+                                                    <h4 class="card-title">Payment Method</h4>
+
+                                                    <div class="payment-list">
+                                                        <label class="payment-radio credit-card-option">
+                                                            <input type="radio" name="radio" onclick="stkSelected()">
+                                                            <span class="checkmark"></span>
+                                                            Mpesa Express (STK)
+
+                                                        </label>
+
+                                                        <div class="row" style="display:none;" id="divSTK">
+
+
+
+                                                            <div class="row">
+
+                                                                <div class="col-md-4">
+                                                                    <img class="mpesa-logo" src="~/img/mpesa-logo.png" alt="Logo">
+                                                                </div>
+                                                                <div class="col-md-6">
+
+
+
+                                                                    <div class="form-group">
+                                                                        <label>
+                                                                            Click on "Send Request" button to generate payment request on your phone. Enter your MPESA PIN on your phone to complete the payment.
+                                                                        </label>
+
+                                                                    </div>
+
+                                                                    <div class="divsuccess" style="display:none" id="successMsg">
+                                                                        <div class="alert alert-success" role="alert" id="error">
+                                                                            <p id="showsuccess"></p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="divError" style="display:none" id="errorMsg">
+                                                                        <div class="alert alert-danger" role="alert" id="error">
+                                                                            <p id="showError"></p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" onclick="SendStkPush()" class="btn btn-primary">Send Request!</button>
+                                                                    </span>
+
+                                                                </div>
+
+
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <br />
+
+                                                <div class="payment-list">
+                                                    <label class="payment-radio paypal-option">
+                                                        <input type="radio" name="radio" onclick="payBillSelected()">
+                                                        <span class="checkmark"></span>
+                                                        Mpesa Paybill
+                                                    </label>
+
+                                                    <div class="row" style="display:none;" id="divPaybill">
+
+                                                        <div id="mpesa_paybill" class="text-center">
+                                                            <p style="color:#513c3c;">You can also pay using Lipa na MPESA by using the following instructions:</p>
+
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <img class="mpesa-logo" src="~/img/mpesa-logo.png" alt="Logo">
+                                                            </div>
+                                                            <div class="col-md-6">
+
+                                                                <ol>
+                                                                    <li>Go to the M-PESA menu</li>
+                                                                    <li>Select Lipa na M-PESA</li>
+                                                                    <li> Select the Paybill option</li>
+                                                                    <li class="MpesaShortCode">Enter business number <strong>206206</strong> </li>
+                                                                    <li class="MpesaAccountNumber">Enter your account number <strong>Your National ID</strong></li>
+                                                                    <li class="MpesaAmount">Enter the amount Ksh <strong>Ksh 2,500</strong> </li>
+                                                                    <li>Enter PIN and press OK to send </li>
+
+                                                                </ol>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="card-body inf-widget col-md-12">
+                                                    <div class="payment-widget">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="">
+                                                        <label for="card_name">Enter Mpesa Reference / Transaction Number</label>
+                                                        <input type="text" class="form-control mt-2 col-md-6" placeholder="Mpesa Reference" name="TransactionNumber" id="txtTransactionNumber">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="tab">
+
+                <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; left: 12px; top: 0px;">
+                    <div class="card booking-card">
+                        <div class="card-header">
+                            <h4 class="card-title">Booking Summary</h4>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="booking-doc-info">
+                            </div>
+                            <br />
+                            <div class="booking-summary border-0">
+                                <div class="booking-item-wrap">
+                                    <ul class="booking-date">
+                                        <li>Date <span id="txtAppDate">12/04/2021</span></li>
+                                        <li>Time <span id="txtTimeSlotName">8:30 AM</span></li>
+                                    </ul>
+                                    <ul class="booking-fee">
+                                        <li>Appointment Fee <span>Ksh 2,500</span></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="booking-total">
+                                <ul class="booking-total-list">
+                                    <li>
+                                        <span>Total</span>
+                                        <span class="total-cost">Ksh 2,500</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            @*
+            <div class="tab">
+            </div>*@
+
+            <div style="overflow:auto;">
+                <div style="float:right;">
+                    <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                    <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                    <button type="button" id="btnSubmit" style="display:none;" onclick="SubmitAppointment()">Submit</button>
+                </div>
+            </div>
+
+            <!-- Circles which indicates the steps of the form: -->
+            <div style="text-align:center;margin-top:40px;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+
+
+            </div>
+        </form>
+
+    </div>
+
+    <link href="~/SweetAlart/sweetalert.min.css" rel="stylesheet" />
+    <script src="~/SweetAlart/sweetalert.min.js"></script>
+    <script src="~/fertilitypoint/appointment.js"></script>
+</body>
+</html>
+
+<style>
+
+    .label {
+        border: 1px solid grey;
+        margin: 5px;
+        padding: 10px;
+        cursor: pointer;
+        width: 13rem;
+        color: #455A64;
+    }
+
+
+
+    input[type='radio']:before {
+        content: '';
+        display: block;
+        width: 60%;
+        height: 60%;
+        margin: 20% auto;
+        border-radius: 50%;
+    }
+
+    input[type='radio']:checked:before {
+        background: red;
+    }
+
+</style>
+
+
+
+<script>
+
+
+
+
+</script>

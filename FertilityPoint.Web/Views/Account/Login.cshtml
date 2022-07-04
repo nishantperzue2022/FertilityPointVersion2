@@ -1,0 +1,150 @@
+﻿@model FertilityPoint.DTO.ApplicationUserModule.LoginDTO
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <title>Fertility - Point</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+
+    <link rel="stylesheet" href="~/dashboard/assets/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="~/dashboard/assets/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="~/dashboard/assets/css/style.css">
+
+</head>
+<body>
+
+    <div class="main-wrapper login-body">
+        <div class="login-wrapper">
+            <div class="container">
+                <div class="loginbox">
+                    <div class="login-left">
+                        <img class="img-fluid" src="~/img/logo-bk.png" alt="Logo">
+                    </div>
+                    <div class="login-right">
+                        <div class="login-right-wrap">
+                            <h1>Login</h1>
+
+                            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @Id = "formlogin" }))
+                            {
+
+                                <div id="divShowMessage" style="display:none;">
+                                    <div class="alert alert-danger" role="alert" id="error">
+                                        <div id="divmessage"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Enter login id" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Enter password" })
+                                </div>
+                                <div class="form-group">
+                                    <input type="button" class="btn btn-primary w-100" value="Login" onclick="javascript: UserLoginValudation();" id="btnLogin" />
+
+                                </div>
+                            }
+
+                            <div class="text-center forgotpass"><a href="forgot-password.html">Forgot Password?</a></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="assets/js/jquery-3.6.0.min.js" type="f51237f83cd28e0c20cd2f71-text/javascript"></script>
+
+    <script src="~/dashboard/assets/js/bootstrap.bundle.min.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
+
+    <script src="~/dashboard/assets/js/script.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
+
+    <script src="~/dashboard/assets/cloudflare-static/rocket-loader.min.js" data-cf-settings="efa6f651afd8f2f4a356ad85-|49" defer=""></script>
+
+
+</body>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script>
+
+    var UserLoginValudation = function() {
+
+        //To capture the form data
+
+        var formData = new FormData();
+
+        var formcontroldata = $("#formlogin").serializeArray();
+
+        $.each(formcontroldata, function(i, field) {
+
+            formData.append(field.name, field.value);
+
+        });
+
+        $("#btnLogin").val("Please wait..");
+
+        //To make the ajax request
+
+        $.ajax({
+
+            url: $("#formlogin").attr('action'),
+
+            type: $("#formlogin").attr('method'),
+
+            data: formData,
+
+            contentType: false, // Not to set any content header
+
+            processData: false, // Not to process data
+
+            dataType: 'json',
+
+            cache: false,
+
+            success: function(result) {
+
+                if (result.status == 0) {
+
+                    $('#divShowMessage').show();
+
+                } else {
+
+                    var role = result.role;
+                       
+                    if (role == "Admin") {
+
+                        window.location = "@Url.Action("Index","Dashboard", new { area="Admin" })";
+                    }
+                    else {
+                        alert("No environment for you")
+
+                        location.reload();
+                    }
+
+                }
+
+                $("#btnLogin").val("Login");
+
+                $("#divmessage").html(result.message);
+
+            }
+
+        });
+
+    };
+
+</script>

@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link href="~/css/content.css" rel="stylesheet" />
+<link href="~/css/common.css" rel="stylesheet" />
+
+
+<div class="content-wrapper py-lg-1 my-lg-3 py-4">
+    <div class="container" style="margin-bottom: 4rem;">
+        <div class="row">
+
+            @await Html.PartialAsync("_LeftPanel")
+
+            <div class="col-12  col-lg-9 ">
+                <div class="pl-sm-3">
+                    <a href="javascript:void(0);" class="slide-toggle-menu float-right d-md-none"><span></span></a>
+                    <h1 class="font-weight-normal text-secondary h3 heading-style mb-4 pb-lg-1">Opening Hours</h1>
+                    <div class="detail-content font-small">
+                        <h5 class="mb-3">Monday – Friday <br>9 AM – 6 PM</h5>
+                        <h5 class="mb-3">Saturday <br>9 AM – 2 PM</h5>
+                        <h5 class="mb-3">Sunday <br>Closed</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <title>Fertility - Point</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+
+    <link rel="stylesheet" href="~/dashboard/assets/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="~/dashboard/assets/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="~/dashboard/assets/css/style.css">
+
+</head>
+<body>
+
+    <div class="main-wrapper login-body">
+        <div class="login-wrapper">
+            <div class="container">
+                <div class="loginbox">
+                    <div class="login-left">
+                        <img class="img-fluid" src="~/img/logo-bk.png" alt="Logo">
+                    </div>
+                    <div class="login-right">
+                        <div class="login-right-wrap">
+                            <h1>Login</h1>
+                            @*                            <p class="account-subtitle">Access to our dashboard</p>
+                            *@
+                            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                            {
+
+                                @if (TempData["Error"] != null)
+                                {
+                                    <div class="alert alert-danger" role="alert" id="error">
+                                        @TempData["Error"].ToString()
+                                    </div>
+                                }
+                                <div class="form-group">
+                                    <input class="form-control" type="text" placeholder="Email" name="Email" id="UserName">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="text" placeholder="Password"  name="Password" id="Password">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary w-100" type="submit">Login</button>
+                                </div>
+                            }
+
+                            <div class="text-center forgotpass"><a href="forgot-password.html">Forgot Password?</a></div>
+                            <div class="login-or">
+                                <span class="or-line"></span>
+                                <span class="span-or">or</span>
+                            </div>
+
+                            <div class="social-login">
+                                <span>Login with</span>
+                                <a href="#" class="facebook"><i class="fa fa-facebook"></i></a><a href="#" class="google"><i class="fa fa-google"></i></a>
+                            </div>
+
+                            <div class="text-center dont-have">Don’t have an account? <a href="register.html">Register</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="assets/js/jquery-3.6.0.min.js" type="f51237f83cd28e0c20cd2f71-text/javascript"></script>
+
+    <script src="~/dashboard/assets/js/bootstrap.bundle.min.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
+
+    <script src="~/dashboard/assets/js/script.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
+
+    <script src="~/dashboard/assets/cloudflare-static/rocket-loader.min.js" data-cf-settings="efa6f651afd8f2f4a356ad85-|49" defer=""></script>
+
+
+</body>
+
+
+</html>

@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link href="~/css/content.css" rel="stylesheet" />
+<link href="~/css/common.css" rel="stylesheet" />
+
+<div class="content-wrapper py-lg-1 my-lg-3 py-4">
+    <div class="container">
+        <div class="row">
+
+            @await Html.PartialAsync("_LeftPanel")
+
+
+            <div class="col-12  col-lg-9 ">
+                <div class="pl-sm-3">
+                    <a href="javascript:void(0);" class="slide-toggle-menu float-right d-md-none"><span></span></a>
+                    <h1 class="font-weight-normal text-secondary h3 heading-style mb-4 pb-lg-1">Genetic Testing</h1>
+                    <div class="detail-content font-small">
+                        <div class="banner mb-4 pb-lg-2">
+                            <img src="/img/CMSPage8.jpg" alt="Genetic Testing" width="844" height="450" class="img-fluid">
+                        </div>
+                        <div class="mb-4 pb-lg-2">
+                            Genetic screening and testing of embryos is a diagnostic technique used to rule out any suspected genetic diseases or chromosomal defect that could prevent a pregnancy from progressing.
+                        </div>
+                        <div class="mb-4 pb-lg-2">
+                            We offer genetic screening and testing technologies such as Preimplantation Genetic Screening (PGS) and Preimplantation Genetic Diagnosis (PGD) during your IVF or ICSI treatment, to possibly reduce the risk of passing on genetic diseases to the baby by selecting a healthy embryo that will develop into a healthy baby.
+                        </div>
+                        <div class="py-3 border-top border-bottom expand-block">
+                            <h4 class="expand-head font-rglr position-relative text-secondary collapsed my-1" data-target="#GeneticScreening" data-toggle="collapse">
+                                Preimplantation Genetic Screening (PGS)
+                            </h4>
+                            <div class="collapse" id="GeneticScreening">
+                                <p class="py-3">
+                                    Preimplantation genetic screening or PGS is a laboratory technique performed to screen any chromosomal abnormalities in the embryos. The test is done on embryos obtained from IVF procedure prior to implantation.
+                                </p>
+                                <p class="pb-3">
+                                    A biopsy on each embryo is conducted to identify the presence of abnormal chromosome numbers (also called as aneuploidy embryos). Changes in the number of chromosomes may result in unsuccessful pregnancy or may lead to still births or birth of children with genetic condition.
+                                </p>
+                                <p class="pb-3">
+                                    PGS is performed on the 3rd day of the embryo development or at the blastocyst stage, where the genetic material of the embryo is examined to detect any gene mutations. This technique allows for the transfer of healthy embryos free from aneuploidies and significantly increases pregnancy rates per transfer and can help you have a healthy baby.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="py-3  border-bottom expand-block">
+                            <h4 class="expand-head font-rglr position-relative text-secondary collapsed my-1" data-target="#GeneticDiagnosis" data-toggle="collapse">
+                                Preimplantation Genetic Diagnosis (PGD)
+                            </h4>
+                            <div class="collapse" id="GeneticDiagnosis">
+                                <p class="py-3">
+                                    Pre-Implantation Genetic Diagnosis (PGD) is a technique that enables screening of embryos for any specific hereditary diseases or single gene disorders. The PGD testing can be considered when the couple have any risk of passing on serious genetic diseases to the child or if the couple previously had an affected child.
+                                </p>
+                                <p class="pb-3">
+                                    The testing can be done as part of your IVF program. Either on the 3rd or 5th day of embryo development, the genetic profiling of the embryo is performed to check for chromosomes in the embryos for any specific genetic condition. Some of the genetic diseases such as Cystic Fibrosis, Spinal Muscular Atrophy, Tay-Sachs Disease, Sickle Cell Anemia, Thalassemia and much more can be diagnosed through PGD. The healthy embryos free of genetic condition are transferred back in to uterus for implantation
+                                </p>
+                            </div>
+                        </div>
+                        <div class="py-3  border-bottom expand-block">
+                            <h4 class="expand-head font-rglr position-relative text-secondary collapsed my-1" data-target="#HlaMatching" data-toggle="collapse">
+                                HLA Matching to Cure Family Member
+                            </h4>
+                            <div class="collapse" id="HlaMatching">
+                                <p class="py-3">
+                                    It is now possible to cure a family member suffering from a hereditary disease with today’s advanced medical technologies. HLA or Human Leukocyte Antigen is part of the DNA that works as a defense mechanism of the immune system and plays a large role in the body’s histocompatibility with others. A family member suffering from a hereditary disease can be cured by bone marrow transplant or stem cells after identifying an HLA match. First HLA Typing is completed on the affected family member. Secondly, during an IVF cycle with PGD, healthy embryos with an HLA match are identified and transferred. Conditions that may be cured during bone marrow transplant may include Thalassemia and Leukemia.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="py-3  border-bottom expand-block">
+                            <h4 class="expand-head font-rglr position-relative text-secondary collapsed my-1" data-target="#HereditaryScreening" data-toggle="collapse">
+                                Screening for Hereditary Diseases
+                            </h4>
+                            <div class="collapse" id="HereditaryScreening">
+                                <h5 class="pt-3">
+                                    Mutation Screening
+                                </h5>
+                                <p class="pb-3">
+                                    Mutation Screening by Sanger Sequencing is most often recommended when there is a family history of genetic disease or if there is any genetic disease that has been identified. If a mutation is detected in the genes, Pre-Implantation Genetic Diagnosis (PGD) is completed during an IVF cycle to rule out the possibility of any genetic disease being passed onto the child.
+                                </p>
+                                <h5>
+                                    Exome Screening
+                                </h5>
+                                <p class="pb-3">
+                                    Exome Screening by Next Generation Sequencing is used to screen for unidentified hereditary diseases or polygenic diseases that usually involve two or more genes interacting. Next Generation Sequencing will analyse important regions of tens of thousands of genes at the same time as compared to current sequencing tests that analyse one gene or small groups of related genes at a time.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="py-3  border-bottom expand-block">
+                            <h4 class="expand-head font-rglr position-relative text-secondary collapsed my-1" data-target="#ChromosomalScreening" data-toggle="collapse">
+                                Genetic Testing &amp; Pregnancy
+                            </h4>
+                            <div class="collapse" id="ChromosomalScreening">
+                                <h5 class="pt-3">
+                                    Products of Conception (POC)
+                                </h5>
+                                <p class="pb-3">
+                                    Fetal loss is the most common pregnancy complication, occurring in 25-30% of recognized pregnancies. Chromosomal analysis on Products of Conception may help identify the cause of pregnancy loss and improve management of future pregnancies by considering Assisted Reproductive Technologies and Comprehensive Chromosomal Screening to avoid the recurrence of miscarriages. Products of Conception is any fetal tissue that's still in the uterus after a miscarriage.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

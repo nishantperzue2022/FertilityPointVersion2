@@ -1,0 +1,196 @@
+﻿
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<link href="~/css/content.css" rel="stylesheet" />
+<link href="~/css/common.css" rel="stylesheet" />
+
+
+<div class="content">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+
+                        <h3 class="heading mb-4" style="margin-top: -5rem;">Book Appointment</h3>
+
+                        <p><img src="/img/undraw_co-workers.png" alt="Image" class="img-fluid" style="height:25rem;"></p>
+
+
+                    </div>
+                    <div class="col-md-6">
+
+                        <form class="mb-5" method="post" id="frmAppont" name="contactForm">
+
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <input type="text" class="form-control" name="Name" id="txtName" placeholder="Your name">
+                                </div>
+                            </div>
+                                      
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type="button" value="Submit" id="btnSubmit1" class="btn btn-primary rounded-0 py-2 px-4">
+                                    <input type="button" value="Cancel" onclick="HomePage()" id="btnCancel" class="btn btn-danger rounded-0 py-2 px-4 pull-right">
+                                    <span class="submitting"></span>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div id="form-message-warning mt-4"></div>
+                        <div id="form-message-success">
+                            Your message was sent, thank you!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<link href="~/SweetAlart/sweetalert.min.css" rel="stylesheet" />
+<script src="~/SweetAlart/sweetalert.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+
+<script type="text/javascript">
+
+
+
+
+    function ShowLoader() {
+
+        $("#loadMe").modal('show');
+    }
+
+    function HideLoader() {
+
+        $("#loadMe").modal('hide');
+    }
+
+
+    $("#btnSubmit1").click(function () {
+
+        alert("sddsdsdsdsdsd");
+
+
+        if ($('#txtName').val() == '') {
+            $('#txtName').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Name is a required field",
+                showConfirmButton: true,
+            });
+            return false;
+        }
+
+
+        $("#CreateLeadModal").modal('hide');
+
+        var data = $("#frmAppont").serialize();
+
+        $.ajax({
+
+            type: "POST",
+
+            url: "/Counties/Create/",
+
+            data: data,
+
+            beforeSend: function () { ShowLoader(); },
+
+            success: function (response) {
+
+                if (response.success) {
+
+                    swal({
+
+                        position: 'top-end',
+
+                        type: "success",
+
+                        title: response.responseText,
+
+                        showConfirmButton: false,
+
+                    }), setTimeout(function () { window.location = "/Home/"; }, 3000);
+
+                } else {
+
+                    swal({
+
+                        position: 'top-end',
+
+                        type: "error",
+
+                        title: response.responseText,
+
+                        showConfirmButton: true,
+
+                        timer: 5000,
+                    });
+
+
+                }
+            },
+
+            error: function (response) {
+                alert("error!");
+            },
+            complete: function () {
+                HideLoader();
+            }
+        })
+
+    })
+
+
+    function HomePage() {
+        window.location.href = "/Home/";
+    }
+
+
+
+
+
+    //Allow users to enter numbers only
+    $(".numericOnly").bind('keypress', function (e) {
+        if (e.keyCode == '9' || e.keyCode == '16') {
+            return;
+        }
+        var code;
+        if (e.keyCode) code = e.keyCode;
+        else if (e.which) code = e.which;
+        if (e.which == 46)
+            return false;
+        if (code == 8 || code == 46)
+            return true;
+        if (code < 48 || code > 57)
+            return false;
+    });
+
+    //Disable paste
+    $(".numericOnly").bind("paste", function (e) {
+        e.preventDefault();
+    });
+
+    $(".numericOnly").bind('mouseenter', function (e) {
+        var val = $(this).val();
+        if (val != '0') {
+            val = val.replace(/[^0-9]+/g, "")
+            $(this).val(val);
+        }
+    });
+</script>
+
+
+

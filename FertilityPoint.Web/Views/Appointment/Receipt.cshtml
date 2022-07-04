@@ -1,0 +1,177 @@
+﻿@model FertilityPoint.DTO.AppointmentModule.AppointmentDTO
+@{
+    ViewData["Title"] = "Invoice";
+}
+
+
+<div class="card col-md-6 mt-5" style="margin-bottom:6rem;">
+    <div class="container">
+        <div class="thanks-message" id="text-message">
+
+            <div class="mt-3 success-cont  text-center" id="divmessage">
+                <img src="/dashboard/assets/img/icons/check-circle.png" alt="logo">
+                <h3>Appointment has been successfully booked!</h3>
+                <p>
+                    Appointment booked with <span class="text-info"><strong>Fertitly Point</strong></span>
+                    <br> on date:<strong>@Model.AppointmentDate.ToShortDateString()</strong>
+                    <br> time: <strong>@Model.TimeSlot</strong>
+                </p>
+
+                <p>A copy of your receipt has been sent to your email</p>
+                <a href="#" onclick="showInvoice()" class="btn btn-primary">View Receipt</a>
+
+            </div>
+        </div>
+
+        <div id="dvinvoice" style="display:none;">
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <a href="/Appointment/DownloadReceipt/@Model.Id" class="btn btn-primary" style="background-color:#263b6b;"> <i class="fa fa-download"></i> Download </a>
+
+                </div>
+                <div class="col-md-4">
+                    <h4 class="" style="color:#263b6b;font-size:24px;">RECEIPT</h4>
+
+                </div>
+                <div class="col-md-4">
+                    <p class="invoice-details">
+                        <strong>Receipt No:</strong> #@Model.ReceiptNo<br>
+                        <strong>Issued:</strong> @DateTime.Now.ToString("yyyy-MM-dd")
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="">
+                        <strong class="">Receipt From</strong>
+                        <p class="invoice-details invoice-details-two">
+                            Fertility Point, <br>
+                            Fortis Suites, Ground Floor 1 & 2, Hospital Road,<br>
+                            Nairobi, Kenya. <br>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="">
+                        <strong class="">Receipt To</strong>
+                        <p class="invoice-details">
+                            @Model.FullName <br>
+                            @Model.Email<br>
+                            @Model.PhoneNumber <br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="invoice-table table table-bordered" id="invoice">
+                            <thead>
+                                <tr>
+                                    <th>Service Description</th>
+                                    <th class="">Bill Reference No</th>
+                                    <th class="">Paid By</th>
+                                    <th class="text-end">Amount (Ksh)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Appointment</td>
+                                    <td class="">@Model.TransactionNumber</td>
+                                    <td class="">@Model.PaidByNumber</td>
+                                    <td class="text-end">@Model.NewAmount</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 col-xl-6 ms-auto">
+                    <div class="table-responsive">
+                        <table class="invoice-table-two table">
+                            <tbody>
+                                <tr>
+                                    <th>Subtotal:</th>
+                                    <td><span>Ksh @Model.NewAmount</span></td>
+                                </tr>
+                                <tr>
+                                    <th>Discount:</th>
+                                    <td><span>0</span></td>
+                                </tr>
+                                <tr>
+                                    <th>Total Amount:</th>
+                                    <td><span>Ksh @Model.NewAmount</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
+<style>
+    .card {
+        margin: 0 auto; /* Added */
+        float: none; /* Added */
+        margin-bottom: 10px; /* Added */
+    }
+
+    body {
+        background: #eee
+    }
+
+    .success-cont h3 {
+        font-size: 30px;
+        font-weight: 700;
+        color: #41b883;
+        margin-bottom: 20px;
+    }
+
+    .success-cont {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .text-center {
+        text-align: center !important;
+    }
+
+    #frmSubAppointment {
+        background-color: #ffffff;
+        margin: 0px auto;
+        padding: 40px;
+        border-radius: 10px;
+        margin-bottom: 6rem;
+    }
+</style>
+
+
+<script>
+
+    function showInvoice() {
+
+        document.getElementById('divmessage').style.display = 'none';
+
+        document.getElementById('dvinvoice').style.display = 'block';
+    }
+
+</script>
+

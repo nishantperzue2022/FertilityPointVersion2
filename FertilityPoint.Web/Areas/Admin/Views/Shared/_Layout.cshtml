@@ -1,0 +1,373 @@
+﻿@using FertilityPoint.DAL.Modules
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <title>Fertility - Point</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="~/dashboard/assets/img/favicon.ico">
+
+    <link rel="stylesheet" href="~/booking/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="~/dashboard/assets/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="~/dashboard/assets/css/feathericon.min.css">
+
+    <link rel="stylesheet" href="~/dashboard/assets/plugins/morris/morris.css">
+
+    <link rel="stylesheet" href="~/dashboard/assets/css/style.css">
+
+    <link href="~/css/loader.css" rel="stylesheet" />
+
+    <link href="~/css/status.css" rel="stylesheet" />
+
+    <link href="~/SweetAlart/sweetalert.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+
+        <div class="header">
+
+            <div class="header-left">
+                <a href="@Url.Action("", "Dashboard")" class="logo">
+                    <img src="~/dashboard/assets/img/logo-bk.png" alt="Logo">
+                </a>
+                <a href="@Url.Action("", "Dashboard")" class="logo logo-small">
+                    <img src="~/dashboard/assets/img/logo-small.png" alt="Logo" width="30" height="30">
+                </a>
+            </div>
+
+            <a href="javascript:void(0);" id="toggle_btn">
+                <i class="fe fe-text-align-left"></i>
+            </a>
+
+            <div class="top-nav-search">
+                <form>
+                    <input type="text" class="form-control" placeholder="Search here">
+                    <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+
+            <a class="mobile_btn" id="mobile_btn">
+                <i class="fa fa-bars"></i>
+            </a>
+
+
+            <ul class="nav user-menu">
+
+                <li class="nav-item dropdown noti-dropdown">
+                    <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                        <i class="fe fe-bell"></i> <span class="badge rounded-pill">3</span>
+                    </a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span class="notification-title">Notifications</span>
+                            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                        </div>
+                        <div class="noti-content">
+                            @*      <ul class="notification-list">
+                            <li class="notification-message">
+                            <a href="#">
+                            <div class="media d-flex">
+                            <span class="avatar avatar-sm flex-shrink-0">
+                            <img class="avatar-img rounded-circle" alt="User Image" src="~/dashboard/assets/img/doctors/doctor-thumb-01.jpg">
+                            </span>
+                            <div class="media-body flex-grow-1">
+                            <p class="noti-details"><span class="noti-title">Dr. Ruby Perrin</span> Schedule <span class="noti-title">her appointment</span></p>
+                            <p class="noti-time"><span class="notification-time">4 mins ago</span></p>
+                            </div>
+                            </div>
+                            </a>
+                            </li>
+                            <li class="notification-message">
+                            <a href="#">
+                            <div class="media d-flex">
+                            <span class="avatar avatar-sm flex-shrink-0">
+                            <img class="avatar-img rounded-circle" alt="User Image" src="~/dashboard/assets/img/patients/patient1.jpg">
+                            </span>
+                            <div class="media-body flex-grow-1">
+                            <p class="noti-details"><span class="noti-title">Charlene Reed</span> has booked her appointment to <span class="noti-title">Dr. Ruby Perrin</span></p>
+                            <p class="noti-time"><span class="notification-time">6 mins ago</span></p>
+                            </div>
+                            </div>
+                            </a>
+                            </li>
+                            <li class="notification-message">
+                            <a href="#">
+                            <div class="media d-flex">
+                            <span class="avatar avatar-sm flex-shrink-0">
+                            <img class="avatar-img rounded-circle" alt="User Image" src="~/dashboard/assets/img/patients/patient2.jpg">
+                            </span>
+                            <div class="media-body flex-grow-1">
+                            <p class="noti-details"><span class="noti-title">Travis Trimble</span> sent a amount of $210 for his <span class="noti-title">appointment</span></p>
+                            <p class="noti-time"><span class="notification-time">8 mins ago</span></p>
+                            </div>
+                            </div>
+                            </a>
+                            </li>
+                            <li class="notification-message">
+                            <a href="#">
+                            <div class="media d-flex">
+                            <span class="avatar avatar-sm flex-shrink-0">
+                            <img class="avatar-img rounded-circle" alt="User Image" src="~/dashboard/assets/img/patients/patient3.jpg">
+                            </span>
+                            <div class="media-body flex-grow-1">
+                            <p class="noti-details"><span class="noti-title">Carl Kelly</span> send a message <span class="noti-title"> to his doctor</span></p>
+                            <p class="noti-time"><span class="notification-time">12 mins ago</span></p>
+                            </div>
+                            </div>
+                            </a>
+                            </li>
+                            </ul>*@
+                        </div>
+                        <div class="topnav-dropdown-footer">
+                            <a href="#">View all Notifications</a>
+                        </div>
+                    </div>
+                </li>
+
+
+                <li class="nav-item dropdown has-arrow">
+                    <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                        <span class="user-img">
+                            <img class="rounded-circle" src="~/dashboard/assets/img/profiles/avatar-01.jpg" width="31" alt="Ryan Taylor">
+                        </span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="user-header">
+                            <div class="avatar avatar-sm">
+                                <img src="~/dashboard/assets/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle">
+                            </div>
+                            <div class="user-text">
+
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    var user = await UserManager.FindByEmailAsync(User.Identity.Name);
+
+                                    var roles = (await UserManager.GetRolesAsync(user)).FirstOrDefault();
+
+                                    if (roles == "Admin")
+                                    {
+                                        <h6>@User.FindFirst("UserFirstName").Value</h6>
+
+                                        <div>
+                                            <p class="text-muted mb-0">@roles</p>
+                                        </div>
+                                    }
+
+                                    else
+                                    {
+                                        var url = "/Account/Logout";
+
+                                        Context.Response.Redirect(url);
+                                    }
+
+                                }
+                                else
+                                {
+                                    var url = "/Account/Logout";
+
+                                    Context.Response.Redirect(url);
+
+                                }
+
+                            </div>
+                        </div>
+                        <a class="dropdown-item" href="#">My Profile</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="~/Account/Logout/">Logout</a>
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">
+                            <span>Main</span>
+                        </li>
+                        <li class="active">
+                            <a href="@Url.Action("", "Dashboard")"><i class="fe fe-home"></i> <span>Dashboard</span></a>
+                        </li>
+                        <li>
+
+                            <a href="@Url.Action("", "Appointments")"><i class="fe fe-layout"></i> <span>Appointments</span></a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("", "Specialities")"><i class="fe fe-users"></i> <span>Specialities</span></a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("", "Doctors")"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("", "Patients")"><i class="fe fe-user"></i> <span>Patients</span></a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("", "TimeSlots")"><i class="fe fe-clock"></i> <span>Time Slots</span></a>
+                        </li>
+                        
+                        <li>
+                            <a href="@Url.Action("", "Services")"><i class="fe fe-vector"></i> <span>Services</span></a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("", "Transactions")"><i class="fe fe-activity"></i> <span>Transactions</span></a>
+                        </li>
+
+                        @*             <li>
+                        <a href="#"><i class="fe fe-activity"></i> <span>Transactions</span></a>
+                        </li>
+
+                        <li>
+                        <a href="#"><i class="fe fe-vector"></i> <span>Settings</span></a>
+                        </li>*@
+
+                        <li class="submenu">
+                            <a href="#"><i class="fe fe-document"></i> <span> Reports</span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="#">Invoice Reports</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-title">
+                            <span>User</span>
+                        </li>
+
+                        <li class="submenu">
+                            <a href="#"><i class="fe fe-document"></i> <span> Manage Users </span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="~/Admin/UserManager/"> Register Users </a></li>
+
+                            </ul>
+                        </li>
+
+                        @* <li><a href="#"><i class="fe fe-layout"></i> <span>Product List</span></a></li>
+                        <li><a href="#"><i class="fe fe-vector"></i> <span>Pharmacy List</span></a></li>
+                        <li>
+                        <a href="#"><i class="fe fe-user-plus"></i> <span>Profile</span></a>
+                        </li>
+                        <li class="submenu">
+                        <a href="#"><i class="fe fe-document"></i> <span> Authentication </span> <span class="menu-arrow"></span></a>
+                        <ul style="display: none;">
+                        <li><a href="#"> Login </a></li>
+                        <li><a href="#"> Register </a></li>
+                        <li><a href="#"> Forgot Password </a></li>
+                        <li><a href="#"> Lock Screen </a></li>
+                        </ul>
+                        </li>
+                        <li class="submenu">
+                        <a href="#"><i class="fe fe-warning"></i> <span> Error Pages </span> <span class="menu-arrow"></span></a>
+                        <ul style="display: none;">
+                        <li><a href="#">404 Error </a></li>
+                        <li><a href="#">500 Error </a></li>
+                        </ul>
+                        </li>
+                        <li>
+                        <a href="blank-page.html"><i class="fe fe-file"></i> <span>Blank Page</span></a>
+                        </li>
+                        <li class="menu-title">
+                        <span>UI Interface</span>
+                        </li>
+                        <li>
+                        <a href="#"><i class="fe fe-vector"></i> <span>Components</span></a>
+                        </li>
+                        <li class="submenu">
+                        <a href="#"><i class="fe fe-layout"></i> <span> Forms </span> <span class="menu-arrow"></span></a>
+                        <ul style="display: none;">
+                        <li><a href="#">Basic Inputs </a></li>
+                        <li><a href="#">Input Groups </a></li>
+                        <li><a href="#">Horizontal Form </a></li>
+                        <li><a href="#"> Vertical Form </a></li>
+                        <li><a href="#"> Form Mask </a></li>
+                        <li><a href="#"> Form Validation </a></li>
+                        </ul>
+                        </li>
+                        <li class="submenu">
+                        <a href="#"><i class="fe fe-table"></i> <span> Tables </span> <span class="menu-arrow"></span></a>
+                        <ul style="display: none;">
+                        <li><a href="#">Basic Tables </a></li>
+                        <li><a href="#">Data Table </a></li>
+                        </ul>
+                        </li>
+                        <li class="submenu">
+                        <a href="#"><i class="fe fe-code"></i> <span>Multi Level</span> <span class="menu-arrow"></span></a>
+                        <ul style="display: none;">
+                        <li class="submenu">
+                        <a href="#"> <span>Level 1</span> <span class="menu-arrow"></span></a>
+                        <ul style="display: none;">
+                        <li><a href="#"><span>Level 2</span></a></li>
+                        <li class="submenu">
+                        <a href="javascript:void(0);"> <span> Level 2</span> <span class="menu-arrow"></span></a>
+                        <ul style="display: none;">
+                        <li><a href="#">Level 3</a></li>
+                        <li><a href="#">Level 3</a></li>
+                        </ul>
+                        </li>
+                        <li><a href="#"> <span>Level 2</span></a></li>
+                        </ul>
+                        </li>
+                        <li>
+                        <a href="#"> <span>Level 1</span></a>
+                        </li>
+                        </ul>
+                        </li>*@
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="right_col" role="main">
+            @RenderBody()
+        </div>
+
+    </div>
+
+
+    <div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="spinner text-center">
+                        <div class="lds-ripple"><div></div><div></div></div>
+                    </div>
+                    <p class="text-center loader-text">Processing...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="~/SweetAlart/sweetalert.min.js"></script>
+
+    <script src="~/booking/css/bootstrap.min.js"></script>
+
+    <script src="~/dashboard/assets/cloudflare-static/rocket-loader.min.js" data-cf-settings="efa6f651afd8f2f4a356ad85-|49" defer=""></script>
+
+    <script src="~/dashboard/assets/plugins/slimscroll/jquery.slimscroll.min.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
+
+    <script src="~/dashboard/assets/plugins/raphael/raphael.min.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
+
+    <script src="~/dashboard/assets/plugins/morris/morris.min.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
+
+    <script src="~/dashboard/assets/js/chart.morris.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
+</body>
+
+</html>

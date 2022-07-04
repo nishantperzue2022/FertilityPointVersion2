@@ -1,0 +1,217 @@
+﻿
+
+
+
+body {
+    background-color: #f1f1f1;
+}
+
+#frmSubAppointment {
+    background-color: #ffffff;
+    margin: 100px auto;
+    font-family: Raleway;
+    padding: 40px;
+    width: 70%;
+    min-width: 300px;
+}
+
+h1 {
+    text-align: center;
+}
+
+input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    border: 1px solid #aaaaaa;
+}
+
+    /* Mark input boxes that gets an error on validation: */
+    input.invalid {
+        background-color: #ffdddd;
+    }
+
+/* Hide all steps by default: */
+.tab {
+    display: none;
+}
+
+button {
+    background-color: #04AA6D;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 17px;
+    font-family: "Roboto",sans-serif;
+    cursor: pointer;
+}
+
+    button:hover {
+        opacity: 0.8;
+    }
+
+#prevBtn {
+    background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+
+    .step.active {
+        opacity: 1;
+    }
+
+    /* Mark the steps that are finished and valid: */
+    .step.finish {
+        background-color: #04AA6D;
+    }
+
+label {
+    color: #513c3c;
+    font-family: "Roboto",sans-serif;
+}
+
+strong{
+    color:red;
+}
+
+ol {
+    color: #513c3c;
+}
+
+
+.mpesa-logo {
+    width: auto;
+    height: 6rem;
+    margin-left:2rem;
+}
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+
+
+
+
+
+
+
+
+.container {
+    /* display: block;*/
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    /*   cursor: pointer;*/
+    /*        font-size: 22px;*/
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+    /* Hide the browser's default radio button */
+
+    .container input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+#invoice th {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-align: left;
+    background-color: #263b6b;
+    color: white;
+}
+
+#invoice th,tr {
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+}
+#invoice td, #invoice th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+
+div label input {
+    margin-right: 100px;
+}
+
+.cat {
+    margin: 4px;
+    background-color: #263b6b;
+    border-radius: 4px;
+    border: 1px solid #263b6b;
+    overflow: hidden;
+    float: left;
+    border-radius: 8px;
+    width: 11rem;
+}
+
+    .cat:hover {
+        background-color: #6e83b4;
+        border: 1px solid #6e83b4;
+        color: #fff
+    }
+
+    .cat label {
+        float: left;
+        line-height: 3.0em;
+        width: 8.0em;
+        height: 3.0em;
+    }
+
+        .cat label span {
+            text-align: center;
+            padding: 3px 0;
+            display: block;
+            width: 11rem;
+        }
+
+        .cat label input {
+            position: absolute;
+            display: none;
+            color: #fff !important;
+        }
+            /* selects all of the text within the input element and changes the color of the text */
+            .cat label input + span {
+                color: #fff;
+                cursor: pointer;
+            }
+
+                .cat label input + span:hover {
+                    color: #fff;
+                    cursor: pointer;
+                }
+
+    /* This will declare how a selected input will look giving generic properties */
+.radio-button input:checked + label {
+    color: #ffffff;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+}
+
+
+/*
+                                    This following statements selects each category individually that contains an input element that is a checkbox and is checked (or selected) and chabges the background color of the span element.
+                                    */
+
+
+.radio-button input:checked + label {
+    background-color: #808080;
+    border-block-color: #808080;
+}

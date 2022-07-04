@@ -1,0 +1,248 @@
+﻿@model IEnumerable<FertilityPoint.DTO.ApplicationUserModule.ApplicationUserDTO>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.8/semantic.min.css" rel="stylesheet" />
+
+<link href="~/dashboard/dataTables//css/dataTables.semanticui.min.css" />
+<link href="~/dashboard/dataTables//css/semantic.min.css" />
+
+
+
+
+<div class="page-wrapper" style="min-height: 754px;background-color: #f8f9fa;">
+    <div class="content container-fluid">
+        <div class="row">
+            <div class="col-sm-7 col-auto">
+                <h3 class="page-title">Manage Users</h3>
+
+            </div>
+            <div class="col-sm-5 col">
+                <a href="#" class="btn btn-primary float-end mt-2" data-toggle="modal" data-target="#modalRegisterUser" data-backdrop="static" data-keyboard="false">
+                    Add
+                </a>
+
+            </div>
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        @if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert" id="error">
+                                @TempData["Error"].ToString()
+                            </div>
+                        }
+                        <table id="example" class="ui celled table table-bordered table-small" cellspacing="0" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>SN.</th>
+                                    <th>Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Email</th>
+                                    <th>Speciality</th>
+                                    <th>Role</th>
+                                    <th>Member Since</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (Model != null && Model.Count() > 0)
+                                {
+                                    int count = 1;
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@count</td>
+                                            <td>
+                                                <a href="/Admin/UserManager/Profile/@item.Id">@item.FullName</a>
+
+                                            </td>
+                                            <td>@item.PhoneNumber</td>
+                                            <td>@item.Email</td>
+                                            <td>@item.SpecialityName</td>
+                                            <td>@item.RoleName</td>
+
+                                            <td>@item.CreateDate.ToShortDateString()</td>
+                                            <td>
+                                                @{
+                                                    var status = item.isActive;
+
+                                                    if (status == true)
+                                                    {
+                                                        <span class="activeUser ">Active</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="disabledUser ">Disabled</span>
+                                                    }
+                                                }
+                                            </td>
+
+                                            <td>
+                                                <a class="btn btn-success btn btn-sm" href="#" onclick="GetUser('@item.Id')" value=""><i class="fa fa-edit"></i></a>
+
+                                                <a class="btn btn-info btn btn-sm" href="#" onclick="ViewDetail('@item.Id')" value=""><i class="fa fa-eye"></i></a>
+
+                                            </td>
+
+                                        </tr>
+                                        count++;
+                                    }
+                                }
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalRegisterUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Register Users</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="frmRegisterUser">
+                    <div class="row form-row">
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" name="FirstName" id="txtFirstName">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" name="LastName" id="txtLastName">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>PhoneNumber</label>
+                                <input type="text" class="form-control" name="PhoneNumber" id="txtPhoneNumber">
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" class="form-control" name="Email" id="txtEmail">
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Select Speciality</label>
+                                <select class="form-control" name="SpecialityId" id="txtSpecialityId">
+                                    <option selected="selected">Select Speciality</option>
+                                    @if (ViewBag.Speciality != null)
+                                    {
+                                        foreach (var item in ViewBag.Speciality)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Select Role</label>
+                                <select class="form-control" name="RoleName" id="txtRoleName">
+
+                                    <option selected="selected">Select Role</option>
+                                    @if (ViewBag.Roles != null)
+                                    {
+                                        foreach (var item in ViewBag.Roles)
+                                        {
+                                            <option value="@item.Name">@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="btnCreateAccount" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="modalRegisterUserUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelUpdate" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Specialities</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="frmEditSpeciality">
+
+                    <input type="text" class="form-control" name="Id" id="txtId">
+
+                    <div class="row form-row">
+                        <div class="col-12 col-sm-12">
+                            <div class="form-group">
+                                <label>Speciality Name</label>
+                                <input type="text" class="form-control" name="Name" id="txtName1">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="btnEdit" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="~/fertilitypoint/userRegistration.js"></script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function() {
+        var table = $('#example').DataTable({
+            responsive: true
+        });
+
+        //GetPostalCodes();
+    });
+
+</script>
+
+
+
+
+

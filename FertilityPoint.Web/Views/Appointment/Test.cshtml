@@ -1,0 +1,166 @@
+﻿@{
+
+}
+
+
+<link href="~/booking/css/style.css" rel="stylesheet" />
+<link href="~/css/appointment.css" rel="stylesheet" />
+
+
+<div class="">
+    <div class="">
+
+        <div class="cat action">
+            <label>
+                <input type="checkbox" name="time" value="1"><span>9:00 AM</span>
+            </label>
+        </div>
+
+        <div class="cat action">
+            <label>
+                <input type="checkbox" name="time" value="1"><span>9:30 AM</span>
+            </label>
+        </div>
+        <div class="cat action">
+            <label>
+                <input type="checkbox" name="time" value="1"><span>10:00 AM</span>
+            </label>
+        </div>
+        <div class="cat action">
+            <label>
+                <input type="checkbox" name="time" value="1"><span>10:30 AM</span>
+            </label>
+        </div>
+        <div class="cat action">
+            <label>
+                <input type="checkbox" name="time" value="1"><span>10:30 AM</span>
+            </label>
+        </div>
+        <div class="cat action">
+            <label>
+                <input type="checkbox" name="time" value="1"><span>10:30 AM</span>
+            </label>
+        </div>
+        <div class="cat action">
+            <label>
+                <input type="checkbox" name="time" value="1"><span>10:30 AM</span>
+            </label>
+        </div>
+        <div class="cat action">
+            <label>
+                <input type="checkbox" name="time" value="1"><span>10:30 AM</span>
+            </label>
+        </div>
+        <div class="cat action">
+            <label>
+                <input type="checkbox" name="time" value="1"><span>10:30 AM</span>
+            </label>
+        </div>
+        <div class="cat action">
+            <label>
+                <input type="checkbox" name="time" value="1"><span>10:30 AM</span>
+            </label>
+        </div>
+        <div class="cat action">
+            <label>
+                <input type="checkbox" name="time" value="1"><span>10:30 AM</span>
+            </label>
+        </div>
+
+    </div><!-- end container -->
+</div>
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<style>
+
+
+    div label input {
+        margin-right: 100px;
+    }
+
+    .cat {
+        margin: 4px;
+        background-color: #104068;
+        border-radius: 4px;
+        border: 1px solid #fff;
+        overflow: hidden;
+        float: left;
+        border-radius: 8px;
+    }
+
+        .cat label {
+            float: left;
+            line-height: 3.0em;
+            width: 8.0em;
+            height: 3.0em;
+        }
+
+            .cat label span {
+                text-align: center;
+                padding: 3px 0;
+                display: block;
+            }
+
+            .cat label input {
+                position: absolute;
+                display: none;
+                color: #fff !important;
+            }
+                /* selects all of the text within the input element and changes the color of the text */
+                .cat label input + span {
+                    color: #fff;
+                    cursor: pointer;
+                }
+
+
+        /* This will declare how a selected input will look giving generic properties */
+        .cat input:checked + span {
+            color: #ffffff;
+            text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+        }
+
+
+    /*
+                    This following statements selects each category individually that contains an input element that is a checkbox and is checked (or selected) and chabges the background color of the span element.
+                    */
+
+    .action input:checked + span {
+        background-color: #F75A1B;
+    }
+
+ 
+</style>
+
+<script>
+    // the selector will match all input controls of type :checkbox
+    // and attach a click event handler
+    $("input:checkbox").on('click', function() {
+        // in the handler, 'this' refers to the box clicked on
+        var $box = $(this);
+        if ($box.is(":checked")) {
+            // the name of the box is retrieved using the .attr() method
+            // as it is assumed and expected to be immutable
+            var group = "input:checkbox[name='" + $box.attr("name") + "']";
+            // the checked state of the group/box on the other hand will change
+            // and the current value is retrieved using .prop() method
+            $(group).prop("checked", false);
+            $box.prop("checked", true);
+        } else {
+            $box.prop("checked", false);
+        }
+    });
+</script>

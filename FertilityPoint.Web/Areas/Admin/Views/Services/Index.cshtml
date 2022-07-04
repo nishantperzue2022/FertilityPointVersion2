@@ -1,0 +1,162 @@
+﻿@model IEnumerable<FertilityPoint.DTO.ServiceModule.ServiceDTO>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<link href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+<body>
+    <div class="page-wrapper" style="min-height: 754px;background-color: #f8f9fa;">
+        <div class="content container-fluid">
+
+            <div class="row">
+                <div class="col-sm-3 col-auto">
+                    <h3 class="page-title">List of Services</h3>
+                </div>
+                <div class="col-md-9">
+                    <button type="button" class="btn btn-success btn-sm  pull-right" data-toggle="modal" data-target="#modaService" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+
+                    <table id="specialist" class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>SN.</th>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th>Entry Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (Model != null && Model.Count() > 0)
+                            {
+                                int count = 1;
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@count</td>
+
+                                        <td>@item.Name</td>
+
+                                        <td>@item.Amount</td>
+
+                                        <td>@item.CreateDate.ToShortDateString()</td>
+
+                                        <td>
+                                            <a class="btn btn-sm btn-success" href="#" onclick="GetService('@item.Id')" value="">Edit</a>
+                                            <a class="btn btn-sm btn-danger" href="#" onclick="DeleteRecord('@item.Id')" value="">Delete</a>
+                                        </td>
+                                    </tr>
+                                    count++;
+                                }
+                            }
+                        </tbody>
+
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="modaService" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Service</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="frmServices">
+                        <div class="row form-row">
+                            <div class="col-12 col-sm-12">
+                                <div class="form-group">
+                                    <label>Service Name</label>
+                                    <input type="text" class="form-control" name="Name" id="txtName" placeholder="Appointment">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12">
+                                <div class="form-group">
+                                    <label>Service Amount</label>
+                                    <input type="text" class="form-control" name="Amount" id="txtAmount" placeholder="2500">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnSubmitService" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="modaServiceUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelUpdate" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Services</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="frmEditService">
+
+                        <input type="hidden" class="form-control" name="Id" id="txtId">
+
+                        <div class="row form-row">
+                            <div class="col-12 col-sm-12">
+                                <div class="form-group">
+                                    <label>Service Name</label>
+                                    <input type="text" class="form-control" name="Name" id="txtName1">
+                                </div>
+                            </div>
+                            
+                            <div class="col-12 col-sm-12">
+                                <div class="form-group">
+                                    <label>Service Amount</label>
+                                    <input type="text" class="form-control" name="Amount" id="txtAmount1" placeholder="2500">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnEdit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="~/fertilitypoint/services.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#specialist').DataTable();
+    });
+</script>
+
+
+
+

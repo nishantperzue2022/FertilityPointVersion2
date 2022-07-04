@@ -1,0 +1,37 @@
+﻿
+
+.pending {
+    background-color: #ffbc34;
+    border-radius: 9px;
+    display: block;
+    height: 24px;
+    margin-bottom: 0;
+    position: relative;
+    width: 107px;
+    color: white;
+    text-align: center;
+}
+
+.activeUser {
+    background-color: #55ce63;
+    border-radius: 9px;
+    display: block;
+    height: 24px;
+    margin-bottom: 0;
+    position: relative;
+    width: 107px;
+    color: white;
+    text-align: center;
+}
+
+.disabledUser {
+    background-color: #e84646;
+    border-radius: 9px;
+    display: block;
+    height: 24px;
+    margin-bottom: 0;
+    position: relative;
+    width: 107px;
+    color: white;
+    text-align: center;
+} 

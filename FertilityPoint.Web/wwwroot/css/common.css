@@ -1,0 +1,83 @@
+﻿.collapse.show {
+    display: block;
+}
+
+.font-light {
+    font-weight: 300;
+}
+
+.bg-secondary {
+    background-color: #1e305f !important;
+}
+
+.collapse {
+    display: none;
+}
+
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+ol ol, ol ul, ul ol, ul ul {
+    margin-bottom: 0;
+}
+
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+
+
+.p-3 {
+    padding: 1rem !important;
+}
+
+.d-block {
+    display: block !important;
+}
+
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+.d-inline-block {
+    display: inline-block !important;
+}
+
+.align-middle {
+    vertical-align: middle !important;
+}
+
+*, ::after, ::before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+
+[class*=" icon-"], [class^=icon-] {
+    font-family: icomoon !important;
+    speak: none;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.pr-2, .px-2 {
+    padding-right: 0.5rem !important;
+}
+
+.d-inline-block {
+    display: inline-block !important;
+}
+
+.align-middle {
+    vertical-align: middle !important;
+}

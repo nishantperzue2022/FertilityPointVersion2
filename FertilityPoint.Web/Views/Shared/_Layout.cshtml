@@ -1,0 +1,306 @@
+﻿
+
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fertility Clinic in Kenya | IVF, IUI, ICSI, Surrogacy | Fertility Clinic in Nairobi</title>
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    @*<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" integrity="sha512-KXkS7cFeWpYwcoXxyfOumLyRGXMp7BTMTjwrgjMg0+hls4thG2JGzRgQtRfnAuKTn2KWTDZX4UdPg+xTs8k80Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.3/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js" integrity="sha512-o0rWIsZigOfRAgBxl4puyd0t6YKzeAw9em/29Ag7lhCQfaaua/mDwnpE2PVzwqJ08N7/wqrgdjc2E0mwdSY2Tg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Favicon -->
+    <link href="~/img/favicon.ico" rel="icon">
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="~/css/loader.css" rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Libraries Stylesheet -->
+    <link href="~/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+</head>
+
+<!-- Spinner Start -->
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<!-- Spinner End -->
+<!-- Topbar Start -->
+@*<div class="container-fluid bg-dark p-0">
+    <div class="row gx-0 d-none d-lg-flex">
+        <div class="col-lg-7 px-5 text-start">
+            <div class="h-100 d-inline-flex align-items-center me-4">
+                <small class="fa fa-map-marker-alt text-primary me-2"></small>
+                <small>Fortis Suites, Ground Floor 1 & 2, Hospital Road, Upper Hill, Nairobi – Kenya.</small>
+            </div>
+            <div class="h-100 d-inline-flex align-items-center">
+                <small class="far fa-clock text-primary me-2"></small>
+                <small>Mon - Fri : 09.00 AM - 06.00 PM</small>
+            </div>
+        </div>
+        <div class="col-lg-5 px-5 text-end">
+
+            <div class="h-100 d-inline-flex align-items-center me-4">
+                <small class="fa fa-clock text-primary me-2"></small>
+                <small><a href="@Url.Action("Index", "Appointment")"> Book An Appointment</a></small>
+            </div>
+
+            <div class="h-100 d-inline-flex align-items-center me-4">
+                <small class="fa fa-phone-alt text-primary me-2"></small>
+                <small>+254 787050074</small>
+            </div>
+
+            <div class="h-100 d-inline-flex align-items-center mx-n2">
+                <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary" href=""><i class="fab fa-facebook-f"></i></a>
+                <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary" href=""><i class="fab fa-twitter"></i></a>
+                <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary" href=""><i class="fab fa-linkedin-in"></i></a>
+                <a class="btn btn-square btn-link rounded-0" href=""><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+</div>*@
+<!-- Topbar End -->
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
+
+    <a href="~/Home/">
+        <img class="img-fluid bg-dark p-0" src="~/img/logo-bk.png" alt="">
+    </a>
+
+
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+
+
+            <div id="divHome">
+                <a href="@Url.Action("Index", "Home")" class="nav-item nav-link active">Home</a>
+            </div>
+             <a href="@Url.Action("Index", "Appointment")" class="nav-item nav-link"> Book Appointment </a>
+
+            <a href="@Url.Action("Index", "AboutUs")" class="nav-item nav-link" id="aboutUs">About Us </a>
+
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Infertility</a>
+                <div class="dropdown-menu bg-light m-0">
+                    <a href="@Url.Action("Female", "Infertility")" class="dropdown-item">Female Infertility</a>
+                    <a href="@Url.Action("Male", "Infertility")" class="dropdown-item">Male Infertility</a>
+                </div>
+            </div>
+
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Treatments </a>
+                <div class="dropdown-menu bg-light m-0">
+                    <a href="@Url.Action("IUI", "Treatment")" class="dropdown-item">IUI</a>
+                    <a href="@Url.Action("IVF", "Treatment")" class="dropdown-item">IVF</a>
+                    <a href="@Url.Action("ICSI", "Treatment")" class="dropdown-item">ICSI</a>
+                    <a href="@Url.Action("Surrogacy", "Treatment")" class="dropdown-item">Surrogacy</a>
+                    <a href="@Url.Action("EggVitrification", "Treatment")" class="dropdown-item">Egg Vitrification</a>
+                    <a href="@Url.Action("AssistedHatching", "Treatment")" class="dropdown-item">Assisted Hatching</a>
+                    <a href="@Url.Action("BlastocystCulture", "Treatment")" class="dropdown-item">Blastocyst Culture</a>
+                    <a href="@Url.Action("FrozenEmbryoTransfer", "Treatment")" class="dropdown-item">Frozen Embryo Transfer</a>
+                    <a href="@Url.Action("MaleInfertility", "Treatment")" class="dropdown-item">Male Infertility</a>
+                    <a href="@Url.Action("Laparoscopy", "Treatment")" class="dropdown-item">Laparoscopy</a>
+                    <a href="@Url.Action("OperativeHysteroscopy", "Treatment")" class="dropdown-item">Operative Hysteroscopy</a>
+
+                </div>
+            </div>
+
+
+            <a href="@Url.Action("Index", "InternationalPatients")" class="nav-item nav-link">International Patients</a>
+            <a href="@Url.Action("Index", "ContactUs")" class="nav-item nav-link">Contact Us </a>
+            <a href="@Url.Action("Index", "Gallery")" class="nav-item nav-link">Gallery</a>
+            <a href="@Url.Action("Index", "FacilityTour")" class="nav-item nav-link">Facility Tour </a>
+           
+
+
+
+        </div>
+
+    </div>
+</nav>
+<!-- Navbar End -->
+@RenderBody()
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+<!-- Footer Start col-lg-3 -->
+<div class="container-fluid bg-light  bg-dark ">
+    <div class="row g-5 container">
+        <div class=" col-md-5 justify-content-around">
+            <h5 class="text-white mb-4">Address</h5>
+            <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Fortis Suites, Ground Floor 1 & 2, Hospital Road, Upper Hill, Nairobi – Kenya</p>
+            <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+254 787050074</p>
+            <p class="mb-2"><i class="fa fa-envelope me-3"></i>enquiry@fertilitypoint.co.ke</p>
+            <div class="d-flex pt-2">
+                <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+
+        <div class=" col-md-3 justify-content-around">
+            <h5 class="text-white mb-4">Project Gallery</h5>
+            <div class="row g-2">
+                <div class="col-4">
+                    <img class="img-fluid rounded" src="/img/bannerimage1.jpg" alt="">
+                </div>
+                <div class="col-4">
+                    <img class="img-fluid rounded" src="/img/bannerimage2.jpg" alt="">
+                </div>
+                <div class="col-4">
+                    <img class="img-fluid rounded" src="/img/bannerimage3.jpg" alt="">
+                </div>
+                <div class="col-4">
+                    <img class="img-fluid rounded" src="/img/Vitro.jpg" alt="">
+                </div>
+                <div class="col-4">
+                    <img class="img-fluid rounded" src="/img/about.jpg" alt="">
+                </div>
+                <div class="col-4">
+                    <img class="img-fluid rounded" src="/img/IntrauterineInsemination.jpg" alt="">
+                </div>
+            </div>
+        </div>
+
+
+        <div class=" col-md-4 justify-content-around">
+            <h5 class="text-white mb-4">Quick Links</h5>
+            <div class="row">
+                <div class="col-md-6"><a class="btn btn-link" href="">About Us</a></div>
+                <div class="col-md-6"><a class="btn btn-link" href="">Contact Us</a></div>
+                <div class="col-md-6"><a class="btn btn-link" href="">Our Services</a></div>
+                <div class="col-md-6"><a class="btn btn-link" href="">Terms & Condition</a></div>
+                <div class="col-md-6"> <a class="btn btn-link" href="">Support</a></div>
+            </div>
+        </div>
+        <hr />
+
+        <div class="copyright col-md-12 ">
+            <div class="text-center" style="margin-top:-3.75rem;">
+                <!--text-md-start mb-3 mb-md-0-->
+                &copy; <a href="#">Fertilitypoint.co.ke</a>, All Right Reserved.
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- Button trigger modal -->
+@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AppointmentModal">
+        Launch demo modal
+    </button>*@
+
+<!-- Modal -->
+<!-- Modal -->
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="spinner text-center">
+                    <div class="lds-ripple"><div></div><div></div></div>
+                </div>
+                <p class="text-center loader-text">Processing...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="AppointmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Book Your Appointment Now!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form class="custom-form" method="post" id="frmAppointments" name="contactForm">
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Name</label>
+                        <input type="text" class="form-control" id="txtName" aria-describedby="emailHelp" name="Name" placeholder="Enter your name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">PhoneNumber</label>
+                        <input type="text" class="form-control" id="txtPhoneNumber" aria-describedby="emailHelp" name="PhoneNumber" placeholder="Enter your Phone Number">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="txtEmail" aria-describedby="emailHelp" name="Email" placeholder="Enter email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Date of Birth</label>
+                        <input type="date" class="form-control" id="txtDOB" aria-describedby="emailHelp" name="DateOfBirth" placeholder="Enter email">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btnSubmit">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<link href="~/SweetAlart/sweetalert.min.css" rel="stylesheet" />
+<script src="~/SweetAlart/sweetalert.min.js"></script>
+<!-- JavaScript Libraries -->
+@*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/wow/wow.min.js"></script>
+<script src="~/lib/easing/easing.min.js"></script>
+<script src="~/lib/waypoints/waypoints.min.js"></script>
+<script src="~/lib/counterup/counterup.min.js"></script>
+<script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="~/lib/isotope/isotope.pkgd.min.js"></script>
+<script src="~/lib/lightbox/js/lightbox.min.js"></script>
+
+<!-- Template Javascript -->
+
+<script src="~/js/main.js"></script>
+
+
+
