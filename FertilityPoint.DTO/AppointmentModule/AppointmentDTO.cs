@@ -21,7 +21,8 @@ namespace FertilityPoint.DTO.AppointmentModule
         public DateTime FromTime { get; set; }
         public DateTime ToTime { get; set; }
         public DateTime AppointmentDate { get; set; }
-        public string NewAppointmentDate { get { return AppointmentDate.ToShortDateString(); } }
+        public string NewAppointmentDate { get; set; }
+        public string NewAppDate { get { return AppointmentDate.ToShortDateString(); } }
         public string TransactionNumber { get; set; }
         public string TimeSlot { get; set; }
 

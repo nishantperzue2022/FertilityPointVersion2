@@ -19,14 +19,14 @@ namespace FertilityPoint.Controllers
 
         private readonly IWebHostEnvironment environment;
 
-        private readonly IPaymentRepository  paymentRepository;
-        public PaybillCallBackController(IPaymentRepository paymentRepository,ILogger<PaybillCallBackController> logger, IWebHostEnvironment environment)
+        private readonly IPaymentRepository paymentRepository;
+        public PaybillCallBackController(IPaymentRepository paymentRepository, ILogger<PaybillCallBackController> logger, IWebHostEnvironment environment)
         {
             this.logger = logger;
 
-            this.environment = environment;   
-            
-            this.paymentRepository = paymentRepository;           
+            this.environment = environment;
+
+            this.paymentRepository = paymentRepository;
         }
 
         public IActionResult Index()
@@ -84,34 +84,34 @@ namespace FertilityPoint.Controllers
         /// <param name="response">Response Payload</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<OkObjectResult> C2BPaymentCallback([FromBody] CustomerToBusinessCallback response)
+        public OkObjectResult C2BPaymentCallback([FromBody] CustomerToBusinessCallback response)
         {
-            if (response is null)
-            {
-                return Ok(new
-                {
-                    ResultCode = 1,
+            //if (response is null)
+            //{
+            //    return Ok(new
+            //    {
+            //        ResultCode = 1,
 
-                    ResultDesc = "Rejecting the transaction"
-                });
-            }
+            //        ResultDesc = "Rejecting the transaction"
+            //    });
+            //}
 
-            var filename = $"{Guid.NewGuid()}.json";
+            //var filename = $"{Guid.NewGuid()}.json";
 
-            // Get root path directory
-            var rootPath = Path.Combine(environment.WebRootPath, "Application_Files\\C2BConfirmationResults\\");
-            // To check if directory exists. If the directory does not exists we create a new directory
-            if (!Directory.Exists(rootPath))
-            {
-                Directory.CreateDirectory(rootPath);
-            }
+            //// Get root path directory
+            //var rootPath = Path.Combine(environment.WebRootPath, "Application_Files\\C2BConfirmationResults\\");
+            //// To check if directory exists. If the directory does not exists we create a new directory
+            //if (!Directory.Exists(rootPath))
+            //{
+            //    Directory.CreateDirectory(rootPath);
+            //}
 
-            // Get the path of filename
-            var filePath = Path.Combine(environment.WebRootPath, "Application_Files\\C2BConfirmationResults\\", filename);
+            //// Get the path of filename
+            //var filePath = Path.Combine(environment.WebRootPath, "Application_Files\\C2BConfirmationResults\\", filename);
 
-            await System.IO.File.WriteAllTextAsync(filePath, JsonConvert.SerializeObject(response, Formatting.Indented));
+            //await System.IO.File.WriteAllTextAsync(filePath, JsonConvert.SerializeObject(response, Formatting.Indented));
 
-            logger.LogInformation(JsonConvert.SerializeObject(response, Formatting.Indented));
+            //logger.LogInformation(JsonConvert.SerializeObject(response, Formatting.Indented));
 
             CustomerToBusinessCallback customerToBusinessCallback = new CustomerToBusinessCallback();
 

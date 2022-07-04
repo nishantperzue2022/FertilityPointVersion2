@@ -30,16 +30,16 @@
 
                                     </div>
                                 </div>
-@*
+                                @*
                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Quick Search</label>
-                                        <select  class="form-control" onclick="GetSlotsByQuickSearch(this)" id="txtQuickSearch">
-                                            <option value="" selected disabled hidden>Click Here ...</option>
-                                            <option value="1">Today</option>
-                                    
-                                        </select>
-                                    </div>
+                                <div class="form-group">
+                                <label>Quick Search</label>
+                                <select  class="form-control" onclick="GetSlotsByQuickSearch(this)" id="txtQuickSearch">
+                                <option value="" selected disabled hidden>Click Here ...</option>
+                                <option value="1">Today</option>
+
+                                </select>
+                                </div>
                                 </div>*@
 
 
@@ -176,29 +176,32 @@
                                                             </div>
                                                             <div class="col-md-6">
 
-
-
                                                                 <div class="form-group">
                                                                     <label>
                                                                         Click on "Send Request" button to generate payment request on your phone. Enter your MPESA PIN on your phone to complete the payment.
                                                                     </label>
                                                                 </div>
-
-
                                                                 <div class="form-group">
                                                                     <label>Mpesa Phone Number</label>
                                                                     <input class="form-control" type="text" name="MpesaPhoneNumber" id="txtMpesaPhoneNumber" placeholder="(254)7XX XXX XXX">
                                                                 </div>
 
-                                                                <div class="divsuccess" style="display:none" id="successMsg">
-                                                                    <div class="alert alert-success" role="alert" id="error">
-                                                                        <p id="showsuccess"></p>
+
+
+                                                                <div id="divCloseSuccess">
+                                                                    <div class="divsuccess" style="display:none" id="successMsg">
+                                                                        <div class="alert alert-success" role="alert" id="error">
+                                                                            <p id="showsuccess"></p>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="divError" style="display:none" id="errorMsg">
-                                                                    <div class="alert alert-danger" role="alert" id="error">
-                                                                        <p id="showError"></p>
+
+                                                                <div id="divCloseError">
+                                                                    <div class="divError" style="display:none" id="errorMsg">
+                                                                        <div class="alert alert-danger" role="alert" id="error">
+                                                                            <p id="showError"></p>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
 
@@ -305,6 +308,8 @@
 
     </div>
 
+
+  <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <link href="~/SweetAlart/sweetalert.min.css" rel="stylesheet" />
     <script src="~/SweetAlart/sweetalert.min.js"></script>
     <script src="~/fertilitypoint/appointment.js"></script>
@@ -332,5 +337,15 @@
 
 
 <script>
-    $( "#txtAppointmentDate" ).datepicker({ minDate: 0});
+
+    $("#txtAppointmentDate").datepicker({ minDate: 0 });
+
+
+    $('#divCloseError').delay(1000).hide(500);
+
+
+    $('#divCloseSuccess').delay(5000).fadeOut('slow');
+
+   
+
 </script>
