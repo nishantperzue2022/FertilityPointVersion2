@@ -108,6 +108,7 @@ namespace FertilityPoint.Controllers
                         validationUrl: customerToBusinessRegisterViewModel.ValidationUrl
                     );
 
+
                 c2BRegisterResults = await mpesaClient.RegisterC2BUrl(c2BRegisterCallback, await generateAccessToken(key, secrete), MpesaRequestEndpoint.RegisterC2BUrl);
             }
             catch (MpesaAPIException ex)
