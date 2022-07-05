@@ -18,12 +18,13 @@ using FertilityPoint.BLL.Repositories.PatientModule;
 using FertilityPoint.DTO.PatientModule;
 using System.Data;
 using System.Collections.Generic;
-using AspNetCore.Reporting;
+
 using Microsoft.AspNetCore.Hosting;
 using FertilityPoint.DTO.TimeSlotModule;
 using Microsoft.Extensions.Configuration;
 using System.Globalization;
 using FertilityPoint.BLL.Repositories.ServiceModule;
+
 
 namespace FertilityPoint.Controllers
 {
@@ -144,41 +145,43 @@ namespace FertilityPoint.Controllers
                 return null;
             }
         }
-        public ActionResult DownloadReceipt(Guid Id)
-        {
-            try
-            {
-                var dt = new DataTable();
+        //public ActionResult DownloadReceipt(Guid Id)
+        //{
+        //    try
+        //    {
+        //        var dt = new DataTable();
 
-                var data = GetTransactionDetails(Id);
+        //        var data = GetTransactionDetails(Id);
 
-                dt = data;
+        //        dt = data;
 
-                string mimetype = "";
+        //        string mimetype = "";
 
-                int extension = 1;
+        //        int extension = 1;
 
-                var path = $"{env.WebRootPath}\\Reports\\Invoice.rdlc";
+        //        var path = $"{env.WebRootPath}\\Reports\\Invoice.rdlc";
 
-                Dictionary<string, string> parameters = new Dictionary<string, string>();
+        //        Dictionary<string, string> parameters = new Dictionary<string, string>();
 
-                LocalReport localReport = new LocalReport(path);
+        //        LocalReport localReport = new LocalReport(path);
 
-                localReport.AddDataSource("PaymentInvoice", dt);
+        //        localReport.AddDataSource("PaymentInvoice", dt);
 
-                var result = localReport.Execute(RenderType.Pdf, extension, parameters, mimetype);
+        //        var result = localReport.Execute(RenderType.Pdf, extension, parameters, mimetype);
 
-                return File(result.MainStream, "application/pdf");
+        //        return File(result.MainStream, "application/pdf");
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
 
-                return null;
-            }
+        //        TempData["Error"] = "Something went wrong";
 
-        }
+        //        return RedirectToAction("", "Home", new { area = "" });
+        //    }
+
+        //}
         public DataTable GetTransactionDetails(Guid Id)
         {
             try
