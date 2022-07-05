@@ -12,11 +12,11 @@ using FertilityPoint.DAL.Modules;
 using FertilityPoint.Web.Extensions;
 using FertilityPoint.SeedAppUsers;
 using FertilityPoint.Services.EmailModule;
-using FertilityPoint.Web.Services.MpesaC2BModule;
+
 using FertilityPoint.Services.SMSModule;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Environment = FertilityPoint.Web.Enums.Environment;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,9 +55,7 @@ builder.Services.AddTransient<IMessagingService, MessagingService>();
 
 builder.Services.AddTransient<IServicesRepository, ServicesRepository>();
 
-builder.Services.AddTransient<IMpesaClient, MpesaClient>();
 
-builder.Services.AddMpesaService(Environment.Sandbox);
 
 var app = builder.Build();
 

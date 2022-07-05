@@ -205,15 +205,13 @@ namespace FertilityPoint.BLL.Repositories.MpesaStkModule
             }
 
         }
-
         public bool IsTransactionExists(string TransactionNumber)
         {
             bool exists = context.MpesaPayments.Any(t => t.TransactionNumber == TransactionNumber & t.IsPaymentUsed == 0);
 
             return exists;
         }
-
-        public void SaveLipaNaMpesa(CustomerToBusinessCallback customerToBusinessCallback)
+        public void SaveLipaNaMpesa(CustomerToBusinessCallbackDTO customerToBusinessCallbackDTO)
         {
             var s = new PaybillPayment
             {
@@ -227,6 +225,70 @@ namespace FertilityPoint.BLL.Repositories.MpesaStkModule
             context.PaybillPayments.Add(s);
 
             context.SaveChanges();
+        }
+        public bool SavePayBillCallBackResponse(MpesaPaymentDTO mpesaPaymentDTO)
+        {
+            try
+            {
+                
+                string code = ReceiptNumber.Generate_ReceiptNumber();
+
+                var receiptNumber = "RN" + code;
+
+                mpesaPaymentDTO.ReceiptNo = receiptNumber;
+
+                long timestamp = long.Parse(mpesaPaymentDTO.TransactionDate);
+
+                DateTime NewTransactionDate = GetDateTimeFromInt(timestamp).Value;
+
+                mpesaPaymentDTO.TransactionDate = NewTransactionDate.ToString();
+
+                mpesaPaymentDTO.IsPaymentUsed = 0;
+
+                var transaction = new MpesaPayment
+                {
+                    BillRefNumber = mpesaPaymentDTO.BillRefNumber,
+
+                    BusinessShortCode = mpesaPaymentDTO.BusinessShortCode,
+
+                    FirstName = mpesaPaymentDTO.FirstName,
+
+                    MiddleName = mpesaPaymentDTO.MiddleName,
+
+                    LastName = mpesaPaymentDTO.LastName,
+
+                    InvoiceNumber = mpesaPaymentDTO.InvoiceNumber,
+
+                    PhoneNumber = mpesaPaymentDTO.PhoneNumber,
+
+                    OrgAccountBalance = mpesaPaymentDTO.OrgAccountBalance,
+
+                    ThirdPartyTransID = mpesaPaymentDTO.ThirdPartyTransID,
+
+                    Amount = mpesaPaymentDTO.Amount,
+
+                    TransactionNumber = mpesaPaymentDTO.TransactionNumber,
+
+                    TransactionType = mpesaPaymentDTO.TransactionType,
+
+                    TransactionDate = mpesaPaymentDTO.TransactionDate,
+
+                    ReceiptNo = mpesaPaymentDTO.ReceiptNo,
+                };
+
+                context.MpesaPayments.Add(transaction);
+
+                context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return false;
+
+            }
         }
     }
 }

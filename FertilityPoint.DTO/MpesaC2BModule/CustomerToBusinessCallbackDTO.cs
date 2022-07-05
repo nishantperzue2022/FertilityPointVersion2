@@ -7,10 +7,7 @@ using System.Threading.Tasks;
 
 namespace FertilityPoint.DTO.MpesaC2BModule
 {
-    /// <summary>
-    /// Callback to handle C2B result response
-    /// </summary>
-    public class CustomerToBusinessCallback
+    public class CustomerToBusinessCallbackDTO
     {
         [JsonProperty("TransactionType")]
         public string TransactionType { get; set; }
