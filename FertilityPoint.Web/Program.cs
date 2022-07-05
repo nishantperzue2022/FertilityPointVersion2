@@ -57,6 +57,7 @@ builder.Services.AddTransient<IServicesRepository, ServicesRepository>();
 
 
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -76,6 +77,18 @@ app.UseRouting();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+
+
+var h = WebApplication.CreateBuilder(args);
+var t = WebApplication.Create(args);
+
+            h.WebHost.UseContentRoot(Directory.GetCurrentDirectory());
+           // t.UseWebRoot("wwwroot");
+
+
+
+
 
 
 app.UseEndpoints(endpoints =>
@@ -100,5 +113,6 @@ using (var scope = scopeFactory.CreateScope())
 
     SeedUsers.Seed(userManager, roleManager);
 }
+
 
 app.Run();
