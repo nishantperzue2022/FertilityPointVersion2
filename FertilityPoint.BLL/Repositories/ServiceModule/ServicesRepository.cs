@@ -88,8 +88,8 @@ namespace FertilityPoint.BLL.Repositories.ServiceModule
 
                 return null;
             }
-        }     
-        
+        }
+
         public async Task<ServiceDTO> GetDefault()
         {
             try
@@ -118,16 +118,15 @@ namespace FertilityPoint.BLL.Repositories.ServiceModule
                 {
                     using (var transaction = context.Database.BeginTransaction())
                     {
-                        var data = getData;
+                        getData.Name = serviceDTO.Name;
 
-                        mapper.Map(serviceDTO, data);
+                        getData.Amount = serviceDTO.Amount;
 
-                        context.Entry(data).State = EntityState.Modified;
+                        getData.UpdatedBy = serviceDTO.UpdatedBy;
 
                         transaction.Commit();
 
                         await context.SaveChangesAsync();
-
                     }
 
                     return serviceDTO;

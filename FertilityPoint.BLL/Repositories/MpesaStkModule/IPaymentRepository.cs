@@ -16,5 +16,6 @@ namespace FertilityPoint.BLL.Repositories.MpesaStkModule
         string GetTotalRevenue();
         bool IsTransactionExists(string TransactionNumber);
         void SaveLipaNaMpesa(CustomerToBusinessCallbackDTO customerToBusinessCallbackDTO);
+        bool ValidatePayment(string TransactionNumber);
     }
 }

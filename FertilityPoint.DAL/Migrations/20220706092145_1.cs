@@ -10,24 +10,6 @@ namespace FertilityPoint.DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Appointments",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Status = table.Column<byte>(type: "tinyint", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AppointmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TimeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TransactionNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ApprovedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Appointments", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -109,19 +91,26 @@ namespace FertilityPoint.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MerchantRequestID = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CheckoutRequestID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MerchantRequestID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CheckoutRequestID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ResultCode = table.Column<int>(type: "int", nullable: true),
-                    ResultDesc = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ResultDesc = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    TransactionNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TransactionNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Balance = table.Column<decimal>(type: "decimal(18,4)", nullable: true),
-                    TransactionDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TransactionDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsPaymentUsed = table.Column<byte>(type: "tinyint", nullable: false),
-                    ReceiptNo = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ReceiptNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BusinessShortCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BillRefNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InvoiceNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrgAccountBalance = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TransactionType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ThirdPartyTransID = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -150,19 +139,19 @@ namespace FertilityPoint.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TransactionType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TransID = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TransTime = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TransAmount = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BusinessShortCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BillRefNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    InvoiceNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrgAccountBalance = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ThirdPartyTransID = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MSISDN = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    TransactionType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TransID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TransTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TransAmount = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BusinessShortCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BillRefNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InvoiceNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrgAccountBalance = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ThirdPartyTransID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MSISDN = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -177,6 +166,7 @@ namespace FertilityPoint.DAL.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -191,8 +181,9 @@ namespace FertilityPoint.DAL.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -336,6 +327,36 @@ namespace FertilityPoint.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Appointments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Status = table.Column<byte>(type: "tinyint", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AppointmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TransactionNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ApprovedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TimeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TimeSlotId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Appointments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Appointments_TimeSlots_TimeSlotId",
+                        column: x => x.TimeSlotId,
+                        principalTable: "TimeSlots",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Appointments_TimeSlotId",
+                table: "Appointments",
+                column: "TimeSlotId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

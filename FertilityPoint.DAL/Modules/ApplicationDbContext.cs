@@ -12,25 +12,27 @@ namespace FertilityPoint.DAL.Modules
         {
 
         }
-        public virtual DbSet<AppUser> AppUsers { get; set; }
-        public virtual DbSet<County> Counties { get; set; }
-        public virtual DbSet<SubCounty> SubCounties { get; set; }
-        public virtual DbSet<Appointment> Appointments { get; set; }
-        public virtual DbSet<Speciality> Specialities { get; set; }
-        public virtual DbSet<CheckoutRequest> CheckoutRequests { get; set; }
-        public virtual DbSet<MpesaPayment> MpesaPayments { get; set; }
-        public virtual DbSet<TimeSlot> TimeSlots { get; set; }
-        public virtual DbSet<Patient> Patients { get; set; }
-        public virtual DbSet<Service> Services { get; set; }
-        public virtual DbSet<PaybillPayment> PaybillPayments { get; set; }
+
+        public virtual DbSet<AppUser> AppUsers { get; set; } = null!;
+        public virtual DbSet<County> Counties { get; set; } = null!;
+        public virtual DbSet<SubCounty> SubCounties { get; set; } = null!;
+        public virtual DbSet<Appointment> Appointments { get; set; } = null!;
+        public virtual DbSet<Speciality> Specialities { get; set; } = null!;
+        public virtual DbSet<CheckoutRequest> CheckoutRequests { get; set; } = null!;
+        public virtual DbSet<MpesaPayment> MpesaPayments { get; set; } = null!;
+        public virtual DbSet<TimeSlot> TimeSlots { get; set; } = null!;
+        public virtual DbSet<Patient> Patients { get; set; } = null!;
+        public virtual DbSet<Service> Services { get; set; } = null!;
+        public virtual DbSet<PaybillPayment> PaybillPayments { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<MpesaPayment>(entity =>
             {
-                entity.Property(e => e.Amount).HasColumnType("decimal(18,4)");
-                entity.Property(e => e.Balance).HasColumnType("decimal(18,4)");
+                entity.Property(e => e.Amount).HasColumnType("decimal(18,2)");
+                entity.Property(e => e.Balance).HasColumnType("decimal(18,2)");
 
             });
 
@@ -39,6 +41,26 @@ namespace FertilityPoint.DAL.Modules
                 entity.Property(e => e.Amount).HasColumnType("decimal(18,2)");
 
             });
+
+
+
+            modelBuilder.Entity<Appointment>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.HasOne(d => d.TimeSlot)
+                    .WithMany(p => p.Appointments)
+                    .HasForeignKey(d => d.TimeSlotId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Appointments_TimeSlots");
+            });
+
+            modelBuilder.Entity<TimeSlot>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+            });
+
+
         }
 
 

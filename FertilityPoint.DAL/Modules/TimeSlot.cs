@@ -16,5 +16,6 @@ namespace FertilityPoint.DAL.Modules
         public byte IsBooked { get; set; }
         public DateTime AppointmentDate { get; set; }
         public DateTime CreateDate { get; set; }
+        public virtual ICollection<Appointment> Appointments { get; set; }
     }
 }

@@ -25,6 +25,8 @@ namespace FertilityPoint.BLL.Repositories.TimeSlotModule
         {
             try
             {
+                timeSlotDTO.Id = Guid.NewGuid();
+
                 timeSlotDTO.IsBooked = 0;
 
                 timeSlotDTO.CreateDate = DateTime.Now;

@@ -24,12 +24,29 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
         public async Task<AppointmentDTO> Create(AppointmentDTO appointmentDTO)
         {
             try
-            {              
-                appointmentDTO.CreateDate = DateTime.Now;
-
+            {
+                //var appointment = mapper.Map<Appointment>(appointmentDTO);
                 appointmentDTO.Id = Guid.NewGuid();
-                   
-                var appointment = mapper.Map<Appointment>(appointmentDTO);
+
+                var appointment = new Appointment
+                {
+                    CreateDate = DateTime.Now,
+
+                    Id = appointmentDTO.Id,
+
+                    Status = 0,
+
+                    AppointmentDate = appointmentDTO.AppointmentDate,
+
+                    PatientId = appointmentDTO.PatientId,
+
+                    TimeSlotId = appointmentDTO.TimeId,
+
+                    TransactionNumber = appointmentDTO.TransactionNumber,
+
+                    ApprovedBy = "",
+
+                };
 
                 context.Appointments.Add(appointment);
 
@@ -96,7 +113,7 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
                                     join patient in context.Patients on appointment.PatientId equals patient.Id
 
-                                    join timslot in context.TimeSlots on appointment.TimeId equals timslot.Id
+                                    join timslot in context.TimeSlots on appointment.TimeSlotId equals timslot.Id
 
                                     select new AppointmentDTO()
                                     {
@@ -112,7 +129,7 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
                                         LastName = patient.LastName,
 
-                                        TimeId = appointment.TimeId,
+                                        TimeId = appointment.TimeSlotId,
 
                                         FromTime = timslot.FromTime,
 
@@ -143,7 +160,7 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
                                     join patient in context.Patients on appointment.PatientId equals patient.Id
 
-                                    join timslot in context.TimeSlots on appointment.TimeId equals timslot.Id
+                                    join timslot in context.TimeSlots on appointment.TimeSlotId equals timslot.Id
 
                                     where appointment.Id == Id
 
@@ -167,7 +184,7 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
                                         LastName = patient.LastName,
 
-                                        TimeId = appointment.TimeId,
+                                        TimeId = appointment.TimeSlotId,
 
                                         ToTime = timslot.ToTime,
 
@@ -194,7 +211,7 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
                                     join patient in context.Patients on appointment.PatientId equals patient.Id
 
-                                    join timslot in context.TimeSlots on appointment.TimeId equals timslot.Id
+                                    join timslot in context.TimeSlots on appointment.TimeSlotId equals timslot.Id
 
                                     join payment in context.MpesaPayments on appointment.TransactionNumber equals payment.TransactionNumber
 
@@ -228,7 +245,7 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
                                         Email = patient.Email,
 
-                                        TimeId = appointment.TimeId,
+                                        TimeId = appointment.TimeSlotId,
 
                                         ToTime = timslot.ToTime,
 
@@ -285,6 +302,6 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
             }
         }
 
-     
+
     }
 }

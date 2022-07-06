@@ -4,6 +4,7 @@ using FertilityPoint.DAL.Modules;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FertilityPoint.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220706092145_1")]
+    partial class _1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,6 +27,7 @@ namespace FertilityPoint.DAL.Migrations
             modelBuilder.Entity("FertilityPoint.DAL.Modules.Appointment", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("AppointmentDate")
@@ -41,6 +44,9 @@ namespace FertilityPoint.DAL.Migrations
 
                     b.Property<byte>("Status")
                         .HasColumnType("tinyint");
+
+                    b.Property<Guid>("TimeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("TimeSlotId")
                         .HasColumnType("uniqueidentifier");
@@ -116,10 +122,10 @@ namespace FertilityPoint.DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal?>("Balance")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("BillRefNumber")
                         .HasColumnType("nvarchar(max)");
@@ -342,6 +348,7 @@ namespace FertilityPoint.DAL.Migrations
             modelBuilder.Entity("FertilityPoint.DAL.Modules.TimeSlot", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("AppointmentDate")
@@ -607,10 +614,10 @@ namespace FertilityPoint.DAL.Migrations
             modelBuilder.Entity("FertilityPoint.DAL.Modules.Appointment", b =>
                 {
                     b.HasOne("FertilityPoint.DAL.Modules.TimeSlot", "TimeSlot")
-                        .WithMany("Appointments")
+                        .WithMany()
                         .HasForeignKey("TimeSlotId")
-                        .IsRequired()
-                        .HasConstraintName("FK_Appointments_TimeSlots");
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("TimeSlot");
                 });
@@ -664,11 +671,6 @@ namespace FertilityPoint.DAL.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("FertilityPoint.DAL.Modules.TimeSlot", b =>
-                {
-                    b.Navigation("Appointments");
                 });
 #pragma warning restore 612, 618
         }

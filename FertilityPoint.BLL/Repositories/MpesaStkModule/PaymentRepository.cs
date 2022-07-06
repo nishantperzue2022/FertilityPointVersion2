@@ -18,7 +18,6 @@ namespace FertilityPoint.BLL.Repositories.MpesaStkModule
         private readonly ApplicationDbContext context;
 
         private readonly IMapper mapper;
-
         public PaymentRepository(IMapper mapper, ApplicationDbContext context)
         {
             this.context = context;
@@ -29,11 +28,12 @@ namespace FertilityPoint.BLL.Repositories.MpesaStkModule
         {
             try
             {
+
                 var mpesaPayments = (from payment in context.MpesaPayments
 
-                                     join appointment in context.Appointments on payment.TransactionNumber equals appointment.TransactionNumber
+                                         //join appointment in context.Appointments on payment.TransactionNumber equals appointment.TransactionNumber
 
-                                     join patient in context.Patients on appointment.PatientId equals patient.Id
+                                         //join patient in context.Patients on appointment.PatientId equals patient.Id
 
                                      select new MpesaPaymentDTO
                                      {
@@ -41,7 +41,7 @@ namespace FertilityPoint.BLL.Repositories.MpesaStkModule
 
                                          Id = payment.Id,
 
-                                         Amount = Math.Round(payment.Amount, 2),
+                                         Amount = payment.Amount,
 
                                          TransactionNumber = payment.TransactionNumber,
 
@@ -49,7 +49,8 @@ namespace FertilityPoint.BLL.Repositories.MpesaStkModule
 
                                          TransactionDate = payment.TransactionDate,
 
-                                         FullName = patient.FirstName + " " + patient.LastName,
+
+                                         //FullName = patient.FirstName + " " + patient.LastName,
 
                                      }).ToListAsync();
 
@@ -207,9 +208,18 @@ namespace FertilityPoint.BLL.Repositories.MpesaStkModule
         }
         public bool IsTransactionExists(string TransactionNumber)
         {
-            bool exists = context.MpesaPayments.Any(t => t.TransactionNumber == TransactionNumber & t.IsPaymentUsed == 0);
+            try
+            {
+                bool exists = context.MpesaPayments.Any(t => t.TransactionNumber == TransactionNumber & t.IsPaymentUsed == 0);
 
-            return exists;
+                return exists;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return false;
+            }
         }
         public void SaveLipaNaMpesa(CustomerToBusinessCallbackDTO customerToBusinessCallbackDTO)
         {
@@ -230,7 +240,7 @@ namespace FertilityPoint.BLL.Repositories.MpesaStkModule
         {
             try
             {
-                
+
                 string code = ReceiptNumber.Generate_ReceiptNumber();
 
                 var receiptNumber = "RN" + code;
@@ -289,6 +299,34 @@ namespace FertilityPoint.BLL.Repositories.MpesaStkModule
                 return false;
 
             }
+        }
+        public bool ValidatePayment(string TransactionNumber)
+        {
+            try
+            {
+                var serviceCharge = context.Services.FirstOrDefault().Amount;
+
+                var getPayment = context.MpesaPayments.Where(x => x.TransactionNumber == TransactionNumber).FirstOrDefault().Amount;
+
+                if (getPayment < serviceCharge)
+                {
+                    return false;
+                }
+
+                if (getPayment >= serviceCharge)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return false;
+            }
+
         }
     }
 }

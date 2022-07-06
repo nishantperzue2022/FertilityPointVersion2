@@ -267,7 +267,7 @@ namespace FertilityPoint.Controllers
 
                 if (appointmentDTO.TimeId == Guid.Empty)
                 {
-                    return Json(new { success = false, responseText = "Appointment time is a required field" });
+                    return Json(new { success = false, responseText = "Please select appointment time" });
                 }
 
                 if (appointmentDTO.TransactionNumber == null || appointmentDTO.Email == string.Empty)
@@ -291,7 +291,20 @@ namespace FertilityPoint.Controllers
 
                 var get_slot = timeSlotRepository.GetById(appointmentDTO.TimeId);
 
+                if(get_slot == null)
+                {
+                    return Json(new { success = false, responseText = "Sorry , this slot has been booked, please select another one! " });
+
+                }
                 appointmentDTO.TimeSlot = get_slot.TimeSlot;
+
+                var validatePayent = paymentRepository.ValidatePayment(appointmentDTO.TransactionNumber);
+
+                if (validatePayent == false)
+                {
+                    return Json(new { success = false, responseText = "Sorry ! booking not successfull.Please make full payment" });
+
+                }
 
                 if (validateEmail.Success == true)
                 {
@@ -333,9 +346,9 @@ namespace FertilityPoint.Controllers
 
                         appointmentDTO.ReceiptURL = url;
 
-                        var sendClientEmail = mailService.AppointmentEmailNotification(appointmentDTO);
+                        //var sendClientEmail = mailService.AppointmentEmailNotification(appointmentDTO);
 
-                        // var sendFertilityPointEmail = await mailService.FertilityPointEmailNotification(appointmentDTO);
+                        //var sendFertilityPointEmail = await mailService.FertilityPointEmailNotification(appointmentDTO);
 
                         return Json(new { success = true, responseText = appointmentDTO.Id });
                     }
@@ -436,7 +449,6 @@ namespace FertilityPoint.Controllers
 
                     CustomerMessage = mpesaExpressResponse.CustomerMessage,
                 };
-
 
                 var h = await paymentRepository.SaveCheckoutRequest(mpesaResponse);
 

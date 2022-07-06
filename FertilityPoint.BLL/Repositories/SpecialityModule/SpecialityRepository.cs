@@ -26,8 +26,8 @@ namespace FertilityPoint.BLL.Repositories.SpecialityModule
         {
             try
             {
-                specialityDTO.CreateDate = DateTime.Now; 
-                
+                specialityDTO.CreateDate = DateTime.Now;
+
                 var speciality = mapper.Map<Speciality>(specialityDTO);
 
                 context.Specialities.Add(speciality);
@@ -108,7 +108,6 @@ namespace FertilityPoint.BLL.Repositories.SpecialityModule
             }
         }
 
-
         public async Task<SpecialityDTO> Update(SpecialityDTO specialityDTO)
         {
             try
@@ -119,11 +118,11 @@ namespace FertilityPoint.BLL.Repositories.SpecialityModule
                 {
                     using (var transaction = context.Database.BeginTransaction())
                     {
-                        var data = getData;
+                        getData.Name = specialityDTO.Name;
 
-                        mapper.Map(specialityDTO, data);
+                        getData.UpdatedBy = specialityDTO.UpdatedBy;
 
-                        context.Entry(data).State = EntityState.Modified;
+                        getData.UpdatedDate = DateTime.Now;
 
                         transaction.Commit();
 

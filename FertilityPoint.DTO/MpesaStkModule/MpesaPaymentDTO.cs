@@ -17,8 +17,19 @@ namespace FertilityPoint.DTO.MpesaStkModule
         public string TransactionNumber { get; set; }
         public decimal? Balance { get; set; }
         public string TransactionDate { get; set; }
+        public DateTime NewTransactionDate
+        {
+            get
+            {
+
+                DateTime oDate = Convert.ToDateTime(TransactionDate);
+
+                return oDate;
+
+            }
+        }
         public string PhoneNumber { get; set; }
-        public string FullName { get; set; }      
+        public string FullName { get; set; }
         public string ReceiptNo { get; set; }
         public byte IsPaymentUsed { get; set; }
 

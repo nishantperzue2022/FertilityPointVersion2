@@ -33,21 +33,36 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
         {
             try
             {
-                var loggedInuser = await userManager.FindByEmailAsync(User.Identity.Name);
 
-                timeSlotDTO.CreateBy = loggedInuser.Id;
+                var getSlots = await timeSlotRepository.GetAll();
 
-                var result = await timeSlotRepository.Create(timeSlotDTO);
+                var isSlotExit = getSlots.Where(x => x.AppointmentDate == timeSlotDTO.AppointmentDate && x.FromTime == timeSlotDTO.FromTime && x.ToTime == timeSlotDTO.ToTime).Count();
 
-                if (result != null)
+                if (isSlotExit > 0)
                 {
-                    return Json(new { success = true, responseText = "Record has been saved successfully" });
+                    return Json(new { success = false, responseText = "The slot already exits" });
 
                 }
                 else
                 {
-                    return Json(new { success = false, responseText = "Failed to save record" });
+                    var loggedInuser = await userManager.FindByEmailAsync(User.Identity.Name);
+
+                    timeSlotDTO.CreateBy = loggedInuser.Id;
+
+                    var result = await timeSlotRepository.Create(timeSlotDTO);
+
+                    if (result != null)
+                    {
+                        return Json(new { success = true, responseText = "Record has been saved successfully" });
+
+                    }
+                    else
+                    {
+                        return Json(new { success = false, responseText = "Failed to save record" });
+                    }
+
                 }
+
             }
             catch (Exception ex)
             {
@@ -98,7 +113,7 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                 }
                 else
                 {
-                    return Json(new { success = false, responseText = "Unable to delete record " });
+                    return Json(new { success = false, responseText = "Unable to delete this record" });
                 }
             }
             catch (Exception ex)

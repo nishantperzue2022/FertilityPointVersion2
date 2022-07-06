@@ -34,7 +34,7 @@
                                 <th>Trans Id</th>
                                 <th>Amount Paid</th>
                                 <th>Trans Date</th>
-               
+
                             </tr>
                         </thead>
                         <tbody>
@@ -57,7 +57,7 @@
 
                                         <td>@item.Amount</td>
 
-                                        <td>@item.TransactionDate</td>
+                                        <td>@item.NewTransactionDate.ToString("MM/dd/yyyy")</td>
 
                                     </tr>
                                     count++;
@@ -78,7 +78,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Service</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Payment</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -88,17 +88,34 @@
                         <div class="row form-row">
                             <div class="col-12 col-sm-12">
                                 <div class="form-group">
-                                    <label>Service Name</label>
-                                    <input type="text" class="form-control" name="Name" id="txtName" placeholder="Appointment">
+                                    <label>Phone Number</label>
+                                    <input type="text" class="form-control" name="Name" id="txtName" >
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12">
                                 <div class="form-group">
-                                    <label>Service Amount</label>
+                                    <label>Amount Paid</label>
+                                    <input type="text" class="form-control" name="Amount" id="txtAmount">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12">
+                                <div class="form-group">
+                                    <label>Transaction Number </label>
                                     <input type="text" class="form-control" name="Amount" id="txtAmount" placeholder="2500">
                                 </div>
                             </div>
+
+                             <div class="col-12 col-sm-12">
+                                <div class="form-group">
+                                    <label>Date paid </label>
+                                    <input type="date" class="form-control" name="Amount" id="txtAmount" placeholder="2500">
+                                </div>
+                            </div>
+
+
+
                         </div>
                     </form>
                 </div>
@@ -132,7 +149,7 @@
                                     <input type="text" class="form-control" name="Name" id="txtName1">
                                 </div>
                             </div>
-                            
+
                             <div class="col-12 col-sm-12">
                                 <div class="form-group">
                                     <label>Service Amount</label>

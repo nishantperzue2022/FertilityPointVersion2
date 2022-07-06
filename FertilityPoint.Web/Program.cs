@@ -78,17 +78,11 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-
-
 var h = WebApplication.CreateBuilder(args);
 var t = WebApplication.Create(args);
 
             h.WebHost.UseContentRoot(Directory.GetCurrentDirectory());
            // t.UseWebRoot("wwwroot");
-
-
-
-
 
 
 app.UseEndpoints(endpoints =>
