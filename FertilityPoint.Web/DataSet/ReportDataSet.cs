@@ -2,6 +2,10 @@
 {
 }
 
+namespace FertilityPoint.Web.DataSet
+{
+}
+
 namespace FertilityPoint.DataSet
 {
 }
