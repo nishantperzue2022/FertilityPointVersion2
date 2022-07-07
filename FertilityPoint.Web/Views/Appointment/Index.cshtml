@@ -17,59 +17,34 @@
             <!-- One "tab" for each step in the form: -->
             <div class="tab">
 
-                <div class="card book-info">
+                <div class="card">
+                    <div class="container">
 
-                    <div class="schedule-header">
-                        <div class="date-booking">
+                        <div class="col-md-3 mt-3">
+                            <div class="form-group">
+                                <label>Select Appointment Date</label>
+                                <input type="text" name="NewAppointmentDate" onchange="GetSlotsByDate(this)" id="txtAppointmentDate" class="form-control" value='@DateTime.Now.ToString("MM/dd/yyyy")' autocomplete="off" />
 
-                            <div class="container">
-                                <div class="row mt-2">
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Select Appointment Date</label>
-                                            <input type="text" name="NewAppointmentDate" onchange="GetSlotsByDate(this)" id="txtAppointmentDate" class="form-control" value='@DateTime.Now.ToString("MM/dd/yyyy")' autocomplete="off" />
-
-                                        </div>
-                                    </div>
-                                    @*
-                                    <div class="col-md-4">
-                                    <div class="form-group">
-                                    <label>Quick Search</label>
-                                    <select  class="form-control" onclick="GetSlotsByQuickSearch(this)" id="txtQuickSearch">
-                                    <option value="" selected disabled hidden>Click Here ...</option>
-                                    <option value="1">Today</option>
-
-                                    </select>
-                                    </div>
-                                    </div>*@
-
-
-                                </div>
                             </div>
-
                         </div>
-                    </div>
 
+                        <hr />
 
-                    <div class="schedule-header">
-                        <div class="container">
-                            <div class="row mt-3">
-                                <div id="slots">
-                                </div>
+                        <div class="row mt-3">
+                            <div id="slots">
                             </div>
+                        </div>
 
-                            <div class="row">
+                        <div class="row">
 
-                                <div id="divShowMessage" style="display:none;">
-                                    <div class="alert alert-danger" role="alert" id="error">
-                                        <div id="divmessage"></div>
-                                    </div>
+                            <div id="divShowMessage" style="display:none;">
+                                <div class="alert alert-danger" role="alert" id="error">
+                                    <div id="divmessage"></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
 
             </div>
