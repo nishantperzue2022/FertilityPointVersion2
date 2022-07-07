@@ -82,13 +82,12 @@ namespace FertilityPoint.Controllers
             this.config = config;
 
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             try
             {
-                var timeslot = (await timeSlotRepository.GetAll()).Where(x => x.IsBooked == 0).OrderBy(x => x.FromTime).ToList();
 
-                return View(timeslot);
+                return View();
 
             }
             catch (Exception ex)
@@ -580,34 +579,60 @@ namespace FertilityPoint.Controllers
 
         public async Task<IActionResult> GetSlots()
         {
-            DateTime todaysDate = DateTime.Now;
-
-            var slotDate = todaysDate.Date;
-
-            var timeslot = (await timeSlotRepository.GetAll()).Where(x => x.IsBooked == 0 && x.AppointmentDate == slotDate);
-
-            return Json(timeslot.Select(x => new
+            try
             {
-                SlotId = x.Id,
+                DateTime todaysDate = DateTime.Now;
 
-                SlotName = x.TimeSlot
+                var slotDate = todaysDate.Date;
 
-            }));
+                var getSlot = await timeSlotRepository.GetAll();
+
+                var timeslot = getSlot.Where(x => x.IsBooked == 0 && x.AppointmentDate == slotDate).OrderBy(x => x.FromTime);
+
+                return Json(timeslot.Select(x => new
+                {
+                    SlotId = x.Id,
+
+                    SlotName = x.TimeSlot
+
+                }));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                TempData["Error"] = "Something went wrong";
+
+                return RedirectToAction("", "Home", new { area = "" });
+            }
 
         }
         public async Task<IActionResult> GetSlotsByAppointmentDate(string AppointmentDate)
         {
-            DateTime oDate = DateTime.ParseExact(AppointmentDate, "M/d/yyyy", CultureInfo.InvariantCulture);
-
-            var timeslot = (await timeSlotRepository.GetAll()).Where(x => x.IsBooked == 0 && x.AppointmentDate == oDate);
-
-            return Json(timeslot.Select(x => new
+            try
             {
-                SlotId = x.Id,
+                DateTime appDate = DateTime.ParseExact(AppointmentDate, "M/d/yyyy", CultureInfo.InvariantCulture);
 
-                SlotName = x.TimeSlot
+                var getSlot = await timeSlotRepository.GetAll();
 
-            }));
+                var timeslot = getSlot.Where(x => x.IsBooked == 0 && x.AppointmentDate == appDate).OrderBy(x => x.FromTime);
+
+                return Json(timeslot.Select(x => new
+                {
+                    SlotId = x.Id,
+
+                    SlotName = x.TimeSlot
+
+                }));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                TempData["Error"] = "Something went wrong";
+
+                return RedirectToAction("", "Home", new { area = "" });
+            }
 
         }
 

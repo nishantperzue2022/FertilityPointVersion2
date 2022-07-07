@@ -74,14 +74,14 @@ h1, h2, h3, h4, h5, h6 {
     color: #2e3842
 }
 */
-    a:hover {
+/*    a:hover {
         color: #0071dc
     }
 
     a, a:hover, a:active, a:focus {
         outline: none;
         text-decoration: none
-    }
+    */}
 
 input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0 1000px #fff inset !important
@@ -118,19 +118,19 @@ input, button, a {
     /*padding: 10px 15px
 }*/
 
-    .form-control[type=file] {
+    /*.form-control[type=file] {
         min-height: auto
     }
 
 .login-right .form-control {
     min-height: 60px
-}
+}*/
 
 /*.schedule-calendar-col .form-control {
     width: 348px
 }*/
 
-.table .form-control {
+/*.table .form-control {
     font-size: 14px;
     min-height: 38px
 }
@@ -171,7 +171,7 @@ input, button, a {
 
 .form-group {
     margin-bottom: 1rem
-}
+}*/
 
 .table {
     color: #000;
@@ -301,7 +301,7 @@ table.table td .apt-time {
     .table-bordered th, .table-bordered td {
         border-color: #e5e5e5
     }
-
+/*
 .card-table .card-body {
     padding: 0
 }
@@ -328,7 +328,7 @@ table.table td .apt-time {
     font-size: 14px;
     font-weight: 500
 }
-
+*/
 .table > :not(:first-child) {
     border: 0
 }
@@ -8153,7 +8153,7 @@ body .multi-optn {
 .schedule-header {
     border-bottom: 1px solid #f0f0f0;
     border-radius: 8px 8px 0 0;
-    padding: 10px 20px
+/*    padding: 10px 20px*/
 }
 
 .day-slot ul {
@@ -15268,7 +15268,7 @@ ul.benifits-col li i {
         font-size: 13px
     }
 
-    .booking-schedule.schedule-widget {
+/*    .booking-schedule.schedule-widget {
         overflow-x: auto
     }
 
@@ -15306,7 +15306,7 @@ ul.benifits-col li i {
 
     .booking-schedule .day-slot li.right-arrow {
         right: -20px
-    }
+    }*/
 
     .booking-date li, .booking-fee li, .booking-date li span, .booking-fee li span {
         font-size: 16px
