@@ -7,160 +7,99 @@
 <link href="~/css/appointment.css" rel="stylesheet" />
 
 
-<div class="">
-    <div class="">
+<nav class='animated bounceInDown'>
 
-        <div class="cat action">
-            <label>
-                <input type="checkbox" name="time" value="1"><span>9:00 AM</span>
-            </label>
-        </div>
-
-        <div class="cat action">
-            <label>
-                <input type="checkbox" name="time" value="1"><span>9:30 AM</span>
-            </label>
-        </div>
-        <div class="cat action">
-            <label>
-                <input type="checkbox" name="time" value="1"><span>10:00 AM</span>
-            </label>
-        </div>
-        <div class="cat action">
-            <label>
-                <input type="checkbox" name="time" value="1"><span>10:30 AM</span>
-            </label>
-        </div>
-        <div class="cat action">
-            <label>
-                <input type="checkbox" name="time" value="1"><span>10:30 AM</span>
-            </label>
-        </div>
-        <div class="cat action">
-            <label>
-                <input type="checkbox" name="time" value="1"><span>10:30 AM</span>
-            </label>
-        </div>
-        <div class="cat action">
-            <label>
-                <input type="checkbox" name="time" value="1"><span>10:30 AM</span>
-            </label>
-        </div>
-        <div class="cat action">
-            <label>
-                <input type="checkbox" name="time" value="1"><span>10:30 AM</span>
-            </label>
-        </div>
-        <div class="cat action">
-            <label>
-                <input type="checkbox" name="time" value="1"><span>10:30 AM</span>
-            </label>
-        </div>
-        <div class="cat action">
-            <label>
-                <input type="checkbox" name="time" value="1"><span>10:30 AM</span>
-            </label>
-        </div>
-        <div class="cat action">
-            <label>
-                <input type="checkbox" name="time" value="1"><span>10:30 AM</span>
-            </label>
-        </div>
-
-    </div><!-- end container -->
-</div>
-
-
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+    <ul>
+        <li><a href='#profile'>Profile</a></li>
+        <li><a href='#message'>Messages</a></li>
+        <li class='sub-menu'>
+            <a href='#settings'>Settings<div class='fa fa-caret-down right'></div></a>
+            <ul>
+                <li><a href='#settings'>Account</a></li>
+                <li><a href='#settings'>Profile</a></li>
+                <li><a href='#settings'>Secruity &amp; Privacy</a></li>
+                <li><a href='#settings'>Password</a></li>
+                <li><a href='#settings'>Notification</a></li>
+            </ul>
+        </li>
+        <li class='sub-menu'>
+            <a href='#message'>Help<div class='fa fa-caret-down right'></div></a>
+            <ul>
+                <li><a href='#settings'>FAQ's</a></li>
+                <li><a href='#settings'>Submit a Ticket</a></li>
+                <li><a href='#settings'>Network Status</a></li>
+            </ul>
+        </li>
+        <li><a href='#message'>Logout</a></li>
+    </ul>
+</nav>
 
 <style>
-
-
-    div label input {
-        margin-right: 100px;
+    body {
+        background-color: #fff;
+        font-size: 14px;
     }
 
-    .cat {
-        margin: 4px;
-        background-color: #104068;
-        border-radius: 4px;
-        border: 1px solid #fff;
-        overflow: hidden;
-        float: left;
-        border-radius: 8px;
+    nav {
+        position: relative;
+        margin: 50px;
+        width: 360px;
     }
 
-        .cat label {
-            float: left;
-            line-height: 3.0em;
-            width: 8.0em;
-            height: 3.0em;
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
         }
 
-            .cat label span {
-                text-align: center;
-                padding: 3px 0;
-                display: block;
+            nav ul li {
+                /* Sub Menu */
             }
 
-            .cat label input {
-                position: absolute;
-                display: none;
-                color: #fff !important;
-            }
-                /* selects all of the text within the input element and changes the color of the text */
-                .cat label input + span {
-                    color: #fff;
-                    cursor: pointer;
+                nav ul li a {
+                    display: block;
+                    background: #ebebeb;
+                    padding: 10px 15px;
+                    color: #333;
+                    text-decoration: none;
+                    -webkit-transition: 0.2s linear;
+                    -moz-transition: 0.2s linear;
+                    -ms-transition: 0.2s linear;
+                    -o-transition: 0.2s linear;
+                    transition: 0.2s linear;
                 }
 
+                    nav ul li a:hover {
+                        background: #f8f8f8;
+                        color: #515151;
+                    }
 
-        /* This will declare how a selected input will look giving generic properties */
-        .cat input:checked + span {
-            color: #ffffff;
-            text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
-        }
+                    nav ul li a .fa {
+                        width: 16px;
+                        text-align: center;
+                        margin-right: 5px;
+                        float: right;
+                    }
 
+            nav ul ul {
+                background-color: #ebebeb;
+            }
 
-    /*
-                    This following statements selects each category individually that contains an input element that is a checkbox and is checked (or selected) and chabges the background color of the span element.
-                    */
+            nav ul li ul li a {
+                background: #f8f8f8;
+                border-left: 4px solid transparent;
+                padding: 10px 20px;
+            }
 
-    .action input:checked + span {
-        background-color: #F75A1B;
-    }
-
- 
+                nav ul li ul li a:hover {
+                    background: #ebebeb;
+                    border-left: 4px solid #3498db;
+                }
 </style>
-
 <script>
-    // the selector will match all input controls of type :checkbox
-    // and attach a click event handler
-    $("input:checkbox").on('click', function() {
-        // in the handler, 'this' refers to the box clicked on
-        var $box = $(this);
-        if ($box.is(":checked")) {
-            // the name of the box is retrieved using the .attr() method
-            // as it is assumed and expected to be immutable
-            var group = "input:checkbox[name='" + $box.attr("name") + "']";
-            // the checked state of the group/box on the other hand will change
-            // and the current value is retrieved using .prop() method
-            $(group).prop("checked", false);
-            $box.prop("checked", true);
-        } else {
-            $box.prop("checked", false);
-        }
+    $('.sub-menu ul').hide();
+    $(".sub-menu a").click(function() {
+        $(this).parent(".sub-menu").children("ul").slideToggle("100");
+        $(this).find(".right").toggleClass("fa-caret-up fa-caret-down");
     });
 </script>

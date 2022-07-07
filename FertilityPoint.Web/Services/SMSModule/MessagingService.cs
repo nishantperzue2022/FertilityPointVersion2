@@ -40,8 +40,6 @@ namespace FertilityPoint.Services.SMSModule
             return formatted;
         }
 
-
-
         public async Task<AppointmentDTO> ApprovalNotificationSMS(AppointmentDTO appointmentDTO)
         {
             try

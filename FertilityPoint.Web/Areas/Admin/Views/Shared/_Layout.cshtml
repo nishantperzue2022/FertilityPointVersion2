@@ -196,25 +196,40 @@
 
 
         <div class="sidebar" id="sidebar">
-            <div class="sidebar-inner slimscroll">
+            <div class="sidebar-inner scrollStyle">
                 <div id="sidebar-menu" class="sidebar-menu">
+
                     <ul>
                         <li class="menu-title">
                             <span>Main</span>
                         </li>
+
                         <li class="active">
                             <a href="@Url.Action("", "Dashboard")"><i class="fe fe-home"></i> <span>Dashboard</span></a>
                         </li>
-                        <li>
 
-                            <a href="@Url.Action("", "Appointments")"><i class="fe fe-layout"></i> <span>Appointments</span></a>
+
+                        <li class='sub-menu'>
+                            <a href="#"><i class="fe fe-document"></i> <span>Appointments</span> <i class="fa fa-caret-down right ml-3 fa-1x"></i></a>
+
+
+                            <ul>
+                                <li><a href="@Url.Action("", "Appointments")">New Appointments</a></li>
+                                <li><a href='#settings'>Profile</a></li>
+
+                            </ul>
                         </li>
+
+
+
                         <li>
                             <a href="@Url.Action("", "Specialities")"><i class="fe fe-users"></i> <span>Specialities</span></a>
                         </li>
+
                         <li>
                             <a href="@Url.Action("", "Doctors")"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
                         </li>
+
                         <li>
                             <a href="@Url.Action("", "Patients")"><i class="fe fe-user"></i> <span>Patients</span></a>
                         </li>
@@ -222,112 +237,66 @@
                         <li>
                             <a href="@Url.Action("", "TimeSlots")"><i class="fe fe-clock"></i> <span>Time Slots</span></a>
                         </li>
-                        
+
                         <li>
                             <a href="@Url.Action("", "Services")"><i class="fe fe-vector"></i> <span>Services</span></a>
                         </li>
 
-                        <li>
-                            <a href="@Url.Action("", "Transactions")"><i class="fe fe-activity"></i> <span>Transactions</span></a>
+
+                        <li class="menu-title">
+                            <span>Transactions</span>
                         </li>
 
-                        @*             <li>
-                        <a href="#"><i class="fe fe-activity"></i> <span>Transactions</span></a>
-                        </li>
+                        <li class='sub-menu'>
+                            <a href="#"><i class="fe fe-document"></i> <span>Payments </span> <i class="fa fa-caret-down right ml-3 fa-1x"></i></a>
 
-                        <li>
-                        <a href="#"><i class="fe fe-vector"></i> <span>Settings</span></a>
-                        </li>*@
+                            <ul>
+                                <li><a href="@Url.Action("", "Transactions")">Mpesa Payments</a></li>
+                                <li><a href='#settings'>Paypal Payments</a></li>
+                                <li><a href='#settings'>Check Payment</a></li>
 
-                        <li class="submenu">
-                            <a href="#"><i class="fe fe-document"></i> <span> Reports</span> <span class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a href="#">Invoice Reports</a></li>
                             </ul>
                         </li>
+
+
+
                         <li class="menu-title">
                             <span>User</span>
                         </li>
 
-                        <li class="submenu">
-                            <a href="#"><i class="fe fe-document"></i> <span> Manage Users </span> <span class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a href="~/Admin/UserManager/"> Register Users </a></li>
+                        <li class='sub-menu'>
+                            <a href="#"><i class="fe fe-document"></i> <span>Manage Users </span> <i class="fa fa-caret-down right ml-3 fa-1x"></i></a>
+
+
+                            <ul>
+                                <li><a href='#settings'>Account</a></li>
+                                <li><a href='#settings'>Profile</a></li>
+                                <li><a href='#settings'>Secruity &amp; Privacy</a></li>
+                                <li><a href='#settings'>Password</a></li>
+                                <li><a href='#settings'>Notification</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="menu-title">
+                            <span>Reports</span>
+                        </li>
+
+
+                        <li class='sub-menu'>
+                            <a href="#"><i class="fe fe-document"></i> <span> Manage Reports </span> <i class="fa fa-caret-down right ml-3 fa-1x"></i></a>
+
+
+                            <ul>
+                                <li><a href='#settings'>Appointment Reports</a></li>
+                                <li><a href='#settings'>Patient Reports</a></li>
+                                <li><a href='#settings'>Payment Reports</a></li>
 
                             </ul>
                         </li>
 
-                        @* <li><a href="#"><i class="fe fe-layout"></i> <span>Product List</span></a></li>
-                        <li><a href="#"><i class="fe fe-vector"></i> <span>Pharmacy List</span></a></li>
-                        <li>
-                        <a href="#"><i class="fe fe-user-plus"></i> <span>Profile</span></a>
-                        </li>
-                        <li class="submenu">
-                        <a href="#"><i class="fe fe-document"></i> <span> Authentication </span> <span class="menu-arrow"></span></a>
-                        <ul style="display: none;">
-                        <li><a href="#"> Login </a></li>
-                        <li><a href="#"> Register </a></li>
-                        <li><a href="#"> Forgot Password </a></li>
-                        <li><a href="#"> Lock Screen </a></li>
-                        </ul>
-                        </li>
-                        <li class="submenu">
-                        <a href="#"><i class="fe fe-warning"></i> <span> Error Pages </span> <span class="menu-arrow"></span></a>
-                        <ul style="display: none;">
-                        <li><a href="#">404 Error </a></li>
-                        <li><a href="#">500 Error </a></li>
-                        </ul>
-                        </li>
-                        <li>
-                        <a href="blank-page.html"><i class="fe fe-file"></i> <span>Blank Page</span></a>
-                        </li>
-                        <li class="menu-title">
-                        <span>UI Interface</span>
-                        </li>
-                        <li>
-                        <a href="#"><i class="fe fe-vector"></i> <span>Components</span></a>
-                        </li>
-                        <li class="submenu">
-                        <a href="#"><i class="fe fe-layout"></i> <span> Forms </span> <span class="menu-arrow"></span></a>
-                        <ul style="display: none;">
-                        <li><a href="#">Basic Inputs </a></li>
-                        <li><a href="#">Input Groups </a></li>
-                        <li><a href="#">Horizontal Form </a></li>
-                        <li><a href="#"> Vertical Form </a></li>
-                        <li><a href="#"> Form Mask </a></li>
-                        <li><a href="#"> Form Validation </a></li>
-                        </ul>
-                        </li>
-                        <li class="submenu">
-                        <a href="#"><i class="fe fe-table"></i> <span> Tables </span> <span class="menu-arrow"></span></a>
-                        <ul style="display: none;">
-                        <li><a href="#">Basic Tables </a></li>
-                        <li><a href="#">Data Table </a></li>
-                        </ul>
-                        </li>
-                        <li class="submenu">
-                        <a href="#"><i class="fe fe-code"></i> <span>Multi Level</span> <span class="menu-arrow"></span></a>
-                        <ul style="display: none;">
-                        <li class="submenu">
-                        <a href="#"> <span>Level 1</span> <span class="menu-arrow"></span></a>
-                        <ul style="display: none;">
-                        <li><a href="#"><span>Level 2</span></a></li>
-                        <li class="submenu">
-                        <a href="javascript:void(0);"> <span> Level 2</span> <span class="menu-arrow"></span></a>
-                        <ul style="display: none;">
-                        <li><a href="#">Level 3</a></li>
-                        <li><a href="#">Level 3</a></li>
-                        </ul>
-                        </li>
-                        <li><a href="#"> <span>Level 2</span></a></li>
-                        </ul>
-                        </li>
-                        <li>
-                        <a href="#"> <span>Level 1</span></a>
-                        </li>
-                        </ul>
-                        </li>*@
                     </ul>
+
+
                 </div>
             </div>
         </div>
@@ -354,20 +323,62 @@
     </div>
 
 
-
-    <script src="~/SweetAlart/sweetalert.min.js"></script>
-
-    <script src="~/booking/css/bootstrap.min.js"></script>
-
-    <script src="~/dashboard/assets/cloudflare-static/rocket-loader.min.js" data-cf-settings="efa6f651afd8f2f4a356ad85-|49" defer=""></script>
-
-    <script src="~/dashboard/assets/plugins/slimscroll/jquery.slimscroll.min.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
-
-    <script src="~/dashboard/assets/plugins/raphael/raphael.min.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
-
-    <script src="~/dashboard/assets/plugins/morris/morris.min.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
-
-    <script src="~/dashboard/assets/js/chart.morris.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
 </body>
 
 </html>
+
+
+<script src="~/SweetAlart/sweetalert.min.js"></script>
+
+
+
+<script src="~/dashboard/assets/cloudflare-static/rocket-loader.min.js" data-cf-settings="efa6f651afd8f2f4a356ad85-|49" defer=""></script>
+
+<script src="~/dashboard/assets/plugins/slimscroll/jquery.slimscroll.min.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
+
+<script src="~/dashboard/assets/plugins/raphael/raphael.min.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
+
+<script src="~/dashboard/assets/plugins/morris/morris.min.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
+
+<script src="~/dashboard/assets/js/chart.morris.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
+
+<script src="~/booking/css/bootstrap.min.js"></script>
+
+<script src="~/dashboard/assets/js/bootstrap.bundle.min.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
+
+<style>
+         ul li a:hover {
+              background: #f8f8f8;
+              color: #515151;
+          }
+
+         ul li a .fa {
+              width: 16px;
+              text-align: center;
+              margin-right: 5px;
+              float: right;
+          }
+
+
+    ul li ul li a:hover {
+          background: #ebebeb;
+          border-left: 4px solid #3498db;
+      }
+
+      .scrollStyle{
+             max-height: 670px;
+    overflow-y: scroll;
+      }
+
+
+
+</style>
+
+
+<script>
+    $('.sub-menu ul').hide();
+    $(".sub-menu a").click(function() {
+        $(this).parent(".sub-menu").children("ul").slideToggle("100");
+        $(this).find(".right").toggleClass("fa-caret-up fa-caret-down");
+    });
+</script>
