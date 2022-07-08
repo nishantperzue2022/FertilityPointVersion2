@@ -25,7 +25,8 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
         private readonly UserManager<AppUser> userManager;
 
-        public UserManagerController(IMailService mailService, IApplicationUserRepository applicationUserRepository, UserManager<AppUser> userManager, ISpecialityRepository specialityRepository)
+        private readonly SignInManager<AppUser> signInManager;
+        public UserManagerController(SignInManager<AppUser> signInManager, IMailService mailService, IApplicationUserRepository applicationUserRepository, UserManager<AppUser> userManager, ISpecialityRepository specialityRepository)
         {
             this.specialityRepository = specialityRepository;
 
@@ -35,6 +36,7 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
             this.mailService = mailService;
 
+            this.signInManager = signInManager;
         }
         public async Task<IActionResult> Index()
         {
@@ -44,7 +46,7 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
                 ViewBag.Roles = await applicationUserRepository.GetAll();
 
-                var users = await applicationUserRepository.GetAllUsers();                
+                var users = await applicationUserRepository.GetAllUsers();
 
                 return View(users);
             }
@@ -61,9 +63,25 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
         {
             try
             {
+                if (Id == null)
+                {
+                    var loggedInUser = await userManager.FindByEmailAsync(User.Identity.Name);
+
+                    var getuserDetails = await applicationUserRepository.GetById(loggedInUser.Id);
+
+                    if (getuserDetails == null)
+                    {
+                        TempData["Error"] = "Something went wrong";
+
+                        return RedirectToAction("Index", "UserManager");
+                    }
+
+                    return View(getuserDetails);
+                }
+
                 var user = await applicationUserRepository.GetById(Id);
 
-                if(user == null)
+                if (user == null)
                 {
                     TempData["Error"] = "Something went wrong";
 
@@ -81,7 +99,6 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
             }
 
         }
-
         [HttpPost]
         public async Task<IActionResult> RegisterUser(ApplicationUserDTO applicationUserDTO)
         {
@@ -181,5 +198,182 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
             }
 
         }
+        [HttpPost]
+        public async Task<IActionResult> UpdatePassword(UpdatePasswordDTO updatePasswordDTO)
+        {
+            try
+            {
+
+                if (updatePasswordDTO.CurrentPassword == null)
+                {
+                    return Json(new { success = false, responseText = "Current password is a required field" });
+
+                }
+
+                if (updatePasswordDTO.NewPassword == null)
+                {
+                    return Json(new { success = false, responseText = "New password is a required field" });
+
+                }
+
+                if (updatePasswordDTO.ConfirmPassword == null)
+                {
+                    return Json(new { success = false, responseText = "Confirm password is a required field" });
+
+                }
+
+                if (updatePasswordDTO.ConfirmPassword != updatePasswordDTO.NewPassword)
+                {
+                    return Json(new { success = false, responseText = "Password and confirm password do not match" });
+
+                }
+
+
+                if (ModelState.IsValid)
+                {
+                    var user = await userManager.GetUserAsync(User);
+
+                    if (user == null)
+                    {
+                        return RedirectToAction("/Account/Logout");
+                    }
+
+                    var result = await userManager.ChangePasswordAsync(user, updatePasswordDTO.CurrentPassword, updatePasswordDTO.NewPassword);
+
+                    if (!result.Succeeded)
+                    {
+
+                        var validation = (result.Errors.FirstOrDefault().Description);
+
+                        return Json(new { success = false, responseText = validation });
+
+                    }
+
+                    await signInManager.RefreshSignInAsync(user);
+
+                    return Json(new { success = true, responseText = "Password has been changed successfully" });
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+
+            return View(updatePasswordDTO);
+        }
+        public async Task<ActionResult> DeactivateAccount(string Id)
+        {
+            try
+            {
+                var results = await applicationUserRepository.DisableAccount(Id);
+
+                if (results == true)
+                {
+
+                    return Json(new { success = true, responseText = "Account has been successfully deactivated  " });
+                }
+                else
+                {
+                    return Json(new { success = false, responseText = "Unable to disabled account " });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+        }
+        public async Task<ActionResult> ActivateAccount(string Id)
+        {
+            try
+            {
+                var results = await applicationUserRepository.EnableAccount(Id);
+
+                if (results == true)
+                {
+                    return Json(new { success = true, responseText = "Account has been successfully activated  " });
+                }
+                else
+                {
+                    return Json(new { success = false, responseText = "Unable to activate account " });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+        }
+
+        public async Task<IActionResult> GetUserById(string Id)
+        {
+            var data = await applicationUserRepository.GetById(Id);
+
+            if (data != null)
+            {
+                ApplicationUserDTO file = new ApplicationUserDTO
+                {
+                    Id = data.Id,
+
+                    Email = data.Email,
+
+                    FirstName = data.FirstName,
+
+                    LastName = data.LastName,
+
+                    PhoneNumber = data.PhoneNumber,
+
+                    CreateDate = data.CreateDate,
+
+                    isActive = data.isActive,
+
+                    CreatedByName = data.CreatedByName,
+
+                    RoleName = data.RoleName,
+
+                    RoleId = data.RoleId,
+
+                };
+
+                return Json(new { data = file });
+            }
+            else
+            {
+                return Json(new { data = false });
+            }
+        }
+        public async Task<IActionResult> Update(ApplicationUserDTO applicationUserDTO)
+        {
+            try
+            {
+                var results = await applicationUserRepository.Update(applicationUserDTO);
+
+                if (results != null)
+                {
+                    return Json(new { success = true, responseText = "Information has been updated successfully " });
+                }
+                else
+                {
+                    return Json(new { success = false, responseText = "Failed to update details" });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+        }
+
+
+
+
+
+
     }
 }

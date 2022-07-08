@@ -63,7 +63,6 @@
                 <i class="fa fa-bars"></i>
             </a>
 
-
             <ul class="nav user-menu">
 
                 <li class="nav-item dropdown noti-dropdown">
@@ -184,8 +183,8 @@
 
                             </div>
                         </div>
-                        <a class="dropdown-item" href="#">My Profile</a>
-                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="/Admin/UserManager/Profile/">My Profile</a>
+                        <a class="dropdown-item" href="#">Change Password</a>
                         <a class="dropdown-item" href="~/Account/Logout/">Logout</a>
                     </div>
                 </li>
@@ -226,9 +225,9 @@
                             <a href="@Url.Action("", "Specialities")"><i class="fe fe-users"></i> <span>Specialities</span></a>
                         </li>
 
-                        <li>
+               @*         <li>
                             <a href="@Url.Action("", "Doctors")"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
-                        </li>
+                        </li>*@
 
                         <li>
                             <a href="@Url.Action("", "Patients")"><i class="fe fe-user"></i> <span>Patients</span></a>
@@ -268,13 +267,12 @@
                         <li class='sub-menu'>
                             <a href="#"><i class="fe fe-document"></i> <span>Manage Users </span> <i class="fa fa-caret-down right ml-3 fa-1x"></i></a>
 
-
+                       
                             <ul>
-                                <li><a href='#settings'>Account</a></li>
-                                <li><a href='#settings'>Profile</a></li>
-                                <li><a href='#settings'>Secruity &amp; Privacy</a></li>
-                                <li><a href='#settings'>Password</a></li>
-                                <li><a href='#settings'>Notification</a></li>
+                                <li><a href="@Url.Action("", "UserManager")">Users</a></li>
+                                <li><a href="@Url.Action("", "UserManager")">Disabled Accounts</a></li>
+                                <li><a href="@Url.Action("Profile", "UserManager")">My Profile</a></li>
+                      
                             </ul>
                         </li>
 

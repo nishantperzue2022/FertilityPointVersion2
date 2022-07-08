@@ -106,7 +106,7 @@ $("#btnCreateAccount").click(function () {
 
 })
 
-$("#btnUpdate").click(function () {
+$("#btnUpdateAccount").click(function () {
 
     if ($('#txtfirstName1').val() == '') {
         $('#txtfirstName1').focus();
@@ -166,7 +166,7 @@ $("#btnUpdate").click(function () {
         return false;
     }
 
-    $("#UpdateUserModal").modal('hide');
+    $("#modalUpdateUser").modal('hide');
 
     var data = $("#frmUpdateAccount").serialize();
 
@@ -232,16 +232,12 @@ function GetUser(e) {
             $("#txtroleName1").val(data.data.roleName);
 
 
-            $('#UpdateUserModal').modal({ backdrop: 'static', keyboard: false })
-            $("#UpdateUserModal").modal('show');
+            $('#modalUpdateUser').modal({ backdrop: 'static', keyboard: false })
+            $("#modalUpdateUser").modal('show');
         }
 
     });
 };
-
-
-
-
 
 function ViewDetail(e) {
 
@@ -304,3 +300,7 @@ $(".numericOnly").bind('mouseenter', function (e) {
         $(this).val(val);
     }
 });
+
+
+
+
