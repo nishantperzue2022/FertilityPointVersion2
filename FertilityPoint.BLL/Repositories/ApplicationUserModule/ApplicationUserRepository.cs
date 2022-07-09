@@ -107,10 +107,6 @@ namespace FertilityPoint.BLL.Repositories.ApplicationUserModule
 
                              join role in context.Roles on userInRole.RoleId equals role.Id
 
-                             join speciality in context.Specialities on user.SpecialityId equals speciality.Id into r_join
-
-                             from rEmpty in r_join.DefaultIfEmpty()
-
                              where user.Id == Id
 
                              select new ApplicationUserDTO
@@ -127,9 +123,9 @@ namespace FertilityPoint.BLL.Repositories.ApplicationUserModule
 
                                  PhoneNumber = user.PhoneNumber,
 
-                                 RoleName = role.Name,
+                                 RoleName = role.Name,                 
 
-                                 SpecialityName = rEmpty.Name,
+                                 SpecialityId = user.SpecialityId,
 
                                  CreateDate = user.CreateDate,
                              }
@@ -233,7 +229,6 @@ namespace FertilityPoint.BLL.Repositories.ApplicationUserModule
                 return false;
             }
         }
-
         public async Task<ApplicationUserDTO> Update(ApplicationUserDTO applicationUserDTO)
         {
             try

@@ -9,13 +9,13 @@ namespace FertilityPoint.BLL.Repositories.MpesaStkModule
     {
         Task<CheckoutRequestDTO> SaveCheckoutRequest(CheckoutRequestDTO checkoutRequestDTO);
         Task<List<MpesaPaymentDTO>> GetAll();
-        Task<MpesaPaymentDTO> GetByTransId(string TransactionId);
+        Task<MpesaPaymentDTO> GetByTransNumber(string TransactionId);
         CheckoutRequestDTO GetCheckOutRequestById(string CheckoutRequestID);
         void SaveSTKCallBackResponse(MpesaPaymentDTO mpesaPaymentDTO);
         bool SavePayBillCallBackResponse(MpesaPaymentDTO mpesaPaymentDTO);
         string GetTotalRevenue();
         bool IsTransactionExists(string TransactionNumber);
-        void SaveLipaNaMpesa(CustomerToBusinessCallbackDTO customerToBusinessCallbackDTO);
         bool ValidatePayment(string TransactionNumber);
+        Task<MpesaPaymentDTO> CreateMpesaPayment(MpesaPaymentDTO mpesaPaymentDTO);
     }
 }

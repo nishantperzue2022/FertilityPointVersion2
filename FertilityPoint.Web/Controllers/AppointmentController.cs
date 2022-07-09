@@ -297,9 +297,9 @@ namespace FertilityPoint.Controllers
                 }
                 appointmentDTO.TimeSlot = get_slot.TimeSlot;
 
-                var validatePayent = paymentRepository.ValidatePayment(appointmentDTO.TransactionNumber);
+                var validatePayment = paymentRepository.ValidatePayment(appointmentDTO.TransactionNumber);
 
-                if (validatePayent == false)
+                if (validatePayment == false)
                 {
                     return Json(new { success = false, responseText = "Sorry ! booking not successfull.Please make full payment" });
 

@@ -24,9 +24,9 @@
                             <div class="about-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>*@
                         </div>
                         <div class="col-auto profile-btn">
-                            <a href="#" class="btn btn-primary">
+                            @*<a href="#" class="btn btn-primary">
                                 Edit
-                            </a>
+                            </a>*@
                         </div>
                     </div>
                 </div>
@@ -231,14 +231,27 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-<script src="~/fertilitypoint/userRegistration.js"></script>
+
 
 
 <script>
 
+    
+function ShowLoader() {
+
+    $("#loadMe").modal('show');
+}
+
+function HideLoader() {
+
+    $("#loadMe").modal('hide');
+}
+
+
+
     $("#btnChangePassword").click(function () {
 
-    debugger
+  
 
     if ($('#txtCurrentPassword').val() == '') {
 

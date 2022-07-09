@@ -1,0 +1,226 @@
+﻿@{
+    ViewData["Title"] = "CreatePayment";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+    <div class="page-wrapper" style="min-height: 754px;background-color: #f8f9fa;">
+        <div class="content container-fluid">
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header" style="background-color: #263b6b;color: #fff;">
+                        <div class="card-title" style="font-weight:bold;">Create Payment</div>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="container">
+                            <div class="clear">
+
+                                <div style="display:none;" id="dvError">
+                                    <div class="alert alert-danger" role="alert">
+                                        <h6 id="info"></h6>
+                                    </div>
+                                </div>
+
+                                <div style="display:none;" id="dvSuccess">
+                                    <div class="alert alert-success" role="alert">
+                                        <h6 id="passwordChangeSuccess"></h6>
+                                    </div>
+                                </div>
+                                <form id="frmCreatPayment">
+
+                                    <div class="row">
+
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="exampleDataList" class="form-label">First Name</label>
+                                                <input type="text" name="FirstName" id="txtFirstName" class="form-control" placeholder=" i.e Steve" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group ">
+                                                <label for="exampleDataList" class="form-label">Last Name</label>
+                                                <input type="text" name="LastName" id="txtLastName" class="form-control" placeholder="i.e Harvey" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="exampleDataList" class="form-label">Mpesa Phone Number</label>
+                                                <input type="text" name="PhoneNumber" id="txtPhoneNumber" class="form-control" placeholder=" i.e 2547XX XXX XXX" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group ">
+                                                <label for="exampleDataList" class="form-label">Transaction Number</label>
+                                                <input type="text" name="TransactionNumber" id="txtTransactionNumber" class="form-control" placeholder="i.e QE19A15WZ3" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group ">
+                                                <label for="exampleDataList" class="form-label">Amount Paid</label>
+                                                <input type="text" name="Amount" id="txtAmount" class="form-control" placeholder="i.e 1500" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group ">
+                                                <label for="exampleDataList" class="form-label">Date of Payment</label>
+                                                <input type="date" name="TransactionDate" id="txtTransactionDate" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group ">
+                                                <label for="exampleDataList" class="form-label">Select Service Paid For</label>
+                                                <select class="form-control" name="ServiceId" id="txtServiceId">
+
+                                                    <option value="" selected disabled hidden>Select Service Paid For</option>
+                                                    @if (ViewBag.Services != null)
+                                                    {
+                                                        foreach (var item in ViewBag.Services)
+                                                        {
+                                                            <option value="@item.Id">@item.Name</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <hr />
+
+                                    <div class="col-md-3  pull-right">
+                                        <div class="form-group row">
+                                            <input type="button" id="btnSubmitPayment" class="form-control btn btn-outline-primary" value="Submit">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+
+<script>
+
+    function ShowLoader() {
+
+        $("#loadMe").modal('show');
+    }
+
+    function HideLoader() {
+
+        $("#loadMe").modal('hide');
+    }
+
+    $("#btnSubmitPayment").click(function() {
+
+
+        if ($('#txtPhoneNumber').val() == '') {
+
+            $('#txtPhoneNumber').focus();
+
+            $("#dvError").show();
+
+            $("#info").text("Phone Number is required");
+
+            return false;
+        }
+
+        if ($('#txtTransactionNumber').val() == '') {
+
+            $('#txtTransactionNumber').focus();
+
+            $("#dvError").show();
+
+            $("#info").text("Transaction Number is required");
+
+            return false;
+        }
+
+        if ($('#txtAmount').val() == '') {
+
+            $('#txtAmount').focus();
+
+            $("#dvError").show();
+
+            $("#info").text("Amount is required");
+
+            return false;
+        }
+
+        if ($('#txtTransactionDate').val() == '') {
+
+            $('#txtTransactionDate').focus();
+
+            $("#dvError").show();
+
+            $("#info").text("Date of Payment is required");
+
+            return false;
+        }
+
+        var data = $("#frmCreatPayment").serialize();
+
+        $.ajax({
+
+            type: "POST",
+
+            url: "/Admin/Transactions/CreatePayment/",
+
+            data: data,
+
+            beforeSend: function() { ShowLoader(); },
+
+
+            success: function(response) {
+
+                if (response.success) {
+
+                    $("#dvSuccess").show();
+
+                    $("#passwordChangeSuccess").text(response.responseText);
+
+                    setTimeout(function() {
+
+                        window.location = "@Url.Action("Dashboard","Admin", new { area="" })";
+
+                    }, 3000);
+
+                } else {
+                    $("#dvError").show();
+
+                    $("#info").text(response.responseText);
+                }
+            },
+
+            error: function(response) {
+                alert("error!");  //
+
+            },
+            complete: function() {
+                HideLoader();
+            }
+        })
+
+    })
+</script>

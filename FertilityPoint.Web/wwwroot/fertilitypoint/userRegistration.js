@@ -228,7 +228,8 @@ function GetUser(e) {
             $("#txtlastName1").val(data.data.lastName);
             $("#txtphoneNumber1").val(data.data.phoneNumber);
             $("#txtemail1").val(data.data.email);
-            $("#txtcommissions1").val(data.data.commissions);
+            
+          
             $("#txtroleName1").val(data.data.roleName);
 
 
@@ -301,6 +302,167 @@ $(".numericOnly").bind('mouseenter', function (e) {
     }
 });
 
+function DeactivateAccount(e) {
+
+    var id = e;
+
+    swal(
+
+        {
+            title: "Are you sure?",
+
+            text: "Disabling user account!",
+
+            type: "success",
+
+            showCancelButton: true,
+
+            confirmButtonColor: "##62b76e",
+
+            confirmButtonText: "Yes, Procceed!",
+
+            closeOnConfirm: false
+        },
+
+        function () {
+
+            $.ajax({
+
+                type: "GET",
+
+                url: "/Admin/UserManager/DeactivateAccount/" + id,
+
+                success: function (response) {
+
+                    if (response.success) {
+
+                        swal({
+
+                            position: 'top-end',
+
+                            type: "success",
+
+                            title: response.responseText,
+
+                            showConfirmButton: false,
+
+                            // timer: 2000,
+
+                        });
+                        setTimeout(function () { location.reload(); }, 3000);
+
+                    }
+
+                    else {
+                        swal({
+                            position: 'top-end',
+                            type: "error",
+                            title: response.responseText,
+                            showConfirmButton: true,
+                            timer: 5000,
+                        });
+
+                    }
+
+                },
+                error: function (response) {
+
+                    console.log(response);
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: "Server error ,kindly contact the admin for assistance",
+                        showConfirmButton: false,
+                        timer: 5000,
+                    });
+
+                }
+
+            })
+
+        });
+}
+
+function EnableAccount(e) {
+
+    var id = e;
+
+    swal(
+
+        {
+            title: "Are you sure?",
+
+            text: "Enabling user account!",
+
+            type: "success",
+
+            showCancelButton: true,
+
+            confirmButtonColor: "##62b76e",
+
+            confirmButtonText: "Yes, Procceed!",
+
+            closeOnConfirm: false
+        },
+
+        function () {
+
+            $.ajax({
+
+                type: "GET",
+
+                url: "/Admin/UserManager/ActivateAccount/" + id,
+
+                success: function (response) {
+
+                    if (response.success) {
+
+                        swal({
+
+                            position: 'top-end',
+
+                            type: "success",
+
+                            title: response.responseText,
+
+                            showConfirmButton: false,
+
+                            // timer: 2000,
+
+                        });
+                        setTimeout(function () { location.reload(); }, 3000);
+
+                    }
+
+                    else {
+                        swal({
+                            position: 'top-end',
+                            type: "error",
+                            title: response.responseText,
+                            showConfirmButton: true,
+                            timer: 5000,
+                        });
+
+                    }
+
+                },
+                error: function (response) {
+
+                    console.log(response);
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: "Server error ,kindly contact the admin for assistance",
+                        showConfirmButton: false,
+                        timer: 5000,
+                    });
+
+                }
+
+            })
+
+        });
+}
 
 
 

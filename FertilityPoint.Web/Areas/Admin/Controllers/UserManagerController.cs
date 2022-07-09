@@ -26,7 +26,17 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
         private readonly UserManager<AppUser> userManager;
 
         private readonly SignInManager<AppUser> signInManager;
-        public UserManagerController(SignInManager<AppUser> signInManager, IMailService mailService, IApplicationUserRepository applicationUserRepository, UserManager<AppUser> userManager, ISpecialityRepository specialityRepository)
+        public UserManagerController(
+
+            SignInManager<AppUser> signInManager,
+
+            IMailService mailService,
+
+            IApplicationUserRepository applicationUserRepository,
+
+            UserManager<AppUser> userManager,
+
+            ISpecialityRepository specialityRepository)
         {
             this.specialityRepository = specialityRepository;
 
@@ -59,6 +69,15 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
             }
 
         }
+
+
+
+
+
+
+
+
+
         public async Task<IActionResult> Profile(string Id)
         {
             try
@@ -198,6 +217,16 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
             }
 
         }
+
+
+        public IActionResult ChangePassword()
+        {
+
+           return View();
+        }
+
+
+
         [HttpPost]
         public async Task<IActionResult> UpdatePassword(UpdatePasswordDTO updatePasswordDTO)
         {
@@ -309,7 +338,6 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                 return null;
             }
         }
-
         public async Task<IActionResult> GetUserById(string Id)
         {
             var data = await applicationUserRepository.GetById(Id);
@@ -369,11 +397,5 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                 return null;
             }
         }
-
-
-
-
-
-
     }
 }

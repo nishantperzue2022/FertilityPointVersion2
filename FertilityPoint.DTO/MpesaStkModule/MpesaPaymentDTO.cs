@@ -43,6 +43,7 @@ namespace FertilityPoint.DTO.MpesaStkModule
         public string OrgAccountBalance { get; set; }
         public string TransactionType { get; set; }
         public string ThirdPartyTransID { get; set; }
+        public Guid ServiceId { get; set; }
 
     }
 }

@@ -184,7 +184,7 @@
                             </div>
                         </div>
                         <a class="dropdown-item" href="/Admin/UserManager/Profile/">My Profile</a>
-                        <a class="dropdown-item" href="#">Change Password</a>
+                        <a class="dropdown-item" href="/Admin/UserManager/ChangePassword/">Change Password</a>
                         <a class="dropdown-item" href="~/Account/Logout/">Logout</a>
                     </div>
                 </li>
@@ -220,13 +220,13 @@
                         </li>
 
 
-
+                        @*
                         <li>
-                            <a href="@Url.Action("", "Specialities")"><i class="fe fe-users"></i> <span>Specialities</span></a>
-                        </li>
+                        <a href="@Url.Action("", "Specialities")"><i class="fe fe-users"></i> <span>Specialities</span></a>
+                        </li>*@
 
-               @*         <li>
-                            <a href="@Url.Action("", "Doctors")"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
+                        @*         <li>
+                        <a href="@Url.Action("", "Doctors")"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
                         </li>*@
 
                         <li>
@@ -247,17 +247,25 @@
                         </li>
 
                         <li class='sub-menu'>
-                            <a href="#"><i class="fe fe-document"></i> <span>Payments </span> <i class="fa fa-caret-down right ml-3 fa-1x"></i></a>
-
+                            <a href="#"><i class="fe fe-document"></i> <span>M-Pesa </span> <i class="fa fa-caret-down right ml-3 fa-1x"></i></a>
+                            
                             <ul>
-                                <li><a href="@Url.Action("", "Transactions")">Mpesa Payments</a></li>
-                                <li><a href='#settings'>Paypal Payments</a></li>
-                                <li><a href='#settings'>Check Payment</a></li>
-                                <li><a href='#settings'>Create Payment</a></li>
+                                <li><a href="@Url.Action("", "Transactions")">Payments</a></li>
+                                <li><a href='#settings'>Validate Payment</a></li>
+                                <li><a href="@Url.Action("CreatePayment", "Transactions")">Create Payment</a></li>
 
                             </ul>
+
                         </li>
 
+                        <li class='sub-menu'>
+                            <a href="#"><i class="fe fe-document"></i> <span>Paypal </span> <i class="fa fa-caret-down right ml-3 fa-1x"></i></a>
+
+                            <ul>
+                                <li><a href="#">Vew Transactions</a></li>
+                            </ul>
+
+                        </li>
 
 
                         <li class="menu-title">
@@ -267,12 +275,11 @@
                         <li class='sub-menu'>
                             <a href="#"><i class="fe fe-document"></i> <span>Manage Users </span> <i class="fa fa-caret-down right ml-3 fa-1x"></i></a>
 
-                       
+
                             <ul>
                                 <li><a href="@Url.Action("", "UserManager")">Users</a></li>
-                                <li><a href="@Url.Action("", "UserManager")">Disabled Accounts</a></li>
                                 <li><a href="@Url.Action("Profile", "UserManager")">My Profile</a></li>
-                      
+
                             </ul>
                         </li>
 
@@ -322,6 +329,10 @@
     </div>
 
 
+
+
+
+
 </body>
 
 </html>
@@ -346,30 +357,28 @@
 <script src="~/dashboard/assets/js/bootstrap.bundle.min.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
 
 <style>
-         ul li a:hover {
-              background: #f8f8f8;
-              color: #515151;
-          }
+    ul li a:hover {
+        background: #f8f8f8;
+        color: #515151;
+    }
 
-         ul li a .fa {
-              width: 16px;
-              text-align: center;
-              margin-right: 5px;
-              float: right;
-          }
+    ul li a .fa {
+        width: 16px;
+        text-align: center;
+        margin-right: 5px;
+        float: right;
+    }
 
 
     ul li ul li a:hover {
-          background: #ebebeb;
-          border-left: 4px solid #3498db;
-      }
+        background: #ebebeb;
+        border-left: 4px solid #3498db;
+    }
 
-      .scrollStyle{
-             max-height: 670px;
-    overflow-y: scroll;
-      }
-
-
+    .scrollStyle {
+        max-height: 670px;
+        overflow-y: scroll;
+    }
 
 </style>
 
