@@ -202,15 +202,21 @@ namespace FertilityPoint.Services.EmailModule
 
                 using (SmtpClient client = new SmtpClient())
                 {
+                    client.UseDefaultCredentials = false;
+
                     client.Host = SMTPMailServer;
+
                     client.Port = int.Parse(SMTPPort);
+
                     if (SMTPUseSSL != string.Empty)
                     {
                         client.EnableSsl = bool.Parse(SMTPUseSSL);
                     }
 
-                    client.UseDefaultCredentials = false;
+                    
+
                     bool bNetwork = bool.Parse(SMTPEmailToNetwork);
+
                     if (bNetwork)
                     {
                         client.DeliveryMethod = SmtpDeliveryMethod.Network;

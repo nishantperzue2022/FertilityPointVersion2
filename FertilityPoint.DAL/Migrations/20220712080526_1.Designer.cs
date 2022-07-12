@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FertilityPoint.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220706095128_4")]
-    partial class _4
+    [Migration("20220712080526_1")]
+    partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,6 @@ namespace FertilityPoint.DAL.Migrations
             modelBuilder.Entity("FertilityPoint.DAL.Modules.Appointment", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("AppointmentDate")
@@ -53,6 +52,8 @@ namespace FertilityPoint.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TimeSlotId");
 
                     b.ToTable("Appointments");
                 });
@@ -117,10 +118,10 @@ namespace FertilityPoint.DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal?>("Balance")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("BillRefNumber")
                         .HasColumnType("nvarchar(max)");
@@ -343,7 +344,6 @@ namespace FertilityPoint.DAL.Migrations
             modelBuilder.Entity("FertilityPoint.DAL.Modules.TimeSlot", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("AppointmentDate")
@@ -606,6 +606,17 @@ namespace FertilityPoint.DAL.Migrations
                     b.HasDiscriminator().HasValue("AppUser");
                 });
 
+            modelBuilder.Entity("FertilityPoint.DAL.Modules.Appointment", b =>
+                {
+                    b.HasOne("FertilityPoint.DAL.Modules.TimeSlot", "TimeSlot")
+                        .WithMany("Appointments")
+                        .HasForeignKey("TimeSlotId")
+                        .IsRequired()
+                        .HasConstraintName("FK_Appointments_TimeSlots");
+
+                    b.Navigation("TimeSlot");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -655,6 +666,11 @@ namespace FertilityPoint.DAL.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FertilityPoint.DAL.Modules.TimeSlot", b =>
+                {
+                    b.Navigation("Appointments");
                 });
 #pragma warning restore 612, 618
         }

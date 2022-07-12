@@ -41,7 +41,7 @@ namespace FertilityPoint.Controllers
         }
 
         [HttpPost]
-        public async void FertitlityPointPayBillConfirmation([FromBody] CustomerToBusinessCallbackDTO response)
+        public async void PayBillConfirmation([FromBody] CustomerToBusinessCallbackDTO response)
         {
             try
             {

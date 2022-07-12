@@ -1,6 +1,8 @@
 ﻿using FertilityPoint.BLL.Repositories.AppointmentModule;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System.Drawing;
 
 namespace FertilityPoint.Web.Areas.Admin.Controllers
 {
@@ -17,7 +19,7 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
             return View();
         }
 
-        public async Task<IActionResult> DownloadAllAppointmentAsync(string RoleName)
+        public async Task<IActionResult> DownloadAllAppointment(string RoleName)
         {
 
             //var user1 = await userManager.FindByEmailAsync(User.Identity.Name);
@@ -51,9 +53,7 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
                 worksheet.Cells["A2"].Value = "FullName";
                 worksheet.Cells["B2"].Value = "PhoneNumber";
-                worksheet.Cells["C2"].Value = "Email";
-                worksheet.Cells["D2"].Value = "RegionName";
-                worksheet.Cells["E2"].Value = "BranchName";
+                worksheet.Cells["C2"].Value = "Email";   
                 worksheet.Cells["F2"].Value = "CreateDate";
 
 
@@ -67,8 +67,6 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                     worksheet.Cells[row, 1].Value = user.FullName;
                     worksheet.Cells[row, 2].Value = user.PhoneNumber;
                     worksheet.Cells[row, 3].Value = user.Email;
-                    worksheet.Cells[row, 4].Value = user.RegionName;
-                    worksheet.Cells[row, 5].Value = user.BranchName;
                     worksheet.Cells[row, 6].Value = user.CreateDate.ToShortDateString();
 
                     row++;

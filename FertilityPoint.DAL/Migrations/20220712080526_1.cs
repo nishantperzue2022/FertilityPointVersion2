@@ -95,9 +95,9 @@ namespace FertilityPoint.DAL.Migrations
                     CheckoutRequestID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ResultCode = table.Column<int>(type: "int", nullable: true),
                     ResultDesc = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Amount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TransactionNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Balance = table.Column<decimal>(type: "decimal(18,4)", nullable: true),
+                    Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     TransactionDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -339,18 +339,16 @@ namespace FertilityPoint.DAL.Migrations
                     PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TransactionNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ApprovedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TimeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TimeSlotId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Appointments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Appointments_TimeSlots_TimeSlotId",
+                        name: "FK_Appointments_TimeSlots",
                         column: x => x.TimeSlotId,
                         principalTable: "TimeSlots",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

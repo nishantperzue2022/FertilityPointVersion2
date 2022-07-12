@@ -13,6 +13,16 @@ namespace FertilityPoint.Web.Controllers
             return View();
         }
 
+
+
+
+
+
+
+
+
+
+
         public async void Simulate()
         {
             Console.Title = "C2B Simulation";

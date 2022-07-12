@@ -294,16 +294,16 @@ function SubmitAppointment() {
 
 
 
-    if ($('#txtTransactionNumber').val() == '') {
-        $('#txtTransactionNumber').focus();
-        swal({
-            position: 'top-end',
-            type: "error",
-            title: "Mpesa Transaction Number is a required field",
-            showConfirmButton: true,
-        });
-        return false;
-    }
+    //if ($('#txtTransactionNumber').val() == '') {
+    //    $('#txtTransactionNumber').focus();
+    //    swal({
+    //        position: 'top-end',
+    //        type: "error",
+    //        title: "Mpesa Transaction Number is a required field",
+    //        showConfirmButton: true,
+    //    });
+    //    return false;
+    //}
 
     if ($('#txtFirstName').val() == '') {
         $('#txtFirstName').focus();
