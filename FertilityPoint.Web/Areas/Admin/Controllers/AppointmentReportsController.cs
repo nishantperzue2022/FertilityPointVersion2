@@ -6,6 +6,7 @@ using System.Drawing;
 
 namespace FertilityPoint.Web.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class AppointmentReportsController : Controller
     {
         private readonly IAppointmentRepository appointmentRepository;
@@ -19,9 +20,8 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
             return View();
         }
 
-        public async Task<IActionResult> DownloadAllAppointment(string RoleName)
+        public async Task<IActionResult> DownloadAllAppointment()
         {
-
             //var user1 = await userManager.FindByEmailAsync(User.Identity.Name);
             // Get the user list 
 
