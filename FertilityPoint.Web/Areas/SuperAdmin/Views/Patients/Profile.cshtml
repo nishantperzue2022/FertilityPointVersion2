@@ -1,0 +1,152 @@
+﻿@model FertilityPoint.DTO.PatientModule.PatientDTO
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Areas/SuperAdmin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<div class="page-wrapper" style="min-height: 754px;">
+    <div class="content container-fluid">
+
+        <div class="page-header">
+            <div class="row">
+                <div class="col">
+                    <h3 class="page-title">Patient Profile</h3>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="profile-header">
+                    <div class="row align-items-center">
+                        <div class="col-auto profile-image">
+                            <a href="#">
+                                <img class="rounded-circle" alt="User Image" src="~/dashboard/assets/img/profiles/avatar-01.jpg">
+                            </a>
+                        </div>
+                        <div class="col ml-md-n2 profile-user-info">
+                            <h4 class="user-name mb-0">@Model.FullName</h4>
+                            <h6 class="text-muted">@Model.Email</h6>
+                            <div class="user-Location"><i class="fa fa-map-marker"></i> Florida, United States</div>
+                            <div class="about-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
+                        <div class="col-auto profile-btn">
+                            <a href="#" class="btn btn-primary">
+                                Edit
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content profile-tab-cont">
+
+                    <div class="tab-pane fade show active" id="per_details_tab">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title d-flex justify-content-between">
+                                            <span>Personal Details</span>
+                                            <button type="button" class="btn btn-success btn-sm  pull-right" data-toggle="modal" data-target="#modalSpeciality" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  </button>
+
+                                            <a class="edit-link" data-bs-toggle="modal" href="#edit_personal_details"><i class="fa fa-edit me-1"></i>Edit</a>
+                                        </h5>
+                                        <div class="row">
+                                            <p class="col-sm-2 text-muted text-sm-end mb-0 mb-sm-3">Entry Date</p>
+                                            <p class="col-sm-10">@Model.CreateDate.ToString("yyyy-M-d dddd")</p>
+                                        </div>
+
+                                        <div class="row">
+                                            <p class="col-sm-2 text-muted text-sm-end mb-0 mb-sm-3">Name</p>
+                                            <p class="col-sm-10">@Model.FullName</p>
+                                        </div>
+
+                                        <div class="row">
+                                            <p class="col-sm-2 text-muted text-sm-end mb-0 mb-sm-3">Email Address</p>
+                                            <p class="col-sm-10">@Model.Email</p>
+                                        </div>
+                                        <div class="row">
+                                            <p class="col-sm-2 text-muted text-sm-end mb-0 mb-sm-3">Phone Number</p>
+                                            <p class="col-sm-10">@Model.PhoneNumber</p>
+                                        </div>
+                                        @*  <div class="row">
+                                        <p class="col-sm-2 text-muted text-sm-end mb-0">Address</p>
+                                        <p class="col-sm-10 mb-0">
+                                        4663 Agriculture Lane,<br>
+                                        Miami,<br>
+                                        Florida - 33165,<br>
+                                        United States.
+                                        </p>
+                                        </div>*@
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalSpeciality" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Specialities</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <form>
+                    <div class="row form-row">
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" value="John">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" value="Doe">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>Date of Birth</label>
+                                <div class="cal-icon">
+                                    <input type="text" class="form-control datetimepicker" value="24-07-1983">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Email ID</label>
+                                <input type="email" class="form-control" value="johndoe@example.com">
+                            </div>
+                        </div>
+         
+                  
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -12,5 +12,6 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
         Task<AppointmentDTO> Create(AppointmentDTO appointmentDTO);
         AppointmentDTO GetTransaction(Guid Id);
         Task<bool> ApproveAppointment(AppointmentDTO appointmentDTO);
+        Task<bool> Delete(Guid Id);
     }
 }

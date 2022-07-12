@@ -54,7 +54,7 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
                 UpdateSlot(appointmentDTO);
 
-                UpdatePaymentStatus(appointmentDTO);
+                //UpdatePaymentStatus(appointmentDTO);
 
                 return appointmentDTO;
             }
@@ -213,7 +213,7 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
                                     join timslot in context.TimeSlots on appointment.TimeSlotId equals timslot.Id
 
-                                    join payment in context.MpesaPayments on appointment.TransactionNumber equals payment.TransactionNumber
+                                    //join payment in context.MpesaPayments on appointment.TransactionNumber equals payment.TransactionNumber
 
                                     where appointment.Id == Id
 
@@ -233,15 +233,15 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
                                         PhoneNumber = patient.PhoneNumber,
 
-                                        PaidByNumber = payment.PhoneNumber,
+                                        //PaidByNumber = payment.PhoneNumber,
 
-                                        TransactionNumber = payment.TransactionNumber,
+                                        //TransactionNumber = payment.TransactionNumber,
 
-                                        TransactionDate = payment.TransactionDate,
+                                        //TransactionDate = payment.TransactionDate,
 
-                                        Amount = payment.Amount,
+                                        //Amount = payment.Amount,
 
-                                        ReceiptNo = payment.ReceiptNo,
+                                        //ReceiptNo = payment.ReceiptNo,
 
                                         Email = patient.Email,
 
@@ -302,6 +302,33 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
             }
         }
 
+        public async Task<bool> Delete(Guid Id)
+        {
+            try
+            {
+                bool result = false;
 
+                var data = await context.Appointments.FindAsync(Id);
+
+                if (data != null)
+                {
+                    context.Appointments.Remove(data);
+
+                    await context.SaveChangesAsync();
+
+                    result = true;
+                }
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+
+                return false;
+            }
+        }
     }
 }

@@ -325,11 +325,8 @@ namespace FertilityPoint.BLL.Repositories.MpesaStkModule
 
                 mpesaPaymentDTO.ReceiptNo = receiptNumber;
 
-                //long timestamp = long.Parse(mpesaPaymentDTO.TransactionDate);
+                var msisdn = FormatPhoneNumber(mpesaPaymentDTO.PhoneNumber);
 
-                //DateTime NewTransactionDate = GetDateTimeFromInt(timestamp).Value;
-
-                //mpesaPaymentDTO.TransactionDate = NewTransactionDate.ToString();
 
                 mpesaPaymentDTO.IsPaymentUsed = 0;
 
@@ -342,7 +339,7 @@ namespace FertilityPoint.BLL.Repositories.MpesaStkModule
 
                     TransactionDate = mpesaPaymentDTO.TransactionDate,
 
-                    PhoneNumber = mpesaPaymentDTO.PhoneNumber,
+                    PhoneNumber = msisdn,
 
                     ReceiptNo = mpesaPaymentDTO.ReceiptNo,
 
@@ -369,5 +366,27 @@ namespace FertilityPoint.BLL.Repositories.MpesaStkModule
 
         }
 
+
+        public string FormatPhoneNumber(string phoneNumber)
+        {
+            if (string.IsNullOrWhiteSpace(phoneNumber))
+                return string.Empty;
+
+            string formatted = "";
+
+            if (phoneNumber.StartsWith("0"))
+                formatted = "254" + phoneNumber.Substring(1, phoneNumber.Length - 1);
+
+            if (phoneNumber.StartsWith("7"))
+                formatted = "254" + phoneNumber;
+
+            if (phoneNumber.StartsWith("254"))
+                formatted = phoneNumber;
+
+            if (phoneNumber.StartsWith("254"))
+                formatted = phoneNumber;
+
+            return formatted;
+        }
     }
 }

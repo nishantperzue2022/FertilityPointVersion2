@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "CreatePayment";
+    Layout = "~/Areas/SuperAdmin/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+    <div class="page-wrapper" style="min-height: 754px;background-color: #f8f9fa;">
+        <div class="content container-fluid">
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Create Payment</div>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="container">
+                            <div class="clear">
+                                <form action="~/Admin/Reports/DownloadAllAgents/" method="post">
+
+                                    <div class="">
+
+                                        <div class="form-group row">
+                                            <label for="exampleDataList" class="form-label">Select Role Name</label>
+                                            <select class="form-control" name="RoleName">
+                                                <option value="all">All</option>
+                                                <option value="Agents">Agents</option>
+                                                <option value="RMs">RMs</option>
+                                                <option value="ARMs">ARMs</option>
+
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="exampleDataList" class="form-label">Select Status</label>
+                                            <select class="form-control" name="RoleName">
+                                                <option value="all">All</option>
+                                                <option value="Agents">Disabled</option>
+                                                <option value="RMs">Active</option>
+
+
+                                            </select>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <input type="submit" class="form-control btn btn-outline-primary" value="Download Master Dump File">
+                                        </div>
+
+                                    </div>
+
+
+                                    @if (TempData["other_Error"] != null)
+                                    {
+                                        <div class="alert alert-danger" role="alert">
+                                            @TempData["other_Error"]
+                                        </div>
+                                    }
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+
+
+

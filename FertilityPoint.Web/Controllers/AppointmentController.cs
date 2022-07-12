@@ -94,7 +94,7 @@ namespace FertilityPoint.Controllers
             {
                 Console.WriteLine(ex.Message);
 
-                TempData["Error"] = "Something went wrong";
+               // TempData["Error"] = "Something went wrong";
 
                 return RedirectToAction("", "Home", new { area = "" });
             }
@@ -141,7 +141,9 @@ namespace FertilityPoint.Controllers
             {
                 Console.WriteLine(ex.Message);
 
-                return null;
+                //TempData["Error"] = "Something went wrong";
+
+                return RedirectToAction("", "Home", new { area = "" });
             }
         }
 
@@ -269,22 +271,22 @@ namespace FertilityPoint.Controllers
                     return Json(new { success = false, responseText = "Please select appointment time" });
                 }
 
-                if (appointmentDTO.TransactionNumber == null || appointmentDTO.Email == string.Empty)
-                {
-                    return Json(new { success = false, responseText = "Mpesa Transaction Number is a required field" });
-                }
+                //if (appointmentDTO.TransactionNumber == null || appointmentDTO.Email == string.Empty)
+                //{
+                //    return Json(new { success = false, responseText = "Mpesa Transaction Number is a required field" });
+                //}
 
                 if (appointmentDTO.AppointmentDate.GetHashCode() == 0)
                 {
                     return Json(new { success = false, responseText = "Appointment date is a required field" });
                 }
 
-                var isPaymentExists = paymentRepository.IsTransactionExists(appointmentDTO.TransactionNumber);
+                //var isPaymentExists = paymentRepository.IsTransactionExists(appointmentDTO.TransactionNumber);
 
-                if (isPaymentExists == false)
-                {
-                    return Json(new { success = false, responseText = "Payment details could not be found ! " });
-                }
+                //if (isPaymentExists == false)
+                //{
+                //    return Json(new { success = false, responseText = "Payment details could not be found ! " });
+                //}
 
                 var validateEmail = ValidateEmail.Validate(appointmentDTO.Email);
 
@@ -299,11 +301,11 @@ namespace FertilityPoint.Controllers
 
                 var validatePayment = paymentRepository.ValidatePayment(appointmentDTO.TransactionNumber);
 
-                if (validatePayment == false)
-                {
-                    return Json(new { success = false, responseText = "Sorry ! booking not successfull.Please make full payment" });
+                //if (validatePayment == false)
+                //{
+                //    return Json(new { success = false, responseText = "Sorry ! booking not successfull.Please make full payment" });
 
-                }
+                //}
 
                 if (validateEmail.Success == true)
                 {
@@ -384,7 +386,7 @@ namespace FertilityPoint.Controllers
 
                 int amount = Convert.ToInt32(get_Service_Details.Amount);
 
-                var msisdn = formatPhoneNumber(lipaMpesa.PhoneNumber);
+                var msisdn = FormatPhoneNumber(lipaMpesa.PhoneNumber);
 
                 string url = @"https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
 
@@ -394,7 +396,7 @@ namespace FertilityPoint.Controllers
 
                 var secrete = "25CuZHuXfaG3gTij";
 
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + await generateAccessToken(key, secrete));
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + await GenerateAccessToken(key, secrete));
 
                 var mpesaCallbackURL = config.GetValue<string>("MpesaSTKCallBackURL:URL");
 
@@ -495,7 +497,7 @@ namespace FertilityPoint.Controllers
                 return null;
             }
         }
-        public async Task<string> generateAccessToken(string key, string secrete)
+        public async Task<string> GenerateAccessToken(string key, string secrete)
         {
             try
             {
@@ -524,7 +526,7 @@ namespace FertilityPoint.Controllers
                 return null;
             }
         }
-        public string formatPhoneNumber(string phoneNumber)
+        public string FormatPhoneNumber(string phoneNumber)
         {
             if (string.IsNullOrWhiteSpace(phoneNumber))
                 return string.Empty;

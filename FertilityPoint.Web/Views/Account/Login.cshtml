@@ -66,7 +66,7 @@
     </div>
 
 
-    <script src="assets/js/jquery-3.6.0.min.js" type="f51237f83cd28e0c20cd2f71-text/javascript"></script>
+    <script src="~/dashboard/assets/js/jquery-3.6.0.min.js"></script>
 
     <script src="~/dashboard/assets/js/bootstrap.bundle.min.js" type="efa6f651afd8f2f4a356ad85-text/javascript"></script>
 
@@ -77,7 +77,7 @@
 
 </body>
 
-<script src="~/lib/jquery/dist/jquery.js"></script>
+
 
 <script>
 
@@ -124,11 +124,17 @@
                 } else {
 
                     var role = result.role;
-                       
+
                     if (role == "Admin") {
 
                         window.location = "@Url.Action("Index","Dashboard", new { area="Admin" })";
                     }
+
+                    else if (role == "SuperAdmin") {
+
+                        window.location = "@Url.Action("Index","Dashboard", new { area="SuperAdmin" })";
+                    }
+
                     else {
                         alert("No environment for you")
 

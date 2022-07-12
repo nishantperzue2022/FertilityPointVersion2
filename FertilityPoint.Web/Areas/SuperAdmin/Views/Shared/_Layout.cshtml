@@ -156,7 +156,7 @@
 
                                     var roles = (await UserManager.GetRolesAsync(user)).FirstOrDefault();
 
-                                    if (roles == "Admin")
+                                    if (roles == "SuperAdmin")
                                     {
                                         <h6>@User.FindFirst("UserFirstName").Value</h6>
 

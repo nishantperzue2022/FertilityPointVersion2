@@ -1,0 +1,370 @@
+﻿@using FertilityPoint.DAL.Modules
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@model FertilityPoint.DTO.DashboardModule.DashboardDTO
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/SuperAdmin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<link href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title">
+
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+
+                            var user = await UserManager.FindByEmailAsync(User.Identity.Name);
+
+                            var roles = (await UserManager.GetRolesAsync(user)).FirstOrDefault();
+
+
+                            if (roles == "SuperAdmin")
+                            {
+                                <strong>Welcome @User.FindFirst("UserFirstName").Value !</strong>
+
+                            }
+
+                            else
+                            {
+                                var url = "/Account/Logout";
+
+                                Context.Response.Redirect(url);
+                            }
+
+                        }
+                        else
+                        {
+                            var url = "/Account/Logout";
+
+                            Context.Response.Redirect(url);
+
+                        }
+
+                    </h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class="dash-widget-icon text-primary border-primary">
+                                <i class="fe fe-users"></i>
+                            </span>
+                            <div class="dash-count">
+                                <h3>@ViewBag.Patients</h3>
+                            </div>
+                        </div>
+                        <div class="dash-widget-info">
+                            <h6 class="text-muted">Patients</h6>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-primary w-50"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class="dash-widget-icon text-danger border-danger">
+                                <i class="fe fe-money"></i>
+                            </span>
+                            <div class="dash-count">
+                                <h3>@ViewBag.Appointment</h3>
+                            </div>
+                        </div>
+                        <div class="dash-widget-info">
+                            <h6 class="text-muted">Appointment</h6>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-danger w-50"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class="dash-widget-icon text-primary border-primary">
+                                <i class="fe fe-users"></i>
+                            </span>
+                            <div class="dash-count">
+                                <h3>@ViewBag.PendingAppointment</h3>
+                            </div>
+                        </div>
+                        <div class="dash-widget-info">
+                            <h6 class="text-muted">Pending Appointments</h6>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-primary w-50"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class="dash-widget-icon text-warning border-warning">
+                                <i class="fe fe-folder"></i>
+                            </span>
+                            <div class="dash-count">
+                                <h3>@ViewBag.Revenue</h3>
+                            </div>
+                        </div>
+                        <div class="dash-widget-info">
+                            <h6 class="text-muted">Revenue</h6>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-warning w-50"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-lg-6">
+
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <h4 class="card-title">Revenue</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="morrisArea"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-12 col-lg-6">
+
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <h4 class="card-title">Status</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="morrisLine"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6 d-flex">
+
+                <div class="card card-table flex-fill">
+                    <div class="card-header">
+                        <h4 class="card-title">Doctors List</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>SN.</th>
+                                        <th>Doctor Name</th>
+                                        <th>Speciality</th>
+                                        <th>Entry Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @if (Model.SystemsUsers != null && Model.SystemsUsers.Count() > 0)
+                                    {
+                                        int count = 1;
+
+                                        @foreach (var item in Model.SystemsUsers)
+                                        {
+                                            <tr>
+                                                <td>@count</td>
+
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="/Admin/UserManager/Profile/@item.Id">@item.FullName</a>
+                                                    </h2>
+                                                </td>
+                                                <td>@item.SpecialityName</td>
+                                                <td>@item.CreateDate.ToShortDateString()</td>
+                                                <td>
+                                                    @{
+                                                        var status = item.isActive;
+
+                                                        if (status == true)
+                                                        {
+                                                            <span class="activeUser success-status">Active</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="disabledUser ">Disabled</span>
+                                                        }
+                                                    }
+                                                </td>
+
+                                            </tr>
+
+                                            count++;
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 d-flex">
+
+                <div class="card  card-table flex-fill">
+                    <div class="card-header">
+                        <h4 class="card-title">Patients List</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>SN.</th>
+                                        <th>Name</th>
+                                        <th>Phone</th>
+                    
+                                        <th>Entry Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @if (Model.PatientList != null && Model.PatientList.Count() > 0)
+                                    {
+                                        int count = 1;
+
+                                        @foreach (var item in Model.PatientList)
+                                        {
+                                            <tr>
+                                                <td>@count</td>
+
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="/Admin/Patients/Profile/@item.Id">@item.FullName </a>
+                                                    </h2>
+                                                </td>
+                                                <td>@item.PhoneNumber</td>
+                                   
+                                                <td class="text-end">@item.CreateDate.ToShortDateString()</td>
+
+                                            </tr>
+
+                                            count++;
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-table">
+                    <div class="card-header">
+                        <h4 class="card-title">Appointment List</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>SN</th>
+                                        <th>Patient Name</th>
+                                        <th>Apointment Time</th>
+                                        <th>Status</th>
+                                        <th class="text-end">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @if (Model.AppointmentList != null && Model.AppointmentList.Count() > 0)
+                                    {
+                                        int count = 1;
+
+                                        @foreach (var item in Model.AppointmentList)
+                                        {
+                                            <tr>
+                                                <td>@count</td>
+
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="#">@item.FullName </a>
+                                                    </h2>
+                                                </td>
+                                                <td>
+                                                    @item.AppointmentDate.ToShortDateString()
+                                                    <span class="text-primary d-block">@item.TimeSlot</span>
+                                                </td>
+                                                <td>
+                                                    @{
+                                                        var status = item.Status;
+
+                                                        if (status == 0)
+                                                        {
+                                                            <span class="pending">Pending</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="activeUser ">Approved</span>
+                                                        }
+                                                    }
+                                                </td>
+                                                <td class="text-end">
+                                                    <a class="btn btn-success btn-sm " href="#" onclick="ApproveAppointment('@item.Id')" value="">Approve</a>
+                                                </td>
+                                            </tr>
+
+                                            count++;
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/fertilitypoint/appointment.js"></script>

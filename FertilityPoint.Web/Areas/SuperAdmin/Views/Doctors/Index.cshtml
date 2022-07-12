@@ -1,0 +1,124 @@
+﻿@model IEnumerable<FertilityPoint.DTO.ApplicationUserModule.ApplicationUserDTO>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/SuperAdmin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<link href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<body>
+    <div class="page-wrapper" style="min-height: 754px;background-color: #f8f9fa;">
+        <div class="content container-fluid">
+
+            <div class="row">
+                <div class="col-sm-3 col-auto">
+                    <h3 class="page-title">List of Doctors</h3>
+                </div>
+                <div class="col-md-9">
+                    @*                    <button type="button" class="btn btn-success btn-sm  pull-right" data-toggle="modal" data-target="#modalTimeSlot" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  </button>
+                    *@
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+
+                    <table id="doctors" class="table  table-sm" cellspacing="0" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>SN.</th>
+                                <th>Name</th>
+                                <th>Phone Number</th>
+                                <th>Email</th>
+                                <th>Speciality</th>
+                                <th>Role</th>
+                                <th>Member Since</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (Model != null && Model.Count() > 0)
+                            {
+                                int count = 1;
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@count</td>
+                                        <td>
+                                            <a href="/Admin/UserManager/Profile/@item.Id">@item.FullName</a>
+
+                                        </td>
+                                        <td>@item.PhoneNumber</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.SpecialityName</td>
+                                        <td>@item.RoleName</td>
+
+                                        <td>@item.CreateDate.ToShortDateString()</td>
+                                        <td>
+                                            @{
+                                                var status = item.isActive;
+
+                                                if (status == true)
+                                                {
+                                                    <span class="activeUser ">Active</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="disabledUser ">Disabled</span>
+                                                }
+                                            }
+                                        </td>
+
+                                        <td>
+                                            <a class="btn btn-success btn btn-sm" href="#" onclick="GetUser('@item.Id')" value="">Edit</a>
+
+                                            <a class="btn btn-info btn btn-sm" href="#" onclick="ViewDetail('@item.Id')" value="">View</a>
+
+                                        </td>
+
+                                    </tr>
+                                    count++;
+                                }
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</body>
+
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="~/fertilitypoint/timeslot.js"></script>
+
+
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function() {
+        var table = $('#doctors').DataTable({
+            responsive: true
+        });
+
+        //GetPostalCodes();
+    });
+
+</script>
+
+
+
+
+

@@ -14,7 +14,6 @@
     <Compile Remove="Areas\Doctor\Views\**" />
     <Compile Remove="Areas\SuperAdmin\Data\**" />
     <Compile Remove="Areas\SuperAdmin\Models\**" />
-    <Compile Remove="Areas\SuperAdmin\Views\**" />
     <Content Remove="Areas\Admin\Data\**" />
     <Content Remove="Areas\Admin\Models\**" />
     <Content Remove="Areas\Doctor\Data\**" />
@@ -22,7 +21,6 @@
     <Content Remove="Areas\Doctor\Views\**" />
     <Content Remove="Areas\SuperAdmin\Data\**" />
     <Content Remove="Areas\SuperAdmin\Models\**" />
-    <Content Remove="Areas\SuperAdmin\Views\**" />
     <EmbeddedResource Remove="Areas\Admin\Data\**" />
     <EmbeddedResource Remove="Areas\Admin\Models\**" />
     <EmbeddedResource Remove="Areas\Doctor\Data\**" />
@@ -30,7 +28,6 @@
     <EmbeddedResource Remove="Areas\Doctor\Views\**" />
     <EmbeddedResource Remove="Areas\SuperAdmin\Data\**" />
     <EmbeddedResource Remove="Areas\SuperAdmin\Models\**" />
-    <EmbeddedResource Remove="Areas\SuperAdmin\Views\**" />
     <None Remove="Areas\Admin\Data\**" />
     <None Remove="Areas\Admin\Models\**" />
     <None Remove="Areas\Doctor\Data\**" />
@@ -38,7 +35,6 @@
     <None Remove="Areas\Doctor\Views\**" />
     <None Remove="Areas\SuperAdmin\Data\**" />
     <None Remove="Areas\SuperAdmin\Models\**" />
-    <None Remove="Areas\SuperAdmin\Views\**" />
   </ItemGroup>
 
   <ItemGroup>
