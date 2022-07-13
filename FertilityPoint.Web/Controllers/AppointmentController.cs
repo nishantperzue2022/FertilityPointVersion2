@@ -266,7 +266,7 @@ namespace FertilityPoint.Controllers
                     return Json(new { success = false, responseText = "Email is a required field" });
                 }
 
-                if (appointmentDTO.TimeId == Guid.Empty)
+                if (appointmentDTO.TimeSlotId == Guid.Empty)
                 {
                     return Json(new { success = false, responseText = "Please select appointment time" });
                 }
@@ -290,7 +290,7 @@ namespace FertilityPoint.Controllers
 
                 var validateEmail = ValidateEmail.Validate(appointmentDTO.Email);
 
-                var get_slot = timeSlotRepository.GetById(appointmentDTO.TimeId);
+                var get_slot = timeSlotRepository.GetById(appointmentDTO.TimeSlotId);
 
                 if(get_slot == null)
                 {

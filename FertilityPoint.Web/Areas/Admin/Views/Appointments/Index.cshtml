@@ -8,6 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <link href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 
+
 <body>
     <div class="page-wrapper" style="min-height: 754px;background-color: #f8f9fa;">
         <div class="content container-fluid">
@@ -25,12 +26,13 @@
             <div class="card">
                 <div class="card-body">
 
-                    <table id="specialist" class="table table-sm">
+                    <table id="appointment" class="table table-sm">
                         <thead>
                             <tr>
                                 <th>SN.</th>
                                 <th>Patient Name</th>
                                 <th>Appointment Time</th>
+                                <th>Date Created</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -49,8 +51,12 @@
 
                                         <td>
                                             @item.AppointmentDate.ToShortDateString()
+
                                             <span class="text-primary d-block">@item.TimeSlot</span>
                                         </td>
+
+                                        <td>@item.CreateDate.ToShortDateString()</td>
+
                                         <td>
                                             @{
                                                 var status = item.Status;
@@ -67,6 +73,7 @@
                                         </td>
                                         <td class="text-end">
                                             <a class="btn btn-success btn-sm " href="#" onclick="GetAppointment('@item.Id')" value="">Approve</a>
+                                            <a class="btn btn-primary btn-sm " href="#" onclick="GetRescheduleDetails('@item.Id')" value="">Reschedule</a>
                                         </td>
                                     </tr>
                                     count++;
@@ -81,13 +88,10 @@
 </body>
 
 
-<!-- Button trigger modal -->
-<!-- Modal -->
-
-
+<!-- Approve appointment -->
 
 <div class="modal fade" id="ModalApproveAppointment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">
@@ -104,7 +108,7 @@
                     <input type="hidden" id="txtAppointmentId" name="Id" />
 
                     <div class="form-group row">
-                        <div class="bg-dark col-12 text-center text-white" style="width:100px;height:80px; font-size:20px; margin-top:-1rem;">
+                        <div class="bg-dark col-12 text-center text-white" style="width:100px;height:50px; font-size:20px; margin-top:-1rem;">
                             <div class="text-center">
                                 <label id="txtPatientName">   </label>
                             </div>
@@ -158,128 +162,165 @@
     </div>
 </div>
 
+<!-- End Approve appointment -->
+<!-- Reschedule appointment -->
+
+<div class="modal fade" id="ModalRescheduleAppointment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">
+                    Reschedule Appointment
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+
+                <form id="frmRescheduleAppointment">
+
+                    <input type="hidden" id="txtAppointmentId1" name="Id" />
+                    <input type="hidden" id="txtTimeSlotIdId1" name="OldTimeSlotId" />
+
+                    <div class="form-group row">
+                        <div class="bg-dark col-12 text-center text-white" style="width:100px;height:50px; font-size:20px; margin-top:-1rem;">
+                            <div class="text-center">
+                                <label id="txtPatientName1">   </label>
+                            </div>
+                            <div class="">
+                                <img src="~/dashboard/assets/img/patient-user-settings.png" class="img" />
+
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="col-lg-12">
+
+                            <div class="text-dark" style="font-size:15px; font-weight:bold;">
+                                <label id="NewCreateDate"></label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="container">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <label><strong>Phone Number:</strong></label>
+                                <label id="txtPhoneNumber1">   </label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label><strong>Email:</strong></label>
+                                <label id="txtEmail1">   </label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label><strong>Appointment Time:</strong></label>
+                                <label id="txtAppointmentTime1">   </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label><strong>Appointment Date:</strong></label>
+                                <label id="txtAppointmentDate1">   </label>
+                            </div>
+                        </div>
+
+
+                        <hr />
+
+                        <div class="container">
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label>Select Appointment Date</label>
+                                            <input type="text" name="NewAppointmentDate" onchange="GetSlotsByDateReschedule(this)" id="txtAppointmentDateReschedule" class="form-control" value='@DateTime.Now.ToString("MM/dd/yyyy")' autocomplete="off" />
+                                        </div>
+
+
+                                        <div class="">
+                                            <div id="slots">
+                                            </div>
+                                        </div>
+
+                                        <div class="">
+                                            <div id="divShowMessage" style="display:none;">
+                                                <div class="alert alert-danger" role="alert" id="error">
+                                                    <div id="divmessage"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button onclick="RescheduleAppointment(this)" type="button" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Reschedule appointment -->
+
+
+
 <style>
-        .img {
+    .label {
+        border: 1px solid;
+        margin: 5px;
+        padding: 10px;
+        cursor: pointer;
+        width: 11rem;
+        color: #455A64;
+    }
+
+        .label input {
+            position: absolute;
+            display: none;
+            color: #fff !important;
+        }
+
+    .img {
         height: 3em;
-        margin-top: 0em;
+        margin-top: -0.5em;
         background: transparent;
         border: 5px solid white;
         border-radius: 40px;
     }
 </style>
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="~/fertilitypoint/appointment.js"></script>
+
 
 
 <script type="text/javascript">
 
     $(document).ready(function() {
-        $('#specialist').DataTable();
+        $('#appointment').DataTable();
     });
 
-    function ShowLoader() {
-
-        $("#loadMe").modal('show');
-    }
-
-    function HideLoader() {
-
-        $("#loadMe").modal('hide');
-    }
-
-
-
-    function ApproveAppointment() {
-
-        $("#ModalApproveAppointment").modal('hide');
-
-        var data = $("#frmApproveAppointment").serialize();
-
-        $.ajax({
-
-            type: "POST",
-
-            url: "/Admin/Appointments/ApproveAppointment/",
-
-            data: data,
-
-            beforeSend: function() { ShowLoader(); },
-
-            success: function(response) {
-
-                if (response.success) {
-
-                    swal({
-
-                        position: 'top-end',
-
-                        type: "success",
-
-                        title: response.responseText,
-
-                        showConfirmButton: false,
-
-                    }), setTimeout(function() { location.reload(); }, 3000);
-
-                } else {
-
-                    swal({
-
-                        position: 'top-end',
-
-                        type: "error",
-
-                        title: response.responseText,
-
-                        showConfirmButton: true,
-
-                        timer: 5000,
-                    });
-
-
-                }
-            },
-
-            error: function(response) {
-                alert("error!");
-            },
-            complete: function() {
-                HideLoader();
-            }
-        })
-
-    }
-
-
-    function GetAppointment(e) {
-
-        var id = e;
-
-        console.log(id);
-
-        $.get("/Admin/Appointments/GetById/?Id=" + id, function(data, status) {
-            console.log(data);
-            if (data.data == false) {
-                alert("Does not exist");
-            } else {
-
-                $("#txtAppointmentId").val(data.data.id);
-                $("#txtAppointmentTime").text(data.data.timeSlot);
-                $("#txtAppointmentDate").text(data.data.newAppDate);
-                $("#txtPatientName").text(data.data.fullName);
-                $("#txtEmail").text(data.data.email);
-                $("#txtPhoneNumber").text(data.data.phoneNumber);
-                $("#txtpatientId").val(data.data.patientId);
-
-
-
-                $('#ModalApproveAppointment').modal({ backdrop: 'static', keyboard: false })
-
-                $("#ModalApproveAppointment").modal('show');
-
-            }
-
-        });
-    };
+    $(function() {
+        $("#txtAppointmentDateReschedule").datepicker();
+    });
 
 </script>
 

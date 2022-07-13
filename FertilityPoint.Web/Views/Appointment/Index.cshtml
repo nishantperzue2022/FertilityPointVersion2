@@ -4,6 +4,7 @@
 }
 
 <link href="~/booking/css/style.css" rel="stylesheet" />
+
 <link href="~/css/appointment.css" rel="stylesheet" />
 
 <html>
@@ -296,6 +297,7 @@
     <link href="~/SweetAlart/sweetalert.min.css" rel="stylesheet" />
     <script src="~/SweetAlart/sweetalert.min.js"></script>
     <script src="~/fertilitypoint/appointment.js"></script>
+
 </body>
 </html>
 
@@ -323,12 +325,8 @@
 
     $("#txtAppointmentDate").datepicker({ minDate: 0 });
 
+    $('#divCloseError').delay(3000).hide(1000);
 
-    $('#divCloseError').delay(1000).hide(500);
-
-
-    $('#divCloseSuccess').delay(5000).fadeOut('slow');
-
-
+    $('#divCloseSuccess').delay(3000).fadeOut('slow');
 
 </script>

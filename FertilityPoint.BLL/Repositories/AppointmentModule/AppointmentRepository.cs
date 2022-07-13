@@ -25,7 +25,6 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
         {
             try
             {
-                //var appointment = mapper.Map<Appointment>(appointmentDTO);
                 appointmentDTO.Id = Guid.NewGuid();
 
                 var appointment = new Appointment
@@ -40,7 +39,7 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
                     PatientId = appointmentDTO.PatientId,
 
-                    TimeSlotId = appointmentDTO.TimeId,
+                    TimeSlotId = appointmentDTO.TimeSlotId,
 
                     TransactionNumber = appointmentDTO.TransactionNumber,
 
@@ -54,8 +53,6 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
                 UpdateSlot(appointmentDTO);
 
-                //UpdatePaymentStatus(appointmentDTO);
-
                 return appointmentDTO;
             }
             catch (Exception ex)
@@ -67,7 +64,7 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
         }
         public bool UpdateSlot(AppointmentDTO appointmentDTO)
         {
-            var getSlot = context.TimeSlots.Find(appointmentDTO.TimeId);
+            var getSlot = context.TimeSlots.Find(appointmentDTO.TimeSlotId);
 
             if (getSlot != null)
             {
@@ -129,7 +126,7 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
                                         LastName = patient.LastName,
 
-                                        TimeId = appointment.TimeSlotId,
+                                        TimeSlotId = appointment.TimeSlotId,
 
                                         FromTime = timslot.FromTime,
 
@@ -184,7 +181,7 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
                                         LastName = patient.LastName,
 
-                                        TimeId = appointment.TimeSlotId,
+                                        TimeSlotId = appointment.TimeSlotId,
 
                                         ToTime = timslot.ToTime,
 
@@ -245,7 +242,7 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
                                         Email = patient.Email,
 
-                                        TimeId = appointment.TimeSlotId,
+                                        TimeSlotId = appointment.TimeSlotId,
 
                                         ToTime = timslot.ToTime,
 
@@ -266,7 +263,6 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
                 return null;
             }
         }
-
         public async Task<bool> ApproveAppointment(AppointmentDTO appointmentDTO)
         {
             try
@@ -301,7 +297,6 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
                 return false;
             }
         }
-
         public async Task<bool> Delete(Guid Id)
         {
             try
@@ -329,6 +324,61 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
                 return false;
             }
+        }
+        public async Task<AppointmentDTO> RescheduleAppointment(AppointmentDTO appointmentDTO)
+        {
+            try
+            {
+                var data = await context.Appointments.FindAsync(appointmentDTO.Id);
+
+                if (data != null)
+                {
+                    using (var transaction = context.Database.BeginTransaction())
+                    {
+                        data.AppointmentDate = appointmentDTO.AppointmentDate;
+
+                        data.TimeSlotId = appointmentDTO.TimeSlotId;
+
+                        transaction.Commit();
+                    }
+
+                    await context.SaveChangesAsync();
+
+                    UpdateSlot(appointmentDTO);
+
+                    VacateSlot(appointmentDTO.OldTimeSlotId);
+
+                    return appointmentDTO;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+        }
+
+        public bool VacateSlot(Guid TimeSlotId)
+        {
+            var getSlot = context.TimeSlots.Find(TimeSlotId);
+
+            if (getSlot != null)
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    getSlot.IsBooked = 0;
+
+                    transaction.Commit();
+
+                    context.SaveChanges();
+                }
+                return true;
+            }
+
+            return false;
         }
     }
 }

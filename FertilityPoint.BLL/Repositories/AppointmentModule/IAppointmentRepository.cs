@@ -10,6 +10,7 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
         Task<List<AppointmentDTO>> GetAll();
         Task<AppointmentDTO> GetById(Guid Id);
         Task<AppointmentDTO> Create(AppointmentDTO appointmentDTO);
+        Task<AppointmentDTO> RescheduleAppointment(AppointmentDTO appointmentDTO);
         AppointmentDTO GetTransaction(Guid Id);
         Task<bool> ApproveAppointment(AppointmentDTO appointmentDTO);
         Task<bool> Delete(Guid Id);

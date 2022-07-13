@@ -75,7 +75,7 @@ namespace FertilityPoint.Web.Areas.SuperAdmin.Controllers
 
                         LastName = appointment.LastName,
 
-                        TimeId = appointment.TimeId,
+                        TimeSlotId = appointment.TimeSlotId,
 
                         TimeSlot = appointment.FromTime.ToString("h:mm tt") + " - " + appointment.ToTime.ToString("h:mm tt"),
                     };

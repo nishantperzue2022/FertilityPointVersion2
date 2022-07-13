@@ -31,6 +31,7 @@
                                 <th>SN.</th>
                                 <th>Patient Name</th>
                                 <th>Appointment Time</th>
+                                <th>Date Created</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -51,6 +52,7 @@
                                             @item.AppointmentDate.ToShortDateString()
                                             <span class="text-primary d-block">@item.TimeSlot</span>
                                         </td>
+                                          <td>@item.CreateDate.ToShortDateString()</td>
                                         <td>
                                             @{
                                                 var status = item.Status;

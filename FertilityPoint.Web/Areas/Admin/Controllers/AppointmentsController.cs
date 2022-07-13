@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -50,7 +51,6 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                 return RedirectToAction("Login", "Account", new { area = "" });
             }
         }
-
         public async Task<IActionResult> GetById(Guid Id)
         {
             try
@@ -77,7 +77,7 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
                         LastName = appointment.LastName,
 
-                        TimeId = appointment.TimeId,
+                        TimeSlotId = appointment.TimeSlotId,
 
                         TimeSlot = appointment.FromTime.ToString("h:mm tt") + " - " + appointment.ToTime.ToString("h:mm tt"),
                     };
@@ -97,9 +97,6 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
             }
 
         }
-
-
-
         public async Task<IActionResult> ApproveAppointment(AppointmentDTO appointmentDTO)
         {
             try
@@ -152,5 +149,39 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
             }
 
         }
+        public async Task<IActionResult> RescheduleAppointment(AppointmentDTO appointmentDTO)
+        {
+            try
+            {
+                var user = await userManager.FindByEmailAsync(User.Identity.Name);
+
+                appointmentDTO.RescheduledBy = user.Id;
+
+                var appointmentDate = appointmentDTO.NewAppointmentDate;
+
+                DateTime oDate = DateTime.ParseExact(appointmentDate, "M/d/yyyy", CultureInfo.InvariantCulture);
+
+                appointmentDTO.AppointmentDate = oDate;
+
+                var result = await appointmentRepository.RescheduleAppointment(appointmentDTO);
+
+                if (result != null)
+                {
+                    return Json(new { success = true, responseText = "Appointment has been successfully rescheduled" });
+                }
+                else
+                {
+                    return Json(new { success = false, responseText = "Failed to reschedule appointment" });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+        }
+
+
     }
 }

@@ -1,8 +1,6 @@
 ﻿$(document).ready(function () {
 
 
-
-
     $.ajax({
         type: "GET",
         url: "/Appointment/GetSlots/",
@@ -42,8 +40,8 @@
 
                     let input = document.createElement("input");
                     input.type = "radio";
-                    input.id = "txtTimeId";
-                    input.name = "TimeId";
+                    input.id = "txtTimeSlotId";
+                    input.name = "TimeSlotId";
                     input.value = value.slotId;
                     input.onchange = GetTimeSlotId;
 
@@ -61,6 +59,15 @@
 
 });
 
+function ShowLoader() {
+
+    $("#loadMe").modal('show');
+}
+
+function HideLoader() {
+
+    $("#loadMe").modal('hide');
+}
 
 
 
@@ -109,16 +116,6 @@ function GetTimeSlotId() {
 
 }
 
-function ShowLoader() {
-
-    $("#loadMe").modal('show');
-}
-
-function HideLoader() {
-
-    $("#loadMe").modal('hide');
-}
-
 function stkSelected() {
 
     document.getElementById('divPaybill').style.display = 'none';
@@ -133,7 +130,6 @@ function showInvoice() {
     document.getElementById('dvinvoice').style.display = 'block';
 }
 
-
 function payBillSelected() {
 
     document.getElementById('divSTK').style.display = 'none';
@@ -143,7 +139,6 @@ function payBillSelected() {
     document.getElementById("errorMsg").style.display = "none";
 
 }
-
 
 function SendStkPush() {
 
@@ -292,8 +287,6 @@ function SubmitAppointment() {
     }
 
 
-
-
     //if ($('#txtTransactionNumber').val() == '') {
     //    $('#txtTransactionNumber').focus();
     //    swal({
@@ -394,7 +387,6 @@ function SubmitAppointment() {
 
 }
 
-
 // the selector will match all input controls of type :checkbox
 // and attach a click event handler
 $("input:checkbox").on('click', function () {
@@ -412,8 +404,6 @@ $("input:checkbox").on('click', function () {
         $box.prop("checked", false);
     }
 });
-
-
 
 $(document).ready(function () {
 
@@ -436,9 +426,6 @@ $(document).ready(function () {
 });
 
 
-
-
-
 var currentTab = 0; // Current tab is set to be the first tab (0)
 
 showTab(currentTab); // Display the current tab
@@ -452,7 +439,7 @@ function showTab(n) {
 
         document.getElementById("prevBtn").style.display = "none";
 
-        var isSlotChecked = document.querySelector('input[name = "TimeId"]:checked');
+        var isSlotChecked = document.querySelector('input[name = "TimeSlotId"]:checked');
 
         console.log(isSlotChecked);
 
@@ -489,7 +476,7 @@ function nextPrev(n) {
     var x = document.getElementsByClassName("tab");
 
     // Exit the function if any field in the current tab is invalid:
-   // if (n == 1 && !validateForm()) return false;
+    // if (n == 1 && !validateForm()) return false;
     // Hide the current tab:
     x[currentTab].style.display = "none";
     // Increase or decrease the current tab by 1:
@@ -556,14 +543,11 @@ function fixStepIndicator(n) {
     //... and adds the "active" class on the current step:
     x[n].className += " active";
 
-
 }
 
 $(function () {
     $("#txtAppointmentDate").datepicker();
 });
-
-
 
 function GetSlotsByDate() {
 
@@ -613,8 +597,77 @@ function GetSlotsByDate() {
 
                     let input = document.createElement("input");
                     input.type = "radio";
-                    input.id = "txtTimeId";
-                    input.name = "TimeId";
+                    input.id = "txtTimeSlotId";
+                    input.name = "TimeSlotId";
+                    input.value = value.slotId;
+                    input.onchange = GetTimeSlotId;
+
+
+                    label.appendChild(input);
+                    slots.appendChild(label);
+
+                    IsRadioChecked();
+
+                });
+            }
+
+        }
+
+    });
+
+
+}
+
+function GetSlotsByDateReschedule() {
+
+    var date = $('#txtAppointmentDateReschedule').val();
+
+    console.log(date)
+
+    $("#txtAppDate").text(date);
+
+    $.ajax({
+        type: "GET",
+        url: "/Appointment/GetSlotsByAppointmentDate?AppointmentDate=" + date,
+        data: "{}",
+
+        success: function (data) {
+
+            var arr = data;
+
+            if (arr.length == 0) {
+
+
+                $('#slots').hide();
+
+                $('#divShowMessage').show();
+
+                $("#divmessage").html("Sorry ,there no slots on the selected date ,please select another date");
+            } else {
+
+                $('#slots').show();
+
+                $('#divShowMessage').hide();
+
+                $('#slots').empty();
+
+                $.each(arr, function (index, value) {
+
+                    //console.log('The value at arr [' + index + '] is : ' + value);
+
+
+                    console.log(value);
+
+                    let label = document.createElement("label");
+                    label.innerText = value.slotName;
+                    label.classList.add('btn');
+                    label.classList.add('btn-outline-primary');
+                    label.classList.add('label');
+
+                    let input = document.createElement("input");
+                    input.type = "radio";
+                    input.id = "txtTimeSlotId";
+                    input.name = "TimeSlotId";
                     input.value = value.slotId;
                     input.onchange = GetTimeSlotId;
 
@@ -684,8 +737,8 @@ function GetSlotsByQuickSearch() {
 
                     let input = document.createElement("input");
                     input.type = "radio";
-                    input.id = "txtTimeId";
-                    input.name = "TimeId";
+                    input.id = "txtTimeSlotId";
+                    input.name = "TimeSlotId";
                     input.value = value.slotId;
                     input.onchange = GetTimeSlotId;
 
@@ -703,4 +756,185 @@ function GetSlotsByQuickSearch() {
     });
 
 
+}
+
+function ApproveAppointment() {
+
+    $("#ModalApproveAppointment").modal('hide');
+
+    var data = $("#frmApproveAppointment").serialize();
+
+    $.ajax({
+
+        type: "POST",
+
+        url: "/Admin/Appointments/ApproveAppointment/",
+
+        data: data,
+
+        beforeSend: function () { ShowLoader(); },
+
+        success: function (response) {
+
+            if (response.success) {
+
+                swal({
+
+                    position: 'top-end',
+
+                    type: "success",
+
+                    title: response.responseText,
+
+                    showConfirmButton: false,
+
+                }), setTimeout(function () { location.reload(); }, 3000);
+
+            } else {
+
+                swal({
+
+                    position: 'top-end',
+
+                    type: "error",
+
+                    title: response.responseText,
+
+                    showConfirmButton: true,
+
+                    timer: 5000,
+                });
+
+
+            }
+        },
+
+        error: function (response) {
+            alert("error!");
+        },
+        complete: function () {
+            HideLoader();
+        }
+    })
+
+}
+
+function GetAppointment(e) {
+
+    var id = e;
+
+    console.log(id);
+
+    $.get("/Admin/Appointments/GetById/?Id=" + id, function (data, status) {
+        console.log(data);
+        if (data.data == false) {
+            alert("Does not exist");
+        } else {
+
+            $("#txtAppointmentId").val(data.data.id);
+            $("#txtAppointmentTime").text(data.data.timeSlot);
+            $("#txtAppointmentDate").text(data.data.newAppDate);
+            $("#txtPatientName").text(data.data.fullName);
+            $("#txtEmail").text(data.data.email);
+            $("#txtPhoneNumber").text(data.data.phoneNumber);
+            $("#txtpatientId").val(data.data.patientId);
+
+            $('#ModalApproveAppointment').modal({ backdrop: 'static', keyboard: false })
+
+            $("#ModalApproveAppointment").modal('show');
+
+        }
+
+    });
+};
+
+function GetRescheduleDetails(e) {
+
+    var id = e;
+
+    console.log(id);
+
+    $.get("/Admin/Appointments/GetById/?Id=" + id, function (data, status) {
+        console.log(data);
+        if (data.data == false) {
+            alert("Does not exist");
+        } else {
+
+            $("#txtAppointmentId1").val(data.data.id);
+            $("#txtAppointmentTime1").text(data.data.timeSlot);
+            $("#txtAppointmentDate1").text(data.data.newAppDate);
+            $("#txtPatientName1").text(data.data.fullName);
+            $("#txtEmail1").text(data.data.email);
+            $("#txtPhoneNumber1").text(data.data.phoneNumber);
+            $("#txtpatientId1").val(data.data.patientId);
+            $("#txtTimeSlotIdId1").val(data.data.timeSlotId);
+
+
+            $('#ModalRescheduleAppointment').modal({ backdrop: 'static', keyboard: false })
+
+            $("#ModalRescheduleAppointment").modal('show');
+        }
+
+    });
+};
+
+function RescheduleAppointment() {
+       
+    $("#ModalRescheduleAppointment").modal('hide');
+
+    var data = $("#frmRescheduleAppointment").serialize();
+
+    $.ajax({
+
+        type: "POST",
+
+        url: "/Admin/Appointments/RescheduleAppointment/",
+
+        data: data,
+
+        beforeSend: function () { ShowLoader(); },
+
+        success: function (response) {
+
+            if (response.success) {
+
+
+                swal({
+
+                    position: 'top-end',
+
+                    type: "success",
+
+                    title: response.responseText,
+
+                    showConfirmButton: false,
+
+                }), setTimeout(function () { location.reload(); }, 3000);
+
+            } else {
+
+                swal({
+
+                    position: 'top-end',
+
+                    type: "error",
+
+                    title: response.responseText,
+
+                    showConfirmButton: true,
+
+                    timer: 5000,
+                });
+
+
+            }
+        },
+
+        error: function (response) {
+            alert("error!");
+        },
+        complete: function () {
+            HideLoader();
+        }
+    })
 }
