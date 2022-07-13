@@ -16,6 +16,7 @@ namespace FertilityPoint.DAL.Modules
         public string? ApprovedBy { get; set; }          
         public Guid TimeSlotId { get; set; }
         public virtual TimeSlot TimeSlot { get; set; } = null!;
+        public virtual Patient Patients { get; set; } = null!;
 
     }
 }

@@ -24,6 +24,7 @@ namespace FertilityPoint.DAL.Modules
         public virtual DbSet<Patient> Patients { get; set; } = null!;
         public virtual DbSet<Service> Services { get; set; } = null!;
         public virtual DbSet<PaybillPayment> PaybillPayments { get; set; } = null!;
+        public virtual DbSet<Enquiry>  Enquiries { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

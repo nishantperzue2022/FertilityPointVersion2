@@ -4,6 +4,7 @@ using FertilityPoint.DTO.ApplicationUserModule;
 using FertilityPoint.DTO.AppointmentModule;
 
 using FertilityPoint.DTO.CountyModule;
+using FertilityPoint.DTO.EnquiryModule;
 using FertilityPoint.DTO.MpesaStkModule;
 using FertilityPoint.DTO.PatientModule;
 using FertilityPoint.DTO.ServiceModule;
@@ -39,6 +40,8 @@ namespace FertilityPoint.DAL.MapperProfiles
             CreateMap<Patient, PatientDTO>().ReverseMap();
 
             CreateMap<Service, ServiceDTO>().ReverseMap();
+
+            CreateMap<Enquiry, EnquiryDTO>().ReverseMap();
 
         }
     }

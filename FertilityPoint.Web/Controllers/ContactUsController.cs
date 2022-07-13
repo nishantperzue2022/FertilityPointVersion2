@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using FertilityPoint.BLL.Repositories.EnquiryModule;
 
 namespace FertilityPoint.Controllers
 {
@@ -16,16 +17,20 @@ namespace FertilityPoint.Controllers
     {
         private readonly IMailService mailService;
 
-        public ContactUsController(IMailService mailService)
+        private readonly IEnquiryRepository enquiryRepository;
+        public ContactUsController(IEnquiryRepository enquiryRepository,IMailService mailService)
         {
             this.mailService = mailService;
+
+            this.enquiryRepository = enquiryRepository;
+
         }
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult SendEmail(EnquiryDTO enquiryDTO)
+        public async Task<IActionResult> SendEmail(EnquiryDTO enquiryDTO)
         {
             try
             {
@@ -33,6 +38,9 @@ namespace FertilityPoint.Controllers
                 {
                     return Json(new { success = false, responseText = "Email is a required field" });
                 }
+
+                var result = await enquiryRepository.Create(enquiryDTO);
+
                 var validateEmail = ValidateEmail.Validate(enquiryDTO.Email);
 
                 if (validateEmail.Success == true)
@@ -45,7 +53,7 @@ namespace FertilityPoint.Controllers
                     }
                     else
                     {
-                        return Json(new { success = false, responseText = "Failed to sent message" });
+                        return Json(new { success = false, responseText = "Failed to send message" });
                     }
                 }
                 else

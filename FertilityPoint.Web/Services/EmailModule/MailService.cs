@@ -281,7 +281,7 @@ namespace FertilityPoint.Services.EmailModule
                     mailMessage.To.Add(to);
 
 
-                mailMessage.Subject = enquiryDTO.Subject;
+                mailMessage.Subject = "Enquiry from " + enquiryDTO.Name + " : ";
 
                 var templatePath = env.WebRootPath
                            + Path.DirectorySeparatorChar.ToString()
@@ -306,7 +306,11 @@ namespace FertilityPoint.Services.EmailModule
 
                      enquiryDTO.Name,
 
-                     enquiryDTO.Message
+                     enquiryDTO.Message,
+
+                     enquiryDTO.Email,
+
+                     enquiryDTO.PhoneNumber
 
                     );
 

@@ -4,6 +4,7 @@ using FertilityPoint.DAL.Modules;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FertilityPoint.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220713075411_6")]
+    partial class _6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,8 +51,6 @@ namespace FertilityPoint.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PatientId");
 
                     b.HasIndex("TimeSlotId");
 
@@ -222,6 +222,9 @@ namespace FertilityPoint.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("AppointmentId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -242,6 +245,8 @@ namespace FertilityPoint.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId");
 
                     b.ToTable("Patients");
                 });
@@ -642,21 +647,20 @@ namespace FertilityPoint.DAL.Migrations
 
             modelBuilder.Entity("FertilityPoint.DAL.Modules.Appointment", b =>
                 {
-                    b.HasOne("FertilityPoint.DAL.Modules.Patient", "Patients")
-                        .WithMany()
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("FertilityPoint.DAL.Modules.TimeSlot", "TimeSlot")
                         .WithMany("Appointments")
                         .HasForeignKey("TimeSlotId")
                         .IsRequired()
                         .HasConstraintName("FK_Appointments_TimeSlots");
 
-                    b.Navigation("Patients");
-
                     b.Navigation("TimeSlot");
+                });
+
+            modelBuilder.Entity("FertilityPoint.DAL.Modules.Patient", b =>
+                {
+                    b.HasOne("FertilityPoint.DAL.Modules.Appointment", null)
+                        .WithMany("Patients")
+                        .HasForeignKey("AppointmentId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -708,6 +712,11 @@ namespace FertilityPoint.DAL.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FertilityPoint.DAL.Modules.Appointment", b =>
+                {
+                    b.Navigation("Patients");
                 });
 
             modelBuilder.Entity("FertilityPoint.DAL.Modules.TimeSlot", b =>

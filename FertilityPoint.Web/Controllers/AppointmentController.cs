@@ -347,9 +347,9 @@ namespace FertilityPoint.Controllers
 
                         appointmentDTO.ReceiptURL = url;
 
-                        var sendClientEmail = mailService.AppointmentEmailNotification(appointmentDTO);
+                        //var sendClientEmail = mailService.AppointmentEmailNotification(appointmentDTO);
 
-                        var sendFertilityPointEmail = await mailService.FertilityPointEmailNotification(appointmentDTO);
+                        //var sendFertilityPointEmail = await mailService.FertilityPointEmailNotification(appointmentDTO);
 
                         return Json(new { success = true, responseText = appointmentDTO.Id });
                     }
