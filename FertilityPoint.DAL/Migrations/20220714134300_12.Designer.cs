@@ -4,6 +4,7 @@ using FertilityPoint.DAL.Modules;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FertilityPoint.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220714134300_12")]
+    partial class _12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -310,16 +312,28 @@ namespace FertilityPoint.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal?>("AmountPaid")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("AmountPaid")
+                        .HasColumnType("float");
 
                     b.Property<string>("Cart")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CountryCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Currency")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Intent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Line1")
@@ -328,19 +342,7 @@ namespace FertilityPoint.DAL.Migrations
                     b.Property<string>("MerchantId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PayerCountryCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PayerEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PayerFirstName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PayerId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PayerLastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentMethod")

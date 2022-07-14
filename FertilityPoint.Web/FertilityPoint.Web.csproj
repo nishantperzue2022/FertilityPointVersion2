@@ -95,7 +95,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.0.6" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.7" />
     <PackageReference Include="MimeKit" Version="3.3.0" />
     <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />
     <PackageReference Include="System.CodeDom" Version="6.0.0" />
@@ -105,6 +105,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FertilityPoint.BLL\FertilityPoint.BLL.csproj" />
+    <ProjectReference Include="..\FertilityPoint.PayPal\FertilityPoint.PayPal.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,6 +7,7 @@ using FertilityPoint.DTO.CountyModule;
 using FertilityPoint.DTO.EnquiryModule;
 using FertilityPoint.DTO.MpesaStkModule;
 using FertilityPoint.DTO.PatientModule;
+using FertilityPoint.DTO.PayPalModule;
 using FertilityPoint.DTO.ServiceModule;
 using FertilityPoint.DTO.SpecialityModule;
 using FertilityPoint.DTO.SubCountyModule;
@@ -42,6 +43,8 @@ namespace FertilityPoint.DAL.MapperProfiles
             CreateMap<Service, ServiceDTO>().ReverseMap();
 
             CreateMap<Enquiry, EnquiryDTO>().ReverseMap();
+
+            CreateMap<PaypalPayment, PaypalPaymentDTO>().ReverseMap();
 
         }
     }

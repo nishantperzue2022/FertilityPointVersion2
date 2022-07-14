@@ -17,6 +17,7 @@ using FertilityPoint.Services.SMSModule;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using FertilityPoint.BLL.Repositories.EnquiryModule;
+using FertilityPoint.BLL.Repositories.PayPalModule;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,7 +61,7 @@ builder.Services.AddTransient<IServicesRepository, ServicesRepository>();
 
 builder.Services.AddTransient<IEnquiryRepository, EnquiryRepository>();
 
-
+builder.Services.AddTransient<IPayPalRepository, PayPalRepository>();
 
 
 var app = builder.Build();

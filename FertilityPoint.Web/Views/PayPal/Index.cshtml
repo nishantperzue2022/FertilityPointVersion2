@@ -1,0 +1,71 @@
+﻿@model IEnumerable<FertilityPoint.DTO.PayPalModule.ProductDTO>
+@{
+    ViewData["Title"] = "Index";
+}
+
+ <div class="card">
+                <div class="card-body">
+
+                    <table id="specialist" class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>SN.</th>
+                             
+                                <th>Name</th>
+                              @*  <th>Photo</th>*@
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (Model != null && Model.Count() > 0)
+                            {
+                                int count = 1;
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@count</td>
+
+
+                                        <td>@item.Name</td>
+@*
+                                        <td>
+
+                                            <img src="~/images/@item.Photo" width="40" height="25" />
+                                        </td>*@
+
+                                        <td>@item.Amount</td>
+
+                                        <td>@item.Quantity</td>
+
+                                        <td>@(item.Amount * item.Quantity)</td>
+                                                                                                   
+
+                                   
+                                    </tr>
+                                    count++;
+                                }
+                            }
+
+                            <tr>
+                                <td colspan="6" align="right">
+                                    Total
+                                </td>  
+                                <td>
+                                    @ViewBag.TotalAmount
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                    <form method="post" asp-controller="PayPal" asp-action="Checkout">
+                        <input type="hidden" name="total" value="@ViewBag.TotalAmount" />
+                        <input type="submit" value="Pay" class="btn btn-success" />
+                    </form>
+
+                </div>
+            </div>
+

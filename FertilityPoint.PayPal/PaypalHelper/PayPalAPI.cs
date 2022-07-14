@@ -16,7 +16,6 @@ namespace FertilityPoint.PayPal.PaypalHelper
         {
             configuration = _configuration;
         }
-
         public string GetRedirectUrlToPayPal(double total, string currency)
         {
             try
@@ -52,7 +51,6 @@ namespace FertilityPoint.PayPal.PaypalHelper
                 return null;
             }
         }
-
         public string GetRedirectUrlToPayPal1(double total, string currency)
         {
             try
@@ -103,7 +101,6 @@ namespace FertilityPoint.PayPal.PaypalHelper
 
             return ("0");
         }
-
         private async Task<PayPalPaymentCreatedResponse> CreatePaypalPaymentAsync(HttpClient http, PayPalAccessToken accessToken, double total, string currency)
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "v1/payments/payment");
@@ -146,7 +143,6 @@ namespace FertilityPoint.PayPal.PaypalHelper
 
             return paypalPaymentCreated;
         }
-
         public HttpClient GetPaypalHttpClient()
         {
             string sandbox = configuration.GetValue<string>("PayPal:UrlAPI");
@@ -160,7 +156,6 @@ namespace FertilityPoint.PayPal.PaypalHelper
 
             return http;
         }
-
         public async Task<PayPalPaymentExecutedResponse> ExecutedPayment(string paymentId, string payerId)
         {
             try
@@ -178,7 +173,6 @@ namespace FertilityPoint.PayPal.PaypalHelper
                 return null;
             }
         }
-
         private async Task<PayPalPaymentExecutedResponse> ExecutePaypalPaymentAsync(HttpClient http, PayPalAccessToken accessToken, string paymentId, string payerId)
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"v1/payments/payment/{paymentId}/execute");
@@ -199,7 +193,6 @@ namespace FertilityPoint.PayPal.PaypalHelper
             PayPalPaymentExecutedResponse executedPayment = JsonConvert.DeserializeObject<PayPalPaymentExecutedResponse>(content);
             return executedPayment;
         }
-
         private async Task<PayPalAccessToken> GetPayPalAccessTokenAsync(HttpClient http)
         {
             var clientId = configuration.GetValue<string>("PayPal:ClientId");
@@ -227,8 +220,6 @@ namespace FertilityPoint.PayPal.PaypalHelper
 
             return accessToken;
         }
-
-
 
     }
 }

@@ -41,8 +41,8 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                 var row = startRow;
 
                 //Create Headers and format them
-                worksheet.Cells["A1,B1,C1"].Value = "Leads Report";
-                using (var r = worksheet.Cells["A1:G1"])
+                worksheet.Cells["A1,B1,C1,D1"].Value = "Appointment Report";
+                using (var r = worksheet.Cells["A1:D1"])
                 {
                     r.Merge = true;
                     r.Style.Font.Color.SetColor(Color.White);
@@ -54,12 +54,12 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                 worksheet.Cells["A2"].Value = "FullName";
                 worksheet.Cells["B2"].Value = "PhoneNumber";
                 worksheet.Cells["C2"].Value = "Email";   
-                worksheet.Cells["F2"].Value = "CreateDate";
+                worksheet.Cells["D2"].Value = "CreateDate";
 
 
-                worksheet.Cells["A2:F2"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                worksheet.Cells["A2:F2"].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(184, 204, 228));
-                worksheet.Cells["A2:F2"].Style.Font.Bold = true;
+                worksheet.Cells["A2:D2"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                worksheet.Cells["A2:D2"].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(184, 204, 228));
+                worksheet.Cells["A2:D2"].Style.Font.Bold = true;
 
                 row = 3;
                 foreach (var user in users)
@@ -67,7 +67,7 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                     worksheet.Cells[row, 1].Value = user.FullName;
                     worksheet.Cells[row, 2].Value = user.PhoneNumber;
                     worksheet.Cells[row, 3].Value = user.Email;
-                    worksheet.Cells[row, 6].Value = user.CreateDate.ToShortDateString();
+                    worksheet.Cells[row, 4].Value = user.CreateDate.ToShortDateString();
 
                     row++;
                 }
@@ -81,7 +81,7 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                 // Response.Clear();
             }
             stream.Position = 0;
-            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "LeadsReport.xlsx");
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "AppointmentReport.xlsx");
         }
 
     }

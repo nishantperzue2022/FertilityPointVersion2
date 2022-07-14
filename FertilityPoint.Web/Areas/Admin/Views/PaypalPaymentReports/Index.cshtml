@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "CreatePayment";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<body>
+    <div class="page-wrapper" style="min-height: 754px;background-color: #f8f9fa;">
+        <div class="content container-fluid">
+
+            <div class="col-md-4">
+                <div class="card">
+                  
+                    <div class="card-header" style="background-color: #263b6b;color: #fff;">
+                        <div class="card-title" style="font-weight:bold;">Paypal Payment Dump Report</div>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="container">
+                            <div class="clear">
+                                <form action="~/Admin/PaypalPaymentReports/DownloadAllPaypalPayment/" method="post">
+
+                                    <div class="">
+
+                                        @*   <div class="form-group row">
+                                        <label for="exampleDataList" class="form-label">Select Role Name</label>
+                                        <select class="form-control" name="RoleName">
+                                        <option value="all">All</option>
+                                        <option value="Agents">Agents</option>
+                                        <option value="RMs">RMs</option>
+                                        <option value="ARMs">ARMs</option>
+
+                                        </select>
+                                        </div>
+
+                                        <div class="form-group row">
+                                        <label for="exampleDataList" class="form-label">Select Status</label>
+                                        <select class="form-control" name="RoleName">
+                                        <option value="all">All</option>
+                                        <option value="Agents">Disabled</option>
+                                        <option value="RMs">Active</option>
+
+
+                                        </select>
+                                        </div>
+                                        *@
+
+                                        <div class="form-group row">
+                                            <input type="submit" class="form-control btn btn-outline-primary" value="Download">
+                                        </div>
+
+                                    </div>
+
+
+                                    @if (TempData["other_Error"] != null)
+                                    {
+                                        <div class="alert alert-danger" role="alert">
+                                            @TempData["other_Error"]
+                                        </div>
+                                    }
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+
+
+

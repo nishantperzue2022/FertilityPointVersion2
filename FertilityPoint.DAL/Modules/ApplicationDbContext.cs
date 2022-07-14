@@ -12,7 +12,6 @@ namespace FertilityPoint.DAL.Modules
         {
 
         }
-
         public virtual DbSet<AppUser> AppUsers { get; set; } = null!;
         public virtual DbSet<County> Counties { get; set; } = null!;
         public virtual DbSet<SubCounty> SubCounties { get; set; } = null!;
@@ -24,8 +23,8 @@ namespace FertilityPoint.DAL.Modules
         public virtual DbSet<Patient> Patients { get; set; } = null!;
         public virtual DbSet<Service> Services { get; set; } = null!;
         public virtual DbSet<PaybillPayment> PaybillPayments { get; set; } = null!;
-        public virtual DbSet<Enquiry>  Enquiries { get; set; } = null!;
-
+        public virtual DbSet<Enquiry> Enquiries { get; set; } = null!;
+        public virtual DbSet<PaypalPayment> PaypalPayments { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -44,6 +43,11 @@ namespace FertilityPoint.DAL.Modules
             });
 
 
+            modelBuilder.Entity<PaypalPayment>(entity =>
+            {
+                entity.Property(e => e.AmountPaid).HasColumnType("decimal(18,2)");
+
+            });
 
             modelBuilder.Entity<Appointment>(entity =>
             {
