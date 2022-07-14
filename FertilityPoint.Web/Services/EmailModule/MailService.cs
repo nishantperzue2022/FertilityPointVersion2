@@ -1,19 +1,12 @@
 ﻿
-using FertilityPoint.BLL.Repositories.CountyModule;
-using FertilityPoint.BLL.Repositories.SubCountyModule;
-using FertilityPoint.BLL.Repositories.TimeSlotModule;
+using FertilityPoint.BLL.Repositories.AppointmentModule;
 using FertilityPoint.DTO.ApplicationUserModule;
 using FertilityPoint.DTO.AppointmentModule;
 using FertilityPoint.DTO.EnquiryModule;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using MimeKit;
-using System;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Threading.Tasks;
+
 
 namespace FertilityPoint.Services.EmailModule
 {
@@ -21,14 +14,16 @@ namespace FertilityPoint.Services.EmailModule
     {
         private readonly IConfiguration config;
 
-        private readonly IWebHostEnvironment env;     
+        private readonly IWebHostEnvironment env;
 
-  
-        public MailService(IConfiguration config, IWebHostEnvironment env)
+        private readonly IAppointmentRepository appointmentRepository;
+        public MailService(IConfiguration config, IWebHostEnvironment env, IAppointmentRepository appointmentRepository)
         {
             this.config = config;
 
             this.env = env;
+
+            this.appointmentRepository = appointmentRepository;
 
         }
         public bool AccountEmailNotification(ApplicationUserDTO applicationUserDTO)
@@ -60,7 +55,7 @@ namespace FertilityPoint.Services.EmailModule
                 foreach (var to in mailAddressesTo)
                     mailMessage.To.Add(to);
 
-                mailMessage.Subject = "Fertility Point: ";
+                mailMessage.Subject = "Appointment Details: ";
 
                 var templatePath = env.WebRootPath
                            + Path.DirectorySeparatorChar.ToString()
@@ -213,7 +208,7 @@ namespace FertilityPoint.Services.EmailModule
                         client.EnableSsl = bool.Parse(SMTPUseSSL);
                     }
 
-                    
+
 
                     bool bNetwork = bool.Parse(SMTPEmailToNetwork);
 
@@ -649,6 +644,115 @@ namespace FertilityPoint.Services.EmailModule
             }
 
             return true;
+        }
+        public async Task<bool> RescheduleAppointmentEmailNotificationAsync(AppointmentDTO appointmentDTO)
+        {
+            try
+            {
+                var appointment = await appointmentRepository.GetById(appointmentDTO.Id);
+
+                var SMTPEmailToNetwork = config.GetValue<string>("MailSettings:SMTPEmailToNetwork");
+
+                var SMTPMailServer = config.GetValue<string>("MailSettings:SMTPMailServer");
+
+                var SMTPPort = config.GetValue<string>("MailSettings:SMTPPort");
+
+                var SMTPUserName = config.GetValue<string>("MailSettings:SMTPUserName");
+
+                var Password = config.GetValue<string>("MailSettings:Password");
+
+                var SMTPUseSSL = config.GetValue<string>("MailSettings:SMTPUseSSL");
+
+                MailAddressCollection mailAddressesTo = new MailAddressCollection
+                {
+                    new MailAddress(appointment.Email)
+                };
+
+                MailAddress mailAddressFrom = new MailAddress(SMTPUserName);
+
+                MailMessage mailMessage = new MailMessage
+                {
+                    From = mailAddressFrom
+                };
+
+                foreach (var to in mailAddressesTo)
+
+                    mailMessage.To.Add(to);
+
+                mailMessage.Subject = "Reschedule Appointment for:" + appointment.FullName;
+
+                var templatePath = env.WebRootPath
+
+                           + Path.DirectorySeparatorChar.ToString()
+                           + "Templates"
+                           + Path.DirectorySeparatorChar.ToString()
+                           + "EmailTemplate"
+                           + Path.DirectorySeparatorChar.ToString()
+                           + "RescheduleAppointmentNotification.html";
+
+                var builder = new BodyBuilder();
+
+                using (StreamReader SourceReader = File.OpenText(templatePath))
+                {
+                    builder.HtmlBody = SourceReader.ReadToEnd();
+                }
+
+                mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+
+                mailMessage.Body = string.Format(builder.HtmlBody,
+
+                     appointment.FullName,
+
+                     appointment.AppointmentDate.ToShortDateString(),
+
+                     appointment.TimeSlot
+
+                    );
+
+                mailMessage.IsBodyHtml = true;
+
+                using (SmtpClient client = new SmtpClient())
+                {
+                    client.UseDefaultCredentials = false;
+
+                    client.Host = SMTPMailServer;
+
+                    client.Port = int.Parse(SMTPPort);
+
+                    if (SMTPUseSSL != string.Empty)
+                    {
+                        client.EnableSsl = bool.Parse(SMTPUseSSL);
+                    }
+
+                    bool bNetwork = bool.Parse(SMTPEmailToNetwork);
+
+                    if (bNetwork)
+                    {
+                        client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    }
+                    else
+                    {
+                        client.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
+                    }
+
+                    client.Credentials = new NetworkCredential(SMTPUserName, Password);
+
+                    client.ServicePoint.MaxIdleTime = 2;
+
+                    client.ServicePoint.ConnectionLimit = 1;
+
+                    client.Send(mailMessage);
+                }
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return false;
+            }
         }
     }
 }

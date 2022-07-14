@@ -78,7 +78,7 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
                         TimeSlotId = appointment.TimeSlotId,
 
-                        TimeSlot = appointment.FromTime.ToString("h:mm tt") + " - " + appointment.ToTime.ToString("h:mm tt"),
+                        TimeSlot = appointment.TimeSlot,
                     };
 
                     return Json(new { data = file });
@@ -166,6 +166,8 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
                 if (result != null)
                 {
+                    var sendClientEmail =await mailService.RescheduleAppointmentEmailNotificationAsync(appointmentDTO);
+
                     return Json(new { success = true, responseText = "Appointment has been successfully rescheduled" });
                 }
                 else

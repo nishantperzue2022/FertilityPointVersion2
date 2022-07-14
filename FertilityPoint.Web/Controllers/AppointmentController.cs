@@ -94,7 +94,7 @@ namespace FertilityPoint.Controllers
             {
                 Console.WriteLine(ex.Message);
 
-               // TempData["Error"] = "Something went wrong";
+                // TempData["Error"] = "Something went wrong";
 
                 return RedirectToAction("", "Home", new { area = "" });
             }
@@ -292,7 +292,7 @@ namespace FertilityPoint.Controllers
 
                 var get_slot = timeSlotRepository.GetById(appointmentDTO.TimeSlotId);
 
-                if(get_slot == null)
+                if (get_slot == null)
                 {
                     return Json(new { success = false, responseText = "Sorry , this slot has been booked, please select another one! " });
 
@@ -347,9 +347,9 @@ namespace FertilityPoint.Controllers
 
                         appointmentDTO.ReceiptURL = url;
 
-                        //var sendClientEmail = mailService.AppointmentEmailNotification(appointmentDTO);
+                        var sendClientEmail = mailService.AppointmentEmailNotification(appointmentDTO);
 
-                        //var sendFertilityPointEmail = await mailService.FertilityPointEmailNotification(appointmentDTO);
+                        var sendFertilityPointEmail = await mailService.FertilityPointEmailNotification(appointmentDTO);
 
                         return Json(new { success = true, responseText = appointmentDTO.Id });
                     }

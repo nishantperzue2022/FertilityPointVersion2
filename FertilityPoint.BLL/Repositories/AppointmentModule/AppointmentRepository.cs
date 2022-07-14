@@ -187,6 +187,8 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
                                         FromTime = timslot.FromTime,
 
+                                        TimeSlot = timslot.FromTime.ToString("h:mm tt") + " - " + timslot.ToTime.ToString("h:mm tt"),
+
                                     }).FirstOrDefaultAsync();
 
                 return await appointments;
