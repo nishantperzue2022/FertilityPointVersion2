@@ -23,7 +23,6 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
         private readonly IMailService mailService;
 
         private readonly UserManager<AppUser> userManager;
-
         public AppointmentsController(IMailService mailService, UserManager<AppUser> userManager, IMessagingService messagingService, IAppointmentRepository appointmentRepository)
         {
             this.appointmentRepository = appointmentRepository;

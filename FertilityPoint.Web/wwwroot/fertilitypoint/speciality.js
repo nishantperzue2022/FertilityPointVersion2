@@ -168,12 +168,6 @@ $("#btnEdit").click(function () {
 
 
 
-
-
-
-
-
-
 function GetSpeciality(e) {
 
     var id = e;

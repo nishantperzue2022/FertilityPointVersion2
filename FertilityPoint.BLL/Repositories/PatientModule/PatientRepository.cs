@@ -102,10 +102,43 @@ namespace FertilityPoint.BLL.Repositories.PatientModule
             }
 
         }
-        public Task<PatientDTO> Update(PatientDTO patientDTO)
+        public async Task<PatientDTO> Update(PatientDTO patientDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var data = await context.Patients.FindAsync(patientDTO.Id);
+
+                if (data != null)
+                {
+                    using (var transaction = context.Database.BeginTransaction())
+                    {
+                        data.FirstName = patientDTO.FirstName;
+
+                        data.LastName = patientDTO.LastName;
+
+                        data.Email = patientDTO.Email;
+
+                        data.PhoneNumber = patientDTO.PhoneNumber;
+
+                        data.UpdatedBy = patientDTO.UpdatedBy;
+
+                        transaction.Commit();
+                    }
+
+                    await context.SaveChangesAsync();
+
+                    return patientDTO;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
         }
-        
+
     }
 }

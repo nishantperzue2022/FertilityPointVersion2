@@ -14,5 +14,6 @@ namespace FertilityPoint.DAL.Modules
         public string  Email { get; set; }
         public string  PhoneNumber { get; set; }
         public DateTime  CreateDate { get; set; }
+        public string? UpdatedBy { get; set; }
     }
 }
