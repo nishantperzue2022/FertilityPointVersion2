@@ -36,11 +36,11 @@ namespace FertilityPoint.Services.EmailModule
 
                 var SMTPPort = config.GetValue<string>("MailSettings:SMTPPort");
 
-                var SMTPUserName = config.GetValue<string>("MailSettings:SMTPUserName");
-
-                var Password = config.GetValue<string>("MailSettings:Password");
-
                 var SMTPUseSSL = config.GetValue<string>("MailSettings:SMTPUseSSL");
+
+                var SMTPUserName = config.GetValue<string>("NoReply:SMTPUserName");
+
+                var Password = config.GetValue<string>("NoReply:Password");               
 
                 MailAddressCollection mailAddressesTo = new MailAddressCollection();
 
@@ -141,11 +141,13 @@ namespace FertilityPoint.Services.EmailModule
 
                 var SMTPPort = config.GetValue<string>("MailSettings:SMTPPort");
 
-                var SMTPUserName = config.GetValue<string>("MailSettings:SMTPUserName");
-
-                var Password = config.GetValue<string>("MailSettings:Password");
-
                 var SMTPUseSSL = config.GetValue<string>("MailSettings:SMTPUseSSL");
+
+
+
+                var SMTPUserName = config.GetValue<string>("NoReply:SMTPUserName");
+
+                var Password = config.GetValue<string>("NoReply:Password");
 
                 MailAddressCollection mailAddressesTo = new MailAddressCollection
                 {
@@ -252,11 +254,12 @@ namespace FertilityPoint.Services.EmailModule
 
                 var SMTPPort = config.GetValue<string>("MailSettings:SMTPPort");
 
-                var SMTPUserName = config.GetValue<string>("MailSettings:SMTPUserName");
-
-                var Password = config.GetValue<string>("MailSettings:Password");
-
                 var SMTPUseSSL = config.GetValue<string>("MailSettings:SMTPUseSSL");
+
+
+                var SMTPUserName = config.GetValue<string>("NoReply:SMTPUserName");
+
+                var Password = config.GetValue<string>("NoReply:Password");
 
                 enquiryDTO.FertilityEmail = config.GetValue<string>("FertilityPoint:Email");
 
@@ -364,11 +367,11 @@ namespace FertilityPoint.Services.EmailModule
 
                 var SMTPPort = config.GetValue<string>("MailSettings:SMTPPort");
 
-                var SMTPUserName = config.GetValue<string>("MailSettings:SMTPUserName");
-
-                var Password = config.GetValue<string>("MailSettings:Password");
-
                 var SMTPUseSSL = config.GetValue<string>("MailSettings:SMTPUseSSL");
+
+                var SMTPUserName = config.GetValue<string>("NoReply:SMTPUserName");
+
+                var Password = config.GetValue<string>("NoReply:Password");
 
                 appointmentDTO.FertilityEmail = config.GetValue<string>("FertilityPoint:Email");
 
@@ -476,11 +479,11 @@ namespace FertilityPoint.Services.EmailModule
 
                 var SMTPPort = config.GetValue<string>("MailSettings:SMTPPort");
 
-                var SMTPUserName = config.GetValue<string>("MailSettings:SMTPUserName");
-
-                var Password = config.GetValue<string>("MailSettings:Password");
-
                 var SMTPUseSSL = config.GetValue<string>("MailSettings:SMTPUseSSL");
+
+                var SMTPUserName = config.GetValue<string>("NoReply:SMTPUserName");
+
+                var Password = config.GetValue<string>("NoReply:Password");                           
 
                 MailAddressCollection mailAddressesTo = new MailAddressCollection();
 
@@ -571,12 +574,10 @@ namespace FertilityPoint.Services.EmailModule
         }
         public bool AppointmentApprovalNotification(AppointmentDTO appointmentDTO)
         {
-            //Fetching Settings from WEB.CONFIG file. 
+           
+            var emailSender = config.GetValue<string>("NoReply:SMTPUserName");
 
-
-            var emailSender = config.GetValue<string>("MailSettings:SMTPUserName");
-
-            var emailSenderPassword = config.GetValue<string>("MailSettings:Password");
+            var emailSenderPassword = config.GetValue<string>("NoReply:Password");
 
             var emailSenderHost = config.GetValue<string>("MailSettings:SMTPMailServer");
 
@@ -657,11 +658,12 @@ namespace FertilityPoint.Services.EmailModule
 
                 var SMTPPort = config.GetValue<string>("MailSettings:SMTPPort");
 
-                var SMTPUserName = config.GetValue<string>("MailSettings:SMTPUserName");
-
-                var Password = config.GetValue<string>("MailSettings:Password");
-
                 var SMTPUseSSL = config.GetValue<string>("MailSettings:SMTPUseSSL");
+
+                var SMTPUserName = config.GetValue<string>("NoReply:SMTPUserName");
+
+                var Password = config.GetValue<string>("NoReply:Password");
+
 
                 MailAddressCollection mailAddressesTo = new MailAddressCollection
                 {
