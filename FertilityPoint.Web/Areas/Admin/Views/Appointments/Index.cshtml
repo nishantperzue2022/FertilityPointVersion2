@@ -51,7 +51,6 @@
 
                                         <td>
                                             @item.AppointmentDate.ToShortDateString()
-
                                             <span class="text-primary d-block">@item.TimeSlot</span>
                                         </td>
 
@@ -229,39 +228,40 @@
                                 <label id="txtAppointmentDate1">   </label>
                             </div>
                         </div>
+                    </div>
 
 
-                        <hr />
+                    <hr />
 
-                        <div class="container">
+                    <div class="container">
 
-                            <div class="row">
-                                <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
 
+                                <div class="form-group">
                                     <div class="form-group">
-                                        <div class="form-group">
-                                            <label>Select Appointment Date</label>
-                                            <input type="text" name="NewAppointmentDate" onchange="GetSlotsByDateReschedule(this)" id="txtAppointmentDateReschedule" class="form-control" value='@DateTime.Now.ToString("MM/dd/yyyy")' autocomplete="off" />
-                                        </div>
-
-
-                                        <div class="">
-                                            <div id="slots">
-                                            </div>
-                                        </div>
-
-                                        <div class="">
-                                            <div id="divShowMessage" style="display:none;">
-                                                <div class="alert alert-danger" role="alert" id="error">
-                                                    <div id="divmessage"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                                        <label>Select Appointment Date</label>
+                                        <input type="text" name="NewAppointmentDate" onchange="GetSlotsByDateReschedule(this)" id="txtAppointmentDateReschedule" class="form-control" value='@DateTime.Now.ToString("MM/dd/yyyy")' autocomplete="off" />
                                     </div>
+
+
+                                    <div class="">
+                                        <div id="slots">
+                                        </div>
+                                    </div>
+
+                                    <div class="">
+                                        <div id="divShowMessage" style="display:none;">
+                                            <div class="alert alert-danger" role="alert" id="error">
+                                                <div id="divmessage"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
+                    </div>
 
 
                 </form>

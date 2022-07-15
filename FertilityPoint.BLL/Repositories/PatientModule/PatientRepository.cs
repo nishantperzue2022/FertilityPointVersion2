@@ -1,13 +1,8 @@
 ﻿using AutoMapper;
 using FertilityPoint.DAL.Modules;
-using FertilityPoint.DTO.AppointmentModule;
 using FertilityPoint.DTO.PatientModule;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace FertilityPoint.BLL.Repositories.PatientModule
 {

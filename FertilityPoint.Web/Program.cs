@@ -63,6 +63,8 @@ builder.Services.AddTransient<IEnquiryRepository, EnquiryRepository>();
 
 builder.Services.AddTransient<IPayPalRepository, PayPalRepository>();
 
+builder.Services.AddSignalR();
+
 
 var app = builder.Build();
 

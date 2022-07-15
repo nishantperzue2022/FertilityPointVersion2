@@ -7,7 +7,7 @@
     height: 24px;
     margin-bottom: 0;
     position: relative;
-    width: 107px;
+    min-width: 107px;
     color: white;
     text-align: center;
 }
@@ -19,7 +19,7 @@
     height: 24px;
     margin-bottom: 0;
     position: relative;
-    width: 107px;
+    min-width: 107px;
     color: white;
     text-align: center;
 }

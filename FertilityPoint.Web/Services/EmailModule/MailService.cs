@@ -261,7 +261,7 @@ namespace FertilityPoint.Services.EmailModule
 
                 var Password = config.GetValue<string>("NoReply:Password");
 
-                enquiryDTO.FertilityEmail = config.GetValue<string>("FertilityPoint:Email");
+                enquiryDTO.FertilityEmail = config.GetValue<string>("FPoint:Email");
 
                 MailAddressCollection mailAddressesTo = new MailAddressCollection
                 {
@@ -373,7 +373,7 @@ namespace FertilityPoint.Services.EmailModule
 
                 var Password = config.GetValue<string>("NoReply:Password");
 
-                appointmentDTO.FertilityEmail = config.GetValue<string>("FertilityPoint:Email");
+                appointmentDTO.FertilityEmail = config.GetValue<string>("FPoint:Email");
 
                 MailAddressCollection mailAddressesTo = new MailAddressCollection
                 {

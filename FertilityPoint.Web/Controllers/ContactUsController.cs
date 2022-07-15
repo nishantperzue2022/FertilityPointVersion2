@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using FertilityPoint.BLL.Repositories.EnquiryModule;
+using Microsoft.AspNetCore.SignalR;
+using FertilityPoint.Web.Helpers;
 
 namespace FertilityPoint.Controllers
 {
@@ -18,12 +20,15 @@ namespace FertilityPoint.Controllers
         private readonly IMailService mailService;
 
         private readonly IEnquiryRepository enquiryRepository;
-        public ContactUsController(IEnquiryRepository enquiryRepository,IMailService mailService)
+
+        private readonly IHubContext<SignalrServer> signalrHub;
+        public ContactUsController(IEnquiryRepository enquiryRepository, IMailService mailService, IHubContext<SignalrServer> signalrHub)
         {
             this.mailService = mailService;
 
             this.enquiryRepository = enquiryRepository;
 
+            this.signalrHub = signalrHub;
         }
         public IActionResult Index()
         {
@@ -49,6 +54,8 @@ namespace FertilityPoint.Controllers
 
                     if (sendNotification == true)
                     {
+                      
+
                         return Json(new { success = true, responseText = "Your message has been sent successfully " });
                     }
                     else
