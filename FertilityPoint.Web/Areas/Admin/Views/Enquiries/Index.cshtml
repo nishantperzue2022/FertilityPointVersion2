@@ -1,4 +1,5 @@
-﻿@model IEnumerable<FertilityPoint.DTO.ServiceModule.ServiceDTO>
+﻿@model IEnumerable<FertilityPoint.DTO.EnquiryModule.EnquiryDTO>
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -8,57 +9,221 @@
 <link href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 
 
+
+
 <body>
     <div class="page-wrapper" style="min-height: 754px;background-color: #f8f9fa;">
         <div class="content container-fluid">
-
             <div class="row">
-                <div class="col-sm-3 col-auto">
-                    <h3 class="page-title">List of Services</h3>
-                </div>
-                <div class="col-md-9">
-                    <button type="button" class="btn btn-success btn-sm  pull-right" data-toggle="modal" data-target="#modaService" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  </button>
+                <div class="col-md-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Enquiries</h2>
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="col-sm-3 mail_list_column">
+
+
+
+                                    @if (Model != null && Model.Count() > 0)
+                                    {
+                                        int count = 1;
+
+                                        @foreach (var item in Model)
+                                        {
+                                            <a href="#">
+                                                <div class="mail_list">
+                                                    <div class="left">
+                                                        <i class="fa fa-circle"></i> <i class="fa fa-edit"></i>
+                                                    </div>
+                                                    <div class="right">
+                                                        <h3 style="color:#27ae60;">@item.Name <small>3.00 PM</small></h3>
+                                                        <p>@item.Message</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+
+                                            count++;
+                                        }
+                                    }
+
+
+                                </div>
+                                <!-- /MAIL LIST -->
+                                <!-- CONTENT MAIL -->
+                                <div class="col-sm-9 mail_view">
+                                    <div class="inbox-body">
+                                        <div class="mail_heading row">
+                                            <div class="col-md-8">
+                                            </div>
+                                            <div class="col-md-4 text-right">
+                                                <p class="date">@ViewBag.Time</p>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <h4> Message Details</h4>
+                                            </div>
+                                        </div>
+                                        <div class="sender-info">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <strong>Jon Doe</strong>
+                                                    <span>(jon.doe@gmail.com)</span> to
+                                                    <strong>me</strong>
+                                                    <a class="sender-dropdown"><i class="fa fa-chevron-down"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="view-mail">
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            </p>
+
+                                        </div>
+
+                                        <div class="btn-group">
+                                            <button class="btn btn-sm btn-primary" type="button"><i class="fa fa-reply"></i> Reply</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- /CONTENT MAIL -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-body">
-
-                    <table id="specialist" class="table table-sm">
-                        <thead>
-                            <tr>
-                               
-                                <th>Name</th>
-                                <th>Message</th>
-                                <th>Phone Number</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tblEnquiries">                          
-                        </tbody>
-
-                    </table>
 
 
-                </div>
-            </div>
         </div>
-
     </div>
-
-
-
 </body>
 
+
+
+
+
+
+<style>
+    .mail_view {
+        border-left: 1px solid #DBDBDB;
+    }
+
+    .mail_heading h4 {
+        font-size: 18px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+        margin-top: 20px;
+    }
+
+    .mail_list {
+        width: 100%;
+        border-bottom: 1px solid #DBDBDB;
+        margin-bottom: 2px;
+        display: inline-block;
+    }
+
+        .mail_list h3 {
+            font-size: 15px;
+            font-weight: bold;
+            margin: 0px 0 6px;
+        }
+
+        .mail_list .right {
+            width: 90%;
+            float: left;
+        }
+
+        .mail_list .left {
+            width: 5%;
+            float: left;
+            margin-right: 3%;
+        }
+
+    .row {
+        margin-right: -10px;
+        margin-left: -10px;
+    }
+
+    .row {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    p {
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+
+    a {
+        color: #5A738E;
+        text-decoration: none;
+    }
+
+
+    .x_content {
+        padding: 0 3px 6px;
+        position: relative;
+        width: 100%;
+        float: left;
+        clear: both;
+        margin-top: 5px;
+    }
+
+    .x_panel {
+        position: relative;
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px 17px;
+        display: inline-block;
+        background: #fff;
+        border: 1px solid #E6E9ED;
+        -webkit-column-break-inside: avoid;
+        -moz-column-break-inside: avoid;
+        column-break-inside: avoid;
+        opacity: 1;
+        -webkit-transition: all .2s ease;
+        transition: all .2s ease;
+    }
+</style>
+
+
+
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
-<script src="~/fertilitypoint/enquiries.js"></script>
 
 
 <script type="text/javascript">
+
     $(document).ready(function() {
-        $('#specialist').DataTable();
+
+        var today = new Date();
+
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+        var dateTime = date + ' ' + time;
+
+        console.log(dateTime);
+
+        $("#currentDate").text(dateTime);
     });
+
 </script>
 
 

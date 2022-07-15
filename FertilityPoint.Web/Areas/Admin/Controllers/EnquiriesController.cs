@@ -19,7 +19,7 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
             this.signalrHub = signalrHub;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             try
             {
@@ -31,7 +31,9 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
                 ViewBag.Time = time + " " + date;
 
-                return View();
+                var data = await enquiryRepository.GetAll();
+
+                return View(data);
             }
             catch (Exception ex)
             {
