@@ -1,16 +1,12 @@
 ﻿
-using FertilityPoint.DTO.EnquiryModule;
 using FertilityPoint.Web.Extensions;
 using FertilityPoint.Services.EmailModule;
+
+using FertilityPoint.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using FertilityPoint.BLL.Repositories.EnquiryModule;
 using Microsoft.AspNetCore.SignalR;
-using FertilityPoint.Web.Helpers;
+using FertilityPoint.DTO.EnquiryModule;
 
 namespace FertilityPoint.Controllers
 {

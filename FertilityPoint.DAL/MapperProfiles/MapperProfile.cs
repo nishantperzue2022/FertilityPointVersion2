@@ -46,6 +46,8 @@ namespace FertilityPoint.DAL.MapperProfiles
 
             CreateMap<PaypalPayment, PaypalPaymentDTO>().ReverseMap();
 
+            CreateMap<SentMail, SentMailDTO>().ReverseMap();
+
         }
     }
 }

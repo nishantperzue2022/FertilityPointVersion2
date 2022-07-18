@@ -8,54 +8,50 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <link href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 
-
-
-
 <body>
     <div class="page-wrapper" style="min-height: 754px;background-color: #f8f9fa;">
         <div class="content container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div class="x_panel">
+
                         <div class="x_title">
                             <h2>Enquiries</h2>
-
                             <div class="clearfix"></div>
                         </div>
+
                         <div class="x_content">
                             <div class="row">
-                                <div class="col-sm-3 mail_list_column">
 
+                                @if (Model != null && Model.Count() > 0)
+                                {
 
+                                    int count = 1;
 
-                                    @if (Model != null && Model.Count() > 0)
-                                    {
-                                        int count = 1;
+                                    <div class="col-sm-3 mail_list_column">
 
                                         @foreach (var item in Model)
                                         {
-                                            <a href="#">
+                                            <a href="#" onclick="GetMessage('@item.Id')">
                                                 <div class="mail_list">
                                                     <div class="left">
-                                                        <i class="fa fa-circle"></i> <i class="fa fa-edit"></i>
+                                                        <i class="fa fa-circle"></i>
                                                     </div>
                                                     <div class="right">
-                                                        <h3 style="color:#27ae60;">@item.Name <small>3.00 PM</small></h3>
-                                                        <p>@item.Message</p>
+                                                        <h3 style="color:#27ae60;">@item.Name <small>@item.CreateDate.ToString("dd MMMM yyyy h:mm tt")</small></h3>
+                                                        <p>
+                                                            Phone Number: @item.PhoneNumber<br>
+                                                            Email :@item.Email
+                                                        </p>
+
                                                     </div>
                                                 </div>
                                             </a>
-
-
                                             count++;
                                         }
-                                    }
+                                    </div>
 
-
-                                </div>
-                                <!-- /MAIL LIST -->
-                                <!-- CONTENT MAIL -->
-                                <div class="col-sm-9 mail_view">
+                                      <div class="col-sm-9 mail_view">
                                     <div class="inbox-body">
                                         <div class="mail_heading row">
                                             <div class="col-md-8">
@@ -67,49 +63,109 @@
                                                 <h4> Message Details</h4>
                                             </div>
                                         </div>
-                                        <div class="sender-info">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <strong>Jon Doe</strong>
-                                                    <span>(jon.doe@gmail.com)</span> to
-                                                    <strong>me</strong>
-                                                    <a class="sender-dropdown"><i class="fa fa-chevron-down"></i></a>
+
+
+                                        <div id="divReply" style="display:none;">
+                                            <div class="sender-info">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <strong id="txtName"></strong>
+                                                        (<span id="txtEmail"></span>)
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="view-mail">
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                            </p>
 
+                                            <div class="view-mail">
+                                                <p id="txtMessage"></p>
+                                            </div>
+
+                                            <form id="frmReply">
+                                                <input type="hidden" id="txtId" name="EnquiryId" />
+
+                                                <label>Message</label>
+                                                <textarea class="form-control" style="height:10em;" name="Message" id="txtComposeMail"></textarea>
+
+                                            </form>
+
+                                            <div class="btn-group mt-3">
+                                                <button class="btn btn-sm btn-primary" id="btnReply" type="button"><i class="fa fa-send"></i> Send Message</button>
+                                            </div>
                                         </div>
 
-                                        <div class="btn-group">
-                                            <button class="btn btn-sm btn-primary" type="button"><i class="fa fa-reply"></i> Reply</button>
-                                        </div>
+                                    </div>
                                     </div>
 
-                                </div>
-                                <!-- /CONTENT MAIL -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                }
+                                else
+                                {
+                                    <div class="text-align-center col-md-12">
+                                    <div  class="oQNug customScrollBar">
+                                        <div class="vmKZa">
+                                            <div class="szPnh Lg0x7 jPiY5">
+                                                <img src="https://res.cdn.office.net/owamail/20220708002.14/scripts/../resources/images/illustration_balloon-0be2e367e25ebe01..svg" alt="" style="width: 120px; height: 120px;">
+                                                <span class="VdeRe">All done for the day</span>
+                                                <span class="QYrHp">Enjoy your empty inbox.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                }
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
         </div>
     </div>
 </body>
 
-
-
-
-
-
 <style>
+
+  .oQNug, .U3ia4 {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    overflow-y: auto;
+}
+
+
+    .VdeRe {
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        color: var(--neutralPrimary);
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        font-weight: 600;
+        justify-content: center;
+        padding-top: 8px;
+        width: 100%;
+    }
+
+  
+
+
+
+
     .mail_view {
         border-left: 1px solid #DBDBDB;
     }
@@ -196,36 +252,20 @@
     }
 </style>
 
-
-
-
-
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-
+<script src="~/fertilitypoint/enquiries.js"></script>
 
 
 <script type="text/javascript">
 
-    $(document).ready(function() {
 
-        var today = new Date();
 
-        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
-        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-        var dateTime = date + ' ' + time;
 
-        console.log(dateTime);
 
-        $("#currentDate").text(dateTime);
-    });
+
 
 </script>
-
-
-
-

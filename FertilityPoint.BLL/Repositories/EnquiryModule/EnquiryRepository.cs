@@ -44,6 +44,60 @@ namespace FertilityPoint.BLL.Repositories.EnquiryModule
             }
         }
 
+        public async Task<SentMailDTO> Reply(SentMailDTO sentMailDTO)
+        {
+            try
+            {
+                sentMailDTO.CreateDate = DateTime.Now;
+
+                var mail = mapper.Map<SentMail>(sentMailDTO);
+
+                context.SentMails.Add(mail);
+
+                await context.SaveChangesAsync();
+
+                await UpdateEnquiryStatus(sentMailDTO.EnquiryId);
+
+                return sentMailDTO;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+        }
+
+        public async Task<bool> UpdateEnquiryStatus(Guid Id)
+        {
+            try
+            {
+                var enquiry = await context.Enquiries.FindAsync(Id);
+
+                if (enquiry != null)
+                {
+                    using (var transaction = context.Database.BeginTransaction())
+                    {
+                        enquiry.Status = 1;
+
+                        transaction.Commit();
+                    }
+                    await context.SaveChangesAsync();
+
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return false;
+            }
+        }
+
+
         public async Task<List<EnquiryDTO>> GetAll()
         {
             try
@@ -51,6 +105,24 @@ namespace FertilityPoint.BLL.Repositories.EnquiryModule
                 var data = await context.Enquiries.ToListAsync();
 
                 var enquiry = mapper.Map<List<Enquiry>, List<EnquiryDTO>>(data);
+
+                return enquiry;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+        }
+
+        public async Task<EnquiryDTO> GetById(Guid Id)
+        {
+            try
+            {
+                var data = await context.Enquiries.FindAsync(Id);
+
+                var enquiry = mapper.Map<Enquiry, EnquiryDTO>(data);
 
                 return enquiry;
             }

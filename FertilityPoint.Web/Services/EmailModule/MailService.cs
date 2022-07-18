@@ -1,5 +1,6 @@
 ﻿
 using FertilityPoint.BLL.Repositories.AppointmentModule;
+using FertilityPoint.BLL.Repositories.EnquiryModule;
 using FertilityPoint.DTO.ApplicationUserModule;
 using FertilityPoint.DTO.AppointmentModule;
 using FertilityPoint.DTO.EnquiryModule;
@@ -17,11 +18,15 @@ namespace FertilityPoint.Services.EmailModule
         private readonly IWebHostEnvironment env;
 
         private readonly IAppointmentRepository appointmentRepository;
-        public MailService(IConfiguration config, IWebHostEnvironment env, IAppointmentRepository appointmentRepository)
+
+        private readonly IEnquiryRepository enquiryRepository;
+        public MailService(IEnquiryRepository enquiryRepository,IConfiguration config, IWebHostEnvironment env, IAppointmentRepository appointmentRepository)
         {
             this.config = config;
 
             this.env = env;
+
+            this.enquiryRepository = enquiryRepository;
 
             this.appointmentRepository = appointmentRepository;
 
@@ -574,77 +579,86 @@ namespace FertilityPoint.Services.EmailModule
         }
         public bool AppointmentApprovalNotification(AppointmentDTO appointmentDTO)
         {
-           
-            var emailSender = config.GetValue<string>("NoReply:SMTPUserName");
 
-            var emailSenderPassword = config.GetValue<string>("NoReply:Password");
-
-            var emailSenderHost = config.GetValue<string>("MailSettings:SMTPMailServer");
-
-            int emailSenderPort = Convert.ToInt32(config.GetValue<string>("MailSettings:SMTPPort"));
-
-            bool emailIsSSL = Convert.ToBoolean(config.GetValue<string>("MailSettings:SMTPUseSSL"));
-
-            //Fetching Email Body Text from EmailTemplate File. 
-
-            string FilePath = env.WebRootPath
-                          + Path.DirectorySeparatorChar.ToString()
-                          + "Templates"
-                          + Path.DirectorySeparatorChar.ToString()
-                          + "EmailTemplate"
-                          + Path.DirectorySeparatorChar.ToString()
-                          + "AppointmentApprovalNotification.html";
-
-
-            StreamReader str = new StreamReader(FilePath);
-
-            string MailText = str.ReadToEnd();
-
-            str.Close();
-
-            //Repalce [newusername] = signup user name   
-            MailText = MailText.Replace("[FirstName]", appointmentDTO.FirstName.Trim());
-
-            MailText = MailText.Replace("[AppointmentDate]", appointmentDTO.AppointmentDate.ToShortDateString());
-
-            MailText = MailText.Replace("[TimeSlot]", appointmentDTO.TimeSlot.Trim());
-
-            MailText = MailText.Replace("[CreateDate]", appointmentDTO.CreateDate.ToShortDateString());
-
-            string subject = "Fertility Point : Appointment Approval";
-
-            //Base class for sending email  
-            MailMessage _mailmsg = new MailMessage();
-
-            //Make TRUE because our body text is html  
-            _mailmsg.IsBodyHtml = true;
-
-            _mailmsg.From = new MailAddress(emailSender);
-
-            _mailmsg.To.Add(appointmentDTO.Email.ToString());
-
-            _mailmsg.Subject = subject;
-
-            _mailmsg.Body = MailText;
-
-            //Now set your SMTP   
-            SmtpClient _smtp = new SmtpClient();
+            try
             {
+                var emailSender = config.GetValue<string>("NoReply:SMTPUserName");
 
-                _smtp.Host = emailSenderHost;
+                var emailSenderPassword = config.GetValue<string>("NoReply:Password");
 
-                _smtp.Port = emailSenderPort;
+                var emailSenderHost = config.GetValue<string>("MailSettings:SMTPMailServer");
 
-                _smtp.EnableSsl = emailIsSSL;
+                int emailSenderPort = Convert.ToInt32(config.GetValue<string>("MailSettings:SMTPPort"));
 
-                NetworkCredential _network = new NetworkCredential(emailSender, emailSenderPassword);
+                bool emailIsSSL = Convert.ToBoolean(config.GetValue<string>("MailSettings:SMTPUseSSL"));
 
-                _smtp.Credentials = _network;
+                //Fetching Email Body Text from EmailTemplate File. 
 
-                _smtp.Send(_mailmsg);
+                string FilePath = env.WebRootPath
+                              + Path.DirectorySeparatorChar.ToString()
+                              + "Templates"
+                              + Path.DirectorySeparatorChar.ToString()
+                              + "EmailTemplate"
+                              + Path.DirectorySeparatorChar.ToString()
+                              + "AppointmentApprovalNotification.html";
+
+
+                StreamReader str = new StreamReader(FilePath);
+
+                string MailText = str.ReadToEnd();
+
+                str.Close();
+
+                //Repalce [newusername] = signup user name   
+                MailText = MailText.Replace("[FirstName]", appointmentDTO.FirstName.Trim());
+
+                MailText = MailText.Replace("[AppointmentDate]", appointmentDTO.AppointmentDate.ToShortDateString());
+
+                MailText = MailText.Replace("[TimeSlot]", appointmentDTO.TimeSlot.Trim());
+
+                MailText = MailText.Replace("[CreateDate]", appointmentDTO.CreateDate.ToShortDateString());
+
+                string subject = "Fertility Point : Appointment Approval";
+
+                //Base class for sending email  
+                MailMessage _mailmsg = new MailMessage();
+
+                //Make TRUE because our body text is html  
+                _mailmsg.IsBodyHtml = true;
+
+                _mailmsg.From = new MailAddress(emailSender);
+
+                _mailmsg.To.Add(appointmentDTO.Email.ToString());
+
+                _mailmsg.Subject = subject;
+
+                _mailmsg.Body = MailText;
+
+                //Now set your SMTP   
+                SmtpClient _smtp = new SmtpClient();
+                {
+
+                    _smtp.Host = emailSenderHost;
+
+                    _smtp.Port = emailSenderPort;
+
+                    _smtp.EnableSsl = emailIsSSL;
+
+                    NetworkCredential _network = new NetworkCredential(emailSender, emailSenderPassword);
+
+                    _smtp.Credentials = _network;
+
+                    _smtp.Send(_mailmsg);
+                }
+
+                return true;
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
 
-            return true;
+                return false;
+            }
         }
         public async Task<bool> RescheduleAppointmentEmailNotificationAsync(AppointmentDTO appointmentDTO)
         {
@@ -748,6 +762,91 @@ namespace FertilityPoint.Services.EmailModule
 
                 return true;
 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return false;
+            }
+        }
+
+        public async Task<bool> ReplyMails(SentMailDTO sentMailDTO)
+        {
+            try
+            {
+                var getEnquiryDetails = await enquiryRepository.GetById(sentMailDTO.EnquiryId);
+
+                sentMailDTO.Name = getEnquiryDetails.Name;
+
+                sentMailDTO.Email= getEnquiryDetails.Email;
+
+                var emailSender = config.GetValue<string>("NoReply:SMTPUserName");
+
+                var emailSenderPassword = config.GetValue<string>("NoReply:Password");
+
+                var emailSenderHost = config.GetValue<string>("MailSettings:SMTPMailServer");
+
+                int emailSenderPort = Convert.ToInt32(config.GetValue<string>("MailSettings:SMTPPort"));
+
+                bool emailIsSSL = Convert.ToBoolean(config.GetValue<string>("MailSettings:SMTPUseSSL"));
+
+                //Fetching Email Body Text from EmailTemplate File. 
+
+                string FilePath = env.WebRootPath
+                              + Path.DirectorySeparatorChar.ToString()
+                              + "Templates"
+                              + Path.DirectorySeparatorChar.ToString()
+                              + "EmailTemplate"
+                              + Path.DirectorySeparatorChar.ToString()
+                              + "EnquiryReplyNotification.html";
+
+                StreamReader str = new StreamReader(FilePath);
+
+                string MailText = str.ReadToEnd();
+
+                str.Close();
+
+                //Repalce [newusername] = signup user name   
+
+                MailText = MailText.Replace("[Name]", sentMailDTO.Name.Trim());
+
+                MailText = MailText.Replace("[Message]", sentMailDTO.Message.Trim());
+
+                string subject = "Fertility Point : Enquiry";
+
+                //Base class for sending email  
+                MailMessage _mailmsg = new MailMessage();
+
+                //Make TRUE because our body text is html  
+                _mailmsg.IsBodyHtml = true;
+
+                _mailmsg.From = new MailAddress(emailSender);
+
+                _mailmsg.To.Add(sentMailDTO.Email.ToString());
+
+                _mailmsg.Subject = subject;
+
+                _mailmsg.Body = MailText;
+
+                //Now set your SMTP   
+                SmtpClient _smtp = new SmtpClient();
+                {
+
+                    _smtp.Host = emailSenderHost;
+
+                    _smtp.Port = emailSenderPort;
+
+                    _smtp.EnableSsl = emailIsSSL;
+
+                    NetworkCredential _network = new NetworkCredential(emailSender, emailSenderPassword);
+
+                    _smtp.Credentials = _network;
+
+                    _smtp.Send(_mailmsg);
+                }
+
+                return true;
             }
             catch (Exception ex)
             {

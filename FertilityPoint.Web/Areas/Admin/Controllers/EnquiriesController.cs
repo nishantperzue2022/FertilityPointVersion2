@@ -1,5 +1,9 @@
 ﻿using FertilityPoint.BLL.Repositories.EnquiryModule;
+using FertilityPoint.DAL.Modules;
+using FertilityPoint.DTO.EnquiryModule;
+using FertilityPoint.Services.EmailModule;
 using FertilityPoint.Web.Helpers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
@@ -11,13 +15,21 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
     {
         private readonly IEnquiryRepository enquiryRepository;
 
+        private readonly IMailService mailService;
+
         private readonly IHubContext<SignalrServer> signalrHub;
 
-        public EnquiriesController(IEnquiryRepository enquiryRepository, IHubContext<SignalrServer> signalrHub)
+        private readonly UserManager<AppUser> userManager;
+
+        public EnquiriesController(IMailService mailService, UserManager<AppUser> userManager, IEnquiryRepository enquiryRepository, IHubContext<SignalrServer> signalrHub)
         {
             this.enquiryRepository = enquiryRepository;
 
             this.signalrHub = signalrHub;
+
+            this.userManager = userManager;
+
+            this.mailService = mailService;
         }
         public async Task<IActionResult> Index()
         {
@@ -31,7 +43,7 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
                 ViewBag.Time = time + " " + date;
 
-                var data = await enquiryRepository.GetAll();
+                var data = (await enquiryRepository.GetAll()).Where(x => x.Status == 0);
 
                 return View(data);
             }
@@ -46,7 +58,6 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
         public async Task<IActionResult> GetEnquiries()
         {
-          
 
             var data = await enquiryRepository.GetAll();
 
@@ -56,8 +67,76 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
         }
 
+        public async Task<IActionResult> SendMail(SentMailDTO sentMailDTO)
+        {
 
+            try
+            {
+                var user = await userManager.FindByEmailAsync(User.Identity.Name);
 
+                sentMailDTO.CreatedBy = user.Id;
 
+                var result = await enquiryRepository.Reply(sentMailDTO);
+
+                if (result != null)
+                {
+                    var sendMail = await mailService.ReplyMails(sentMailDTO);
+
+                    return Json(new { success = true, responseText = "Message has been sent successfully" });
+                }
+                else
+                {
+                    return Json(new { success = false, responseText = "Failed to send message" });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return Json(new { success = false, responseText = "Something went wrong" });
+            }
+
+        }
+
+        public async Task<IActionResult> GetById(Guid Id)
+        {
+            try
+            {
+                var data = await enquiryRepository.GetById(Id);
+
+                if (data != null)
+                {
+                    EnquiryDTO enquiryDTO = new EnquiryDTO();
+                    {
+                        enquiryDTO.Id = Id;
+
+                        enquiryDTO.Name = data.Name;
+
+                        enquiryDTO.Message = data.Message;
+
+                        enquiryDTO.PhoneNumber = data.PhoneNumber;
+
+                        enquiryDTO.CreateDate = data.CreateDate;
+
+                        enquiryDTO.Status = data.Status;
+
+                        enquiryDTO.Email = data.Email;
+
+                    }
+
+                    return Json(new { data = enquiryDTO });
+                }
+
+                return Json(new { data = false });
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+
+        }
     }
 }

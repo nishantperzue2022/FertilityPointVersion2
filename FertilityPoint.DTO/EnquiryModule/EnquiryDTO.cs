@@ -13,6 +13,7 @@ namespace FertilityPoint.DTO.EnquiryModule
         public string FertilityEmail { get; set; }
         public string Email { get; set; }    
         public string Message { get; set; }
+
         public string PhoneNumber { get; set; }
         public byte Status { get; set; }
         public DateTime CreateDate { get; set; }

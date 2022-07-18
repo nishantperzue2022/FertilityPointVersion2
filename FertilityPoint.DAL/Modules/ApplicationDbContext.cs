@@ -12,6 +12,7 @@ namespace FertilityPoint.DAL.Modules
         {
 
         }
+        public virtual DbSet<SentMail> SentMails { get; set; } = null!;
         public virtual DbSet<AppUser> AppUsers { get; set; } = null!;
         public virtual DbSet<County> Counties { get; set; } = null!;
         public virtual DbSet<SubCounty> SubCounties { get; set; } = null!;
