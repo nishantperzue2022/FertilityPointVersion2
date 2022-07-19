@@ -26,22 +26,30 @@ $(() => {
 
             success: function (data) {
 
-                const array = data
+                const array = data;
 
-                var s = '';
+                if (array.length == 0) {
 
-                console.log(data);
+                    $('#divShowEmptyMessage').show();
+                    console.log("i am null");
+                } else {
+                    $('#divShowEmptyMessage').hide();
 
-                for (var i = 0; i < data.length; i++) {
 
-                    s +=
-                        `<a href="#"  onclick="GetMessage('${data[i].makeId}')">
+
+                    var s = '';
+
+
+                    for (var i = 0; i < array.length; i++) {
+
+                        s +=
+                            `<a href="#"  onclick="GetMessage('${data[i].id}')">
                                         <div class="mail_list">
                                             <div class="left">
                                                 <i class="fa fa-circle"></i>
                                             </div>
                                             <div class="right" >
-                                                <h3 style="color:#27ae60;">${data[i].makeName} <small>${data[i].newCreateDate}</small></h3>
+                                                <h3 style="color:#27ae60;">${data[i].patientName} <small>${data[i].newCreateDate}</small></h3>
                                                 <span>  <small ></small></span>
                                                 <p>
                                                     Phone Number:<span >${data[i].phoneNumber}</span><br>
@@ -53,12 +61,17 @@ $(() => {
                                             </div>
                                         </div>
                                     </a>`
-                        ;
+                            ;
 
-                    $("#txtlist").html(s);
+                        $("#txtlist").html(s);
+
+                    }
 
 
                 }
+
+
+
             }
 
         });
@@ -83,15 +96,112 @@ function GetMessage(e) {
         console.log(data);
         if (data.data == false) {
             alert("Does not exist");
+
+            console.log(data);
+
         } else {
 
             $("#txtId").val(data.data.id);
             $("#txtMessage").text(data.data.message);
             $("#txtPhoneNumber").text(data.data.phoneNumber);
-            $("#txtEmail").text(data.data.email);
+            $("#txtEmail1").text(data.data.email);
             $("#txtStatus").text(data.data.status);
             $("#txtName").text(data.data.name);
         }
 
     });
 };
+
+
+
+function ShowLoader() {
+
+    $("#loadMe").modal('show');
+}
+
+function HideLoader() {
+
+    $("#loadMe").modal('hide');
+}
+
+
+
+
+
+$("#btnReply").click(function () {
+
+
+
+    if ($('#txtComposeMail').val() == '') {
+        $('#txtComposeMail').focus();
+        swal({
+            position: 'top-end',
+            type: "error",
+            title: "Message is a required field",
+            showConfirmButton: true,
+        });
+        return false;
+    }
+
+
+    var data = $("#frmReply").serialize();
+
+    $.ajax({
+
+        type: "POST",
+
+        url: "/Admin/Enquiries/SendMail/",
+
+        data: data,
+
+        beforeSend: function () { ShowLoader(); },
+
+        success: function (response) {
+
+            if (response.success) {
+
+
+                swal({
+
+                    position: 'top-end',
+
+                    type: "success",
+
+                    title: response.responseText,
+
+                    showConfirmButton: false,
+
+                }), setTimeout(function () { location.reload(); }, 3000);
+
+            } else {
+
+                swal({
+
+                    position: 'top-end',
+
+                    type: "error",
+
+                    title: response.responseText,
+
+                    showConfirmButton: true,
+
+                    timer: 5000,
+                });
+
+
+            }
+        },
+
+        error: function (response) {
+            alert("error!");
+        },
+        complete: function () {
+            HideLoader();
+        }
+    })
+
+})
+
+
+
+

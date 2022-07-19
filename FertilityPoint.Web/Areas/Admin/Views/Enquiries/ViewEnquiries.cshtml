@@ -5,14 +5,6 @@
 }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-<link href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
-
-
-
-
-
-
-
 
 <body>
 
@@ -32,26 +24,11 @@
 
                             <div class="row">
 
-
                                 <div class="col-sm-3 mail_list_column" id="txtlist">
-
-                                    
+                                                                        
 
                                 </div>
-                                
-
-                                <div class="form-group row">
-                                    <div class="col-lg-6">
-                                       
-                                        <div>
-                                            <p id="departmentsDropdown1" name="BranchId"></p>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
+                         
 
                                 <div class="col-sm-9 mail_view">
                                     <div class="inbox-body">
@@ -73,7 +50,7 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <strong id="txtName"></strong>
-                                                        (<span id="txtEmail"></span>)
+                                                        (<span id="txtEmail1"></span>)
                                                     </div>
                                                 </div>
                                             </div>
@@ -98,7 +75,7 @@
                                     </div>
                                 </div>
 
-                                <div class="centered">
+                                <div class="centered" id="divShowEmptyMessage" style="display:none;">
                                     <div class="oQNug customScrollBar">
                                         <div class="szPnh Lg0x7 jPiY5">
                                             <img src="/dashboard/assets/img/illustration_balloon.svg" alt="" style="width: 120px; height: 120px;">
@@ -114,34 +91,11 @@
                 </div>
             </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </div>
 
     </div>
 
 </body>
-
-<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
 <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
 <script src="~/fertilitypoint/enquries2.js"></script>
@@ -266,12 +220,6 @@
         transition: all .2s ease;
     }
 </style>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#specialist').DataTable();
-    });
-</script>
-
 
 
 

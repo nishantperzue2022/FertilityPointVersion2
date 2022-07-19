@@ -178,15 +178,16 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
                 return Json(streams.Select(x => new
                 {
-                    MakeId = x.Id,
+                    Id = x.Id,
 
-                    MakeName = x.Name,
+                    PatientName = x.Name,
 
-                    phoneNumber = x.PhoneNumber,
+                    PhoneNumber = x.PhoneNumber,
 
-                    email = x.Email,
+                    Email = x.Email,
 
-                    newCreateDate = x.NewCreateDate
+                    newCreateDate = x.NewCreateDate,
+                 
 
                 }).ToList());
 

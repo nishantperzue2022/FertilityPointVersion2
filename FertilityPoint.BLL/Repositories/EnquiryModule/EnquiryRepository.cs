@@ -102,7 +102,7 @@ namespace FertilityPoint.BLL.Repositories.EnquiryModule
         {
             try
             {
-                var data = await context.Enquiries.ToListAsync();
+                var data = (await context.Enquiries.OrderBy(x => x.CreateDate).ToListAsync());
 
                 var enquiry = mapper.Map<List<Enquiry>, List<EnquiryDTO>>(data);
 

@@ -11,34 +11,7 @@ function HideLoader() {
 }
 
 
-function GetMessage(e) {
 
-
-   
-    $('#divReply').show();
-
-
-
-    var id = e;
-
-    console.log(id);
-
-    $.get("/Admin/Enquiries/GetById/?Id=" + id, function (data, status) {
-        console.log(data);
-        if (data.data == false) {
-            alert("Does not exist");
-        } else {
-
-            $("#txtId").val(data.data.id);
-            $("#txtMessage").text(data.data.message);
-            $("#txtPhoneNumber").text(data.data.phoneNumber);
-            $("#txtEmail").text(data.data.email);
-            $("#txtStatus").text(data.data.status);
-            $("#txtName").text(data.data.name);
-        }
-
-    });
-};
 
 
 $("#btnReply").click(function () {
@@ -118,3 +91,34 @@ $("#btnReply").click(function () {
 
 
 
+function GetMessage(e) {
+
+
+
+    $('#divReply').show();
+
+
+
+    var id = e;
+
+    console.log(id);
+
+    $.get("/Admin/Enquiries/GetById/?Id=" + id, function (data, status) {
+        console.log(data);
+        if (data.data == false) {
+            alert("Does not exist");
+
+            console.log(data);
+
+        } else {
+
+            $("#txtId").val(data.data.id);
+            $("#txtMessage").text(data.data.message);
+            $("#txtPhoneNumber").text(data.data.phoneNumber);
+            $("#txtEmail1").text(data.data.email);
+            $("#txtStatus").text(data.data.status);
+            $("#txtName").text(data.data.name);
+        }
+
+    });
+};

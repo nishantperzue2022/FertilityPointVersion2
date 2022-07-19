@@ -18,6 +18,7 @@
                 $('#divShowMessage').show();
 
                 $("#divmessage").html("Sorry ,there no slots on the selected date ,please select another date");
+
             } else {
 
                 $('#slots').show();
