@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using FertilityPoint.BLL.Repositories.EnquiryModule;
 using FertilityPoint.BLL.Repositories.PayPalModule;
+using FertilityPoint.Web.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -86,12 +87,7 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-var h = WebApplication.CreateBuilder(args);
-var t = WebApplication.Create(args);
-
-            h.WebHost.UseContentRoot(Directory.GetCurrentDirectory());
-           // t.UseWebRoot("wwwroot");
-
+app.MapHub<SignalrServer>("/signalrServer");
 
 app.UseEndpoints(endpoints =>
 {
@@ -103,7 +99,6 @@ app.UseEndpoints(endpoints =>
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 });
-
 
 var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
 

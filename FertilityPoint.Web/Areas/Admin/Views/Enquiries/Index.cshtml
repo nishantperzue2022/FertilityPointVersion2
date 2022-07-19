@@ -1,14 +1,13 @@
 ﻿@model IEnumerable<FertilityPoint.DTO.EnquiryModule.EnquiryDTO>
-
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <link href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 
 <body>
+
     <div class="page-wrapper" style="min-height: 754px;background-color: #f8f9fa;">
         <div class="content container-fluid">
             <div class="row">
@@ -21,11 +20,10 @@
                         </div>
 
                         <div class="x_content">
-                            <div class="row">
 
+                            <div class="row">
                                 @if (Model != null && Model.Count() > 0)
                                 {
-
                                     int count = 1;
 
                                     <div class="col-sm-3 mail_list_column">
@@ -51,84 +49,64 @@
                                         }
                                     </div>
 
-                                      <div class="col-sm-9 mail_view">
-                                    <div class="inbox-body">
-                                        <div class="mail_heading row">
-                                            <div class="col-md-8">
-                                            </div>
-                                            <div class="col-md-4 text-right">
-                                                <p class="date">@ViewBag.Time</p>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <h4> Message Details</h4>
-                                            </div>
-                                        </div>
+                                    <div class="col-sm-9 mail_view">
+                                        <div class="inbox-body">
 
+                                            <div id="divReply" style="display:none;">
 
-                                        <div id="divReply" style="display:none;">
-                                            <div class="sender-info">
-                                                <div class="row">
+                                                <div class="mail_heading row">
+                                                    <div class="col-md-8">
+                                                    </div>
+                                                    <div class="col-md-4 text-right">
+                                                        <p class="date">@ViewBag.Time</p>
+                                                    </div>
                                                     <div class="col-md-12">
-                                                        <strong id="txtName"></strong>
-                                                        (<span id="txtEmail"></span>)
+                                                        <h4> Message Details</h4>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="view-mail">
-                                                <p id="txtMessage"></p>
-                                            </div>
+                                                <div class="sender-info">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <strong id="txtName"></strong>
+                                                            (<span id="txtEmail"></span>)
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                            <form id="frmReply">
-                                                <input type="hidden" id="txtId" name="EnquiryId" />
+                                                <div class="view-mail">
+                                                    <p id="txtMessage"></p>
+                                                </div>
 
-                                                <label>Message</label>
-                                                <textarea class="form-control" style="height:10em;" name="Message" id="txtComposeMail"></textarea>
+                                                <form id="frmReply">
+                                                    <input type="hidden" id="txtId" name="EnquiryId" />
 
-                                            </form>
+                                                    <label>Reply Here...</label>
+                                                    <textarea class="form-control" style="height:10em;" name="Message" id="txtComposeMail"></textarea>
 
-                                            <div class="btn-group mt-3">
-                                                <button class="btn btn-sm btn-primary" id="btnReply" type="button"><i class="fa fa-send"></i> Send Message</button>
+                                                </form>
+
+                                                <div class="btn-group mt-3 pull-right">
+                                                    <button class="btn btn-sm btn-primary" id="btnReply" type="button"><i class="fa fa-send"></i> Send Message</button>
+                                                </div>
+
                                             </div>
                                         </div>
-
                                     </div>
-                                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                                 }
                                 else
                                 {
-                                    <div class="text-align-center col-md-12">
-                                    <div  class="oQNug customScrollBar">
-                                        <div class="vmKZa">
+                                    <div class="centered">
+                                        <div class="oQNug customScrollBar">
                                             <div class="szPnh Lg0x7 jPiY5">
-                                                <img src="https://res.cdn.office.net/owamail/20220708002.14/scripts/../resources/images/illustration_balloon-0be2e367e25ebe01..svg" alt="" style="width: 120px; height: 120px;">
+                                                <img src="/dashboard/assets/img/illustration_balloon.svg" alt="" style="width: 120px; height: 120px;">
                                                 <span class="VdeRe">All done for the day</span>
                                                 <span class="QYrHp">Enjoy your empty inbox.</span>
                                             </div>
                                         </div>
                                     </div>
-                                    </div>
-
                                 }
-
                             </div>
                         </div>
                     </div>
@@ -140,12 +118,18 @@
 
 <style>
 
-  .oQNug, .U3ia4 {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    overflow-y: auto;
-}
+    .centered {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+    }
+
+    .oQNug, .U3ia4 {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        overflow-y: auto;
+    }
 
 
     .VdeRe {
@@ -161,7 +145,7 @@
         width: 100%;
     }
 
-  
+
 
 
 
@@ -255,6 +239,8 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+
 <script src="~/fertilitypoint/enquiries.js"></script>
 
 

@@ -43,7 +43,7 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
                 ViewBag.Time = time + " " + date;
 
-                var data = (await enquiryRepository.GetAll()).Where(x => x.Status == 0);
+                var data = (await enquiryRepository.GetAll()).Where(x => x.Status == 0).Take(6);
 
                 return View(data);
             }
@@ -56,12 +56,20 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
         }
 
 
+        public async Task<IActionResult> ViewEnquiries()
+        {
+
+            var data = (await enquiryRepository.GetAll()).Where(x => x.Status == 0).Take(6);
+
+            return View(data);
+
+        }
+
         public async Task<IActionResult> GetEnquiries()
         {
 
             var data = await enquiryRepository.GetAll();
 
-            await signalrHub.Clients.All.SendAsync("LoadEnquiries");
 
             return Ok(data);
 
@@ -121,7 +129,6 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                         enquiryDTO.Status = data.Status;
 
                         enquiryDTO.Email = data.Email;
-
                     }
 
                     return Json(new { data = enquiryDTO });
@@ -138,5 +145,64 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
             }
 
         }
+
+        public async Task<IActionResult> GetById22()
+        {
+            try
+            {
+                var list = await enquiryRepository.GetAll();
+
+                if (list != null)
+                {
+
+                    return Json(new { data = list });
+                }
+
+                return Json(new { data = false });
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+
+        }
+
+        public async Task<ActionResult> GetById2()
+        {
+            try
+            {
+                var streams = (await enquiryRepository.GetAll()).Where(x => x.Status == 0).Take(6);
+
+                return Json(streams.Select(x => new
+                {
+                    MakeId = x.Id,
+
+                    MakeName = x.Name,
+
+                    phoneNumber = x.PhoneNumber,
+
+                    email = x.Email,
+
+                    newCreateDate = x.NewCreateDate
+
+                }).ToList());
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+        }
+
+
+
+
+
+
     }
 }

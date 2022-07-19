@@ -1,0 +1,277 @@
+﻿@model IEnumerable<FertilityPoint.DTO.EnquiryModule.EnquiryDTO>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<link href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+
+<body>
+
+
+    <div class="page-wrapper" style="min-height: 754px;background-color: #f8f9fa;">
+        <div class="content container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="x_panel">
+
+                        <div class="x_title">
+                            <h2>Enquiries</h2>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="x_content">
+
+                            <div class="row">
+
+
+                                <div class="col-sm-3 mail_list_column" id="txtlist">
+
+                                    
+
+                                </div>
+                                
+
+                                <div class="form-group row">
+                                    <div class="col-lg-6">
+                                       
+                                        <div>
+                                            <p id="departmentsDropdown1" name="BranchId"></p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="col-sm-9 mail_view">
+                                    <div class="inbox-body">
+
+                                        <div id="divReply" style="display:none;">
+
+                                            <div class="mail_heading row">
+                                                <div class="col-md-8">
+                                                </div>
+                                                <div class="col-md-4 text-right">
+                                                    <p class="date">@ViewBag.Time</p>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <h4> Message Details</h4>
+                                                </div>
+                                            </div>
+
+                                            <div class="sender-info">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <strong id="txtName"></strong>
+                                                        (<span id="txtEmail"></span>)
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="view-mail">
+                                                <p id="txtMessage"></p>
+                                            </div>
+
+                                            <form id="frmReply">
+                                                <input type="hidden" id="txtId" name="EnquiryId" />
+
+                                                <label>Reply Here...</label>
+                                                <textarea class="form-control" style="height:10em;" name="Message" id="txtComposeMail"></textarea>
+
+                                            </form>
+
+                                            <div class="btn-group mt-3 pull-right">
+                                                <button class="btn btn-sm btn-primary" id="btnReply" type="button"><i class="fa fa-send"></i> Send Message</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="centered">
+                                    <div class="oQNug customScrollBar">
+                                        <div class="szPnh Lg0x7 jPiY5">
+                                            <img src="/dashboard/assets/img/illustration_balloon.svg" alt="" style="width: 120px; height: 120px;">
+                                            <span class="VdeRe">All done for the day</span>
+                                            <span class="QYrHp">Enjoy your empty inbox.</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+
+</body>
+
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+<script src="~/fertilitypoint/enquries2.js"></script>
+
+
+<style>
+
+    .centered {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+    }
+
+    .oQNug, .U3ia4 {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        overflow-y: auto;
+    }
+
+
+    .VdeRe {
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        color: var(--neutralPrimary);
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        font-weight: 600;
+        justify-content: center;
+        padding-top: 8px;
+        width: 100%;
+    }
+
+
+
+
+
+
+    .mail_view {
+        border-left: 1px solid #DBDBDB;
+    }
+
+    .mail_heading h4 {
+        font-size: 18px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+        margin-top: 20px;
+    }
+
+    .mail_list {
+        width: 100%;
+        border-bottom: 1px solid #DBDBDB;
+        margin-bottom: 2px;
+        display: inline-block;
+    }
+
+        .mail_list h3 {
+            font-size: 15px;
+            font-weight: bold;
+            margin: 0px 0 6px;
+        }
+
+        .mail_list .right {
+            width: 90%;
+            float: left;
+        }
+
+        .mail_list .left {
+            width: 5%;
+            float: left;
+            margin-right: 3%;
+        }
+
+    .row {
+        margin-right: -10px;
+        margin-left: -10px;
+    }
+
+    .row {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    p {
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+
+    a {
+        color: #5A738E;
+        text-decoration: none;
+    }
+
+
+    .x_content {
+        padding: 0 3px 6px;
+        position: relative;
+        width: 100%;
+        float: left;
+        clear: both;
+        margin-top: 5px;
+    }
+
+    .x_panel {
+        position: relative;
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px 17px;
+        display: inline-block;
+        background: #fff;
+        border: 1px solid #E6E9ED;
+        -webkit-column-break-inside: avoid;
+        -moz-column-break-inside: avoid;
+        column-break-inside: avoid;
+        opacity: 1;
+        -webkit-transition: all .2s ease;
+        transition: all .2s ease;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#specialist').DataTable();
+    });
+</script>
+
+
+
+

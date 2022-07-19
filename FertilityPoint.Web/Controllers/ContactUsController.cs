@@ -50,7 +50,7 @@ namespace FertilityPoint.Controllers
 
                     if (sendNotification == true)
                     {
-                      
+                        await signalrHub.Clients.All.SendAsync("LoadEnquiries");
 
                         return Json(new { success = true, responseText = "Your message has been sent successfully " });
                     }
