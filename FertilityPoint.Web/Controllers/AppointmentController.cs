@@ -24,7 +24,8 @@ using FertilityPoint.DTO.TimeSlotModule;
 using Microsoft.Extensions.Configuration;
 using System.Globalization;
 using FertilityPoint.BLL.Repositories.ServiceModule;
-
+using FertilityPoint.Web.Helpers;
+using Microsoft.AspNetCore.SignalR;
 
 namespace FertilityPoint.Controllers
 {
@@ -45,9 +46,14 @@ namespace FertilityPoint.Controllers
         private readonly IConfiguration config;
 
         private readonly IServicesRepository servicesRepository;
+
+        private readonly IHubContext<SignalrServer> signalrHub;
+
         public AppointmentController(
 
             IConfiguration config,
+
+            IHubContext<SignalrServer> signalrHub,
 
             ITimeSlotRepository timeSlotRepository,
 
@@ -80,6 +86,8 @@ namespace FertilityPoint.Controllers
             this.env = env;
 
             this.config = config;
+
+            this.signalrHub = signalrHub;
 
         }
         public IActionResult Index()
@@ -344,6 +352,8 @@ namespace FertilityPoint.Controllers
                     if (results != null)
                     {
                         var url = Url.Action("DownloadReceipt", "Appointment", new { Id = appointmentDTO.Id }, Request.Scheme);
+
+                        await signalrHub.Clients.All.SendAsync("LoadAppointments");
 
                         appointmentDTO.ReceiptURL = url;
 
