@@ -109,6 +109,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\Views\Transactions\" />
     <Folder Include="wwwroot\Application_Files\C2BConfirmationResults\" />
   </ItemGroup>
 

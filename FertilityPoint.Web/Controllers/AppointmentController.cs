@@ -381,7 +381,6 @@ namespace FertilityPoint.Controllers
                 return null;
             }
         }
-
         [HttpPost]
         public async Task<ActionResult> MpesaSTKPush(LipaMpesa lipaMpesa)
         {
@@ -557,7 +556,6 @@ namespace FertilityPoint.Controllers
 
             return formatted;
         }
-
         public IActionResult GetSlotById(Guid Id)
         {
             try
@@ -588,7 +586,6 @@ namespace FertilityPoint.Controllers
                 return null;
             }
         }
-
         public async Task<IActionResult> GetSlots()
         {
             try
@@ -647,7 +644,6 @@ namespace FertilityPoint.Controllers
             }
 
         }
-
         public async Task<IActionResult> GetSlotsByQuickSearch(byte QuickSearch)
         {
             if (QuickSearch == 1)
@@ -661,7 +657,6 @@ namespace FertilityPoint.Controllers
 
 
         }
-
     }
 
     public class LipaMpesa

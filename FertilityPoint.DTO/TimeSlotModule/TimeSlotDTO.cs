@@ -17,9 +17,11 @@ namespace FertilityPoint.DTO.TimeSlotModule
         public byte IsBooked { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime AppointmentDate { get; set; }
-        public string NewFromTime { get { return FromTime.ToString("h:mm"); } }
-        public string NewToTime { get { return ToTime.ToShortDateString(); } }
-              
+        public string NewCreateDate { get { return CreateDate.ToShortDateString(); } }
+        public string NewAppointmentDate { get { return AppointmentDate.ToShortDateString(); } }
+        public string NewFromTime { get { return FromTime.ToString("h:mm tt"); } }
+        public string NewToTime { get { return ToTime.ToString("h:mm tt"); } }
+
     }
 
 }

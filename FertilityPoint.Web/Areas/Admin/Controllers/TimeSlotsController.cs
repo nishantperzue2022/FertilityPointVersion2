@@ -3,6 +3,7 @@ using FertilityPoint.DAL.Modules;
 using FertilityPoint.DTO.TimeSlotModule;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 
@@ -12,9 +13,7 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
     public class TimeSlotsController : Controller
     {
         private readonly ITimeSlotRepository timeSlotRepository;
-
         private readonly UserManager<AppUser> userManager;
-
         public TimeSlotsController(UserManager<AppUser> userManager, ITimeSlotRepository timeSlotRepository)
         {
             this.timeSlotRepository = timeSlotRepository;
@@ -28,7 +27,22 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
             return View(timeSlots);
         }
+        public IActionResult CreateSlots(DateTime AppointmentDate)
+        {
+            try
+            {
 
+                ViewBag.AppointmentDate = AppointmentDate.ToShortDateString();
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+        }
         public async Task<IActionResult> Create(TimeSlotDTO timeSlotDTO)
         {
             try
@@ -43,6 +57,22 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                     return Json(new { success = false, responseText = "The slot already exits" });
 
                 }
+
+                if (timeSlotDTO.FromTime == DateTime.Parse("01/01/0001 00:00:00"))
+                {
+                    return Json(new { success = false, responseText = "Invalid From Time" });
+                }
+
+                if (timeSlotDTO.ToTime == DateTime.Parse("01/01/0001 00:00:00"))
+                {
+                    return Json(new { success = false, responseText = "Invalid To Time" });
+                }
+
+                if (timeSlotDTO.AppointmentDate == DateTime.Parse("01/01/0001 00:00:00"))
+                {
+                    return Json(new { success = false, responseText = "Invalid Appointment Date" });
+                }
+
                 else
                 {
                     var loggedInuser = await userManager.FindByEmailAsync(User.Identity.Name);
@@ -72,7 +102,6 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
             }
         }
-
         public async Task<IActionResult> Update(TimeSlotDTO timeSlotDTO)
         {
             try
@@ -99,7 +128,6 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                 return Json(new { success = false, responseText = "Something went wrong" });
             }
         }
-
         public async Task<ActionResult> Delete(Guid Id)
         {
             try
@@ -123,7 +151,6 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                 return Json(new { success = false, responseText = "Something went wrong" });
             }
         }
-
         public IActionResult GetById(Guid Id)
         {
             try
@@ -157,5 +184,32 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
             }
 
         }
+
+        public async Task<IActionResult> GetSlotsByDate()
+        {
+            var slots = (await timeSlotRepository.GetAll()).OrderBy(x => x.CreateDate).ToList();
+
+            return Ok(slots);
+        }
+
+        public IActionResult Test()
+        {
+
+
+            return View();
+        }
+
+      
+        public async Task<IActionResult> AjaxMethod()
+        {
+            var slots = (await timeSlotRepository.GetAll()).OrderBy(x => x.CreateDate).ToList();
+
+            return Json(new {data=slots});
+        }
+
+
+
+
+
     }
 }

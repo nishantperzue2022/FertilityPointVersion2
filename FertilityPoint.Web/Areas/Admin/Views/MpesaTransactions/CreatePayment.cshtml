@@ -132,6 +132,12 @@
         $("#loadMe").modal('hide');
     }
 
+    function HideError() {
+
+        $('#dvError').delay(1000).hide(3000);
+    }
+
+
     $("#btnSubmitPayment").click(function() {
 
 
@@ -142,6 +148,8 @@
             $("#dvError").show();
 
             $("#info").text("Phone Number is required");
+
+            HideError();
 
             return false;
         }
@@ -154,6 +162,8 @@
 
             $("#info").text("Transaction Number is required");
 
+            HideError();
+
             return false;
         }
 
@@ -165,6 +175,8 @@
 
             $("#info").text("Amount is required");
 
+            HideError();
+
             return false;
         }
 
@@ -175,6 +187,8 @@
             $("#dvError").show();
 
             $("#info").text("Date of Payment is required");
+
+            HideError();
 
             return false;
         }
@@ -210,6 +224,8 @@
                     $("#dvError").show();
 
                     $("#info").text(response.responseText);
+
+                    HideError();
                 }
             },
 

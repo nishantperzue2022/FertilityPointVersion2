@@ -1,4 +1,73 @@
-﻿function ShowLoader() {
+﻿$(document).ready(function () {
+
+
+
+    GetSlots();
+
+});
+
+
+function GetSlots() {
+
+    var t = $('#tblSlots').DataTable({
+
+        "ajax": {
+            "url": "/Admin/TimeSlots/AjaxMethod",
+            "type": "GET",
+            "datatype": "json"
+        },
+
+        "columns": [
+
+            { 'data': 'id' },
+            { 'data': 'newFromTime' },
+            { 'data': 'newToTime' },
+            { 'data': 'newAppointmentDate' },
+
+            {
+                data: null,
+
+                mRender: function (data, type, row) {
+
+                    var status = row.isBooked;
+
+                    if (status == 0) {
+                        return "<span class='activeUser'> Available </span>"
+                    }
+                    else {
+                        return "<span class='disabledUser'> Booked </span>"
+                    }
+
+
+                }
+            },
+
+            { 'data': 'newCreateDate' },
+
+            {
+                data: null,
+                mRender: function (data, type, row) {
+                    return "<a href='#' class='btn btn-success btn-sm '    onclick=FetchCarDetails('" + row.id + "'); >Edit </a> / <a href='#' class='btn-sm btn-danger'   onclick=DeleteRecord('" + row.id + "'); >Delete</a>";
+
+                }
+            }
+
+
+
+        ]
+
+    });
+    t.on('order.dt search.dt', function () {
+        t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+        });
+    }).draw();
+}
+
+
+
+
+function ShowLoader() {
 
     $("#loadMe").modal('show');
 }
@@ -163,7 +232,6 @@ $("#btnEdit").click(function () {
 
 })
 
-
 function GetTimeSlot(e) {
 
     var id = e;
@@ -187,7 +255,6 @@ function GetTimeSlot(e) {
 
     });
 };
-
 
 function DeleteRecord(e) {
 
@@ -269,3 +336,4 @@ function DeleteRecord(e) {
 
         });
 }
+

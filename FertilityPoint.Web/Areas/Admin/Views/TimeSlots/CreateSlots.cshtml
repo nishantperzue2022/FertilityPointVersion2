@@ -1,0 +1,112 @@
+﻿@{
+    ViewData["Title"] = "CreatePayment";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+    <div class="page-wrapper" style="min-height: 754px;background-color: #f8f9fa;">
+        <div class="content container-fluid">
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header" style="background-color: #263b6b;color: #fff;">
+                        <div class="card-title" style="font-weight:bold;">Create Time Slots for date @ViewBag.AppointmentDate</div>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="container">
+                            <div class="clear">
+
+                                <div style="display:none;" id="dvError">
+                                    <div class="alert alert-danger" role="alert">
+                                        <h6 id="info"></h6>
+                                    </div>
+                                </div>
+
+                                <div style="display:none;" id="dvSuccess">
+                                    <div class="alert alert-success" role="alert">
+                                        <h6 id="passwordChangeSuccess"></h6>
+                                    </div>
+                                </div>
+                                <form id="frmTimeSlot">
+
+                                    <div class="row">
+
+                                        <input type="hidden" class="form-control" name="AppointmentDate" id="txtAppointmentDate" value='@ViewBag.AppointmentDate'>
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Time From</label>
+                                                <input type="time" class="form-control" name="FromTime" id="txtFromTime">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Time To</label>
+                                                <input type="time" class="form-control" name="ToTime" id="txtToTime">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <hr />
+
+                                    <div class="col-md-3  pull-right">
+                                        <div class="form-group row">
+                                            <input type="button" id="btnSubmit" class="form-control btn btn-outline-primary" value="Submit">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <table id="tblSlots" class="table table-sm">
+                            <thead>
+                                <tr>
+
+                                    <th>SN.</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>App Date</th>
+                                    <th>Status</th>
+                                    <th>Create Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                        </table>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="~/fertilitypoint/timeslot.js"></script>
+
+
+
+<script type="text/javascript">
+   
+
+
+
+</script>
