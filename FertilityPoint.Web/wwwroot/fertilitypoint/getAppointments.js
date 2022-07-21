@@ -11,6 +11,10 @@ function HideLoader() {
 $(() => {
     LoadAppointmentsData();
 
+    LoadAppointmentsNotificationsCount();
+
+    LoadAppointmentsNotificationSummary();
+
     var connection = new signalR.HubConnectionBuilder()
         .withUrl("/signalrServer").build();
     connection.start();
@@ -21,7 +25,9 @@ $(() => {
 
     LoadAppointmentsData();
 
+    LoadAppointmentsNotificationsCount();
 
+    LoadAppointmentsNotificationSummary();
 
     function LoadAppointmentsData() {
 
@@ -59,8 +65,8 @@ $(() => {
 
 
                       <td class="text-end">
-                          <a class="btn btn-success btn-sm " href="#" onclick="GetAppointment('${v.id}')" value="">Approve</a>
-                           <a class="btn btn-primary btn-sm " href="#" onclick="GetRescheduleDetails('${v.id}')" value="">Reschedule</a>
+                          <a class="btn btn-success btn-sm " href="#" onclick="GetAppointment('${v.id}')" value=""><i class="fa fa-check btn-app" aria-hidden="true"></i><span class="btn-approve">Approve</span></a>
+                           <a class="btn btn-primary btn-sm " href="#" onclick="GetRescheduleDetails('${v.id}')" value=""><i class="fa fa-calendar btn-res" aria-hidden="true"></i><span class="btn-reschedule">Reschedule</span></a>
                       </td>
 
 
@@ -81,9 +87,128 @@ $(() => {
 
     }
 
+    function LoadAppointmentsNotificationsCount() {
+
+        $.get("/Admin/Appointments/GetSumAppointments/", function (data, status) {
+
+            console.log(data);
+
+            $("#txtCountNotifications").text(data.data);
+
+
+        });
+    };
+
+    function LoadAppointmentsNotificationSummary() {
+
+        $.ajax({
+            type: "GET",
+            url: "/Admin/Appointments/GetAppointmentsSummary/",
+            data: "{ }",
+
+            success: function (data) {
+
+                const array = data;
+
+                console.log(data);
+
+                if (array.length == 0) {
+
+                    $('#divShowEmptyMessage').show();
+
+                } else {
+                    $('#divShowEmptyMessage').hide();
+
+                    var s = '';
+
+
+                    for (var i = 0; i < array.length; i++) {
+
+                        s +=
+
+                            `  <li class="notification-message">
+                                <a href="#"  onclick="GetAppointmentById('${data[i].id}')">
+                                    <div class="media d-flex">
+                                        <span class="avatar avatar-sm flex-shrink-0">
+                                            <img class="avatar-img rounded-circle" alt="User Image" src="/dashboard/assets/img/patients/Appointment.png">
+                                        </span>
+                                        <div class="media-body flex-grow-1">
+                                            <p class="noti-details"><span class="noti-title">${data[i].fullName}</span> has booked an appointment <span class="noti-title">appointment</span></p>
+                                         
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                                `
+
+                            ;
+
+                        $("#txtAppointmentSummary").html(s);
+                    }
+                }
+            }
+        });
+    }
+
 
 })
 
+function GetAppointmentById(e) {
+
+    var id = e;
+
+    var tr = '';
+
+    $.ajax({
+
+        url: '/Admin/Appointments/GetAppointmentDetailsById/?Id=' + id,
+
+        method: 'Get',
+
+        success: (result) => {
+
+            $.each(result, (k, v) => {
+
+                tr += `<tr>
+
+                    <td>${v.sequenceNo}</td>
+
+                    <td>${v.fullName}</td>
+
+                    <td>
+                     ${v.newAppDate}
+                     <span class="text-primary d-block">${v.timeSlot}</span>
+                     </td>
+
+                    <td>${v.newCreateDate}</td>
+
+                      <td>                                             
+
+                     <span class="pending">Pending Approval</span>
+                                            
+                    </td>
+
+
+                      <td class="text-end">
+                          <a class="btn btn-success btn-sm " href="#" onclick="GetAppointment('${v.id}')" value=""><i class="fa fa-check btn-app" aria-hidden="true"></i><span class="btn-approve">Approve</span></a>
+                           <a class="btn btn-primary btn-sm " href="#" onclick="GetRescheduleDetails('${v.id}')" value=""><i class="fa fa-calendar btn-res" aria-hidden="true"></i><span class="btn-reschedule">Reschedule</span></a>
+                      </td>
+
+                       </tr>`
+            })
+
+            $("#tblAppointment").html(tr);
+
+
+            console.log(result);
+        },
+        error: (error) => {
+            console.log(error);
+        }
+    });
+
+
+}
 
 function ApproveAppointment() {
 

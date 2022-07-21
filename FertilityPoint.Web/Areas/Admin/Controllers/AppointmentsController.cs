@@ -24,7 +24,6 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
         private readonly UserManager<AppUser> userManager;
 
-
         public AppointmentsController(IMailService mailService, UserManager<AppUser> userManager, IMessagingService messagingService, IAppointmentRepository appointmentRepository)
         {
             this.appointmentRepository = appointmentRepository;
@@ -51,8 +50,6 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                 return RedirectToAction("Login", "Account", new { area = "" });
             }
         }
-
-
         public IActionResult Test()
         {
             try
@@ -69,10 +66,6 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                 return RedirectToAction("Login", "Account", new { area = "" });
             }
         }
-
-
-
-
 
         [HttpGet]
         public async Task<ActionResult> GetAppointments()
@@ -127,8 +120,63 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
 
         }
 
+        public async Task<ActionResult> GetAppointmentDetailsById(Guid Id)
+        {
+            try
+            {
+                var appointments = (await appointmentRepository.GetAll()).Where(x => x.Status == 0 && x.Id == Id).OrderBy(x => x.CreateDate);
 
+                var withSequence = appointments.AsEnumerable()
 
+                                        .Select((a, index) => new
+                                        {
+                                            a.Id,
+
+                                            a.Status,
+
+                                            a.CreateDate,
+
+                                            a.AppointmentDate,
+
+                                            a.FirstName,
+
+                                            a.LastName,
+
+                                            a.FullName,
+
+                                            a.TimeSlotId,
+
+                                            a.FromTime,
+
+                                            a.ToTime,
+
+                                            a.TimeSlot,
+
+                                            a.NewAppDate,
+
+                                            a.NewCreateDate,
+
+                                            SequenceNo = index + 1
+                                        }); ;
+
+                return Ok(withSequence);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                TempData["Error"] = "Something went wrong";
+
+                return RedirectToAction("Login", "Account", new { area = "" });
+            }
+
+        }
+        public async Task<IActionResult> GetSumAppointments()
+        {
+            var appointment = (await appointmentRepository.GetAll()).Where(x => x.Status == 0).Count();
+
+            return Json(new { data = appointment });
+        }
         public async Task<IActionResult> GetById(Guid Id)
         {
             try
@@ -261,7 +309,34 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                 return null;
             }
         }
+        public async Task<ActionResult> GetAppointmentsSummary()
+        {
+            try
+            {
+                var enquiries = (await appointmentRepository.GetAll()).Where(x => x.Status == 0).Take(6).OrderBy(x => x.CreateDate);
+
+                return Json(enquiries.Select(x => new
+                {
+                    x.Id,
+
+                    x.FullName,
+
+                    x.PhoneNumber,
+
+                    x.Email,
+
+                    x.NewCreateDate,
 
 
+                }).ToList());
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+        }
     }
 }

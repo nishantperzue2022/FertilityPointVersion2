@@ -16,8 +16,7 @@ $(() => {
 
     LoadEnquiriesData();
 
-    function LoadEnquiriesData() {
-
+    function LoadEnquiriesData() {            
 
         $.ajax({
             type: "GET",
