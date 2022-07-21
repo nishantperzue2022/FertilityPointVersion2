@@ -54,8 +54,6 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                 return null;
             }
         }
-
-
         public async Task<IActionResult> ViewEnquiries()
         {
 
@@ -64,12 +62,9 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
             return View(data);
 
         }
-
-        public async Task<IActionResult> GetEnquiries()
+        public async Task<IActionResult> GetEnquiries1()
         {
-
             var data = await enquiryRepository.GetAll();
-
 
             return Ok(data);
 
@@ -105,7 +100,6 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
             }
 
         }
-
         public async Task<IActionResult> GetById(Guid Id)
         {
             try
@@ -145,49 +139,24 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
             }
 
         }
-
-        public async Task<IActionResult> GetById22()
+        public async Task<ActionResult> GetEnquiries()
         {
             try
             {
-                var list = await enquiryRepository.GetAll();
+                var enquiries = (await enquiryRepository.GetAll()).Where(x => x.Status == 0).Take(6).OrderBy(x => x.CreateDate);
 
-                if (list != null)
+                return Json(enquiries.Select(x => new
                 {
+                    x.Id,
 
-                    return Json(new { data = list });
-                }
+                    x.Name,
 
-                return Json(new { data = false });
+                    x.PhoneNumber,
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                    x.Email,
 
-                return null;
-            }
+                    x.NewCreateDate,
 
-        }
-
-        public async Task<ActionResult> GetById2()
-        {
-            try
-            {
-                var streams = (await enquiryRepository.GetAll()).Where(x => x.Status == 0).Take(6);
-
-                return Json(streams.Select(x => new
-                {
-                    Id = x.Id,
-
-                    PatientName = x.Name,
-
-                    PhoneNumber = x.PhoneNumber,
-
-                    Email = x.Email,
-
-                    newCreateDate = x.NewCreateDate,
-                 
 
                 }).ToList());
 
@@ -199,11 +168,6 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
                 return null;
             }
         }
-
-
-
-
-
 
     }
 }

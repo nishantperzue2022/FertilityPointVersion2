@@ -21,12 +21,14 @@ $(() => {
 
         $.ajax({
             type: "GET",
-            url: "/Admin/Enquiries/GetById2/",
+            url: "/Admin/Enquiries/GetEnquiries/",
             data: "{ }",
 
             success: function (data) {
 
                 const array = data;
+
+                console.log(data);
 
                 if (array.length == 0) {
 
@@ -47,7 +49,7 @@ $(() => {
                                                 <i class="fa fa-circle"></i>
                                             </div>
                                             <div class="right" >
-                                                <h3 style="color:#27ae60;">${data[i].patientName} <small>${data[i].newCreateDate}</small></h3>
+                                                <h3 style="color:#27ae60;">${data[i].name} <small>${data[i].newCreateDate}</small></h3>
                                                 <span>  <small ></small></span>
                                                 <p>
                                                     Phone Number:<span >${data[i].phoneNumber}</span><br>
@@ -103,8 +105,6 @@ function GetMessage(e) {
     });
 };
 
-
-
 function ShowLoader() {
 
     $("#loadMe").modal('show');
@@ -114,7 +114,6 @@ function HideLoader() {
 
     $("#loadMe").modal('hide');
 }
-
 
 $("#btnReply").click(function () {
 

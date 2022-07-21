@@ -32,6 +32,7 @@ function GetSlots() {
                     var status = row.isBooked;
 
                     if (status == 0) {
+
                         return "<span class='activeUser'> Available </span>"
                     }
                     else {
