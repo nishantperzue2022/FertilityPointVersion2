@@ -9,6 +9,7 @@ namespace FertilityPoint.DAL.Modules
     {
         public Guid Id { get; set; }
         public byte Status { get; set; }
+        public byte IsCompleted { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime AppointmentDate { get; set; }
         public Guid PatientId { get; set; }

@@ -45,6 +45,73 @@
     <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Home\Privacy.cshtml" />
+    <None Include="wwwroot\chat\Audio\adapter\adapter.min.js" />
+    <None Include="wwwroot\chat\Audio\adapter\adapter.screenshare.js" />
+    <None Include="wwwroot\chat\Audio\adapter\adapter.screenshare.min.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\.jshintrc" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\build\alertify.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\build\alertify.min.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\build\alertifyjs.zip" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\CONTRIBUTING.md" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\Gruntfile.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\LICENSE" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\README.md" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\RELEASENOTES.md" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\alert.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\alertify.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\confirm.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\dialog\actions.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\dialog\commands.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\dialog\dialog.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\dialog\events.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\dialog\focus.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\dialog\intro.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\dialog\move.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\dialog\outro.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\dialog\resize.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\dialog\transition.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\event.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\intro.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\notifier.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\outro.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\js\prompt.js" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\less\alertify.less" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\less\themes\bootstrap.less" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\less\themes\default.less" />
+    <None Include="wwwroot\chat\Audio\alertifyjs\src\less\themes\semantic.less" />
+    <None Include="wwwroot\chat\Audio\js\connectionHub.js" />
+    <None Include="wwwroot\chat\Audio\js\constWebRTC.js" />
+    <None Include="wwwroot\chat\Audio\js\custom.js" />
+    <None Include="wwwroot\chat\Audio\js\utilsRTC.js" />
+    <None Include="wwwroot\chat\video\js\site.js" />
+    <None Include="wwwroot\chat\video\js\webrtc.js" />
+    <None Include="wwwroot\chat\video\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\chat\video\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\chat\video\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\chat\video\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\chat\video\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <None Include="wwwroot\chat\video\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\chat\video\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\chat\video\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\chat\video\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\chat\video\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\chat\video\lib\bootstrap\dist\js\bootstrap.js" />
+    <None Include="wwwroot\chat\video\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <None Include="wwwroot\chat\video\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <None Include="wwwroot\chat\video\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\chat\video\lib\bootstrap\LICENSE" />
+    <None Include="wwwroot\chat\video\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\chat\video\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\chat\video\lib\jquery-validation\dist\additional-methods.js" />
+    <None Include="wwwroot\chat\video\lib\jquery-validation\dist\additional-methods.min.js" />
+    <None Include="wwwroot\chat\video\lib\jquery-validation\dist\jquery.validate.js" />
+    <None Include="wwwroot\chat\video\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <None Include="wwwroot\chat\video\lib\jquery-validation\LICENSE.md" />
+    <None Include="wwwroot\chat\video\lib\jquery\dist\jquery.js" />
+    <None Include="wwwroot\chat\video\lib\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\chat\video\lib\jquery\dist\jquery.min.map" />
+    <None Include="wwwroot\chat\video\lib\signalr\dist\browser\signalr.js" />
+    <None Include="wwwroot\chat\video\lib\signalr\dist\browser\signalr.min.js" />
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
@@ -95,6 +162,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.0.6" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.7.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.7" />
     <PackageReference Include="MimeKit" Version="3.3.0" />
     <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />
@@ -105,6 +176,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FertilityPoint.BLL\FertilityPoint.BLL.csproj" />
+    <ProjectReference Include="..\FertilityPoint.Chat\FertilityPoint.Chat.csproj" />
     <ProjectReference Include="..\FertilityPoint.PayPal\FertilityPoint.PayPal.csproj" />
   </ItemGroup>
 

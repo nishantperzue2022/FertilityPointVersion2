@@ -15,6 +15,7 @@ namespace FertilityPoint.DTO.AppointmentModule
         public string PaidByNumber { get; set; }
         public string CountryCode { get; set; }
         public byte Status { get; set; }
+        public byte IsCompleted { get; set; }
         public DateTime CreateDate { get; set; }
         public Guid PatientId { get; set; }
         public Guid TimeSlotId { get; set; }
@@ -26,10 +27,7 @@ namespace FertilityPoint.DTO.AppointmentModule
         public string NewAppDate { get { return AppointmentDate.ToShortDateString(); } }
         public string NewCreateDate { get { return CreateDate.ToShortDateString(); } }
         public string TransactionNumber { get; set; }
-        public string TimeSlot { get; set; }
-
-        //public string TimeSlot => FromTime.ToString("h:mm tt") + " - " + ToTime.ToString("h:mm tt");            
-
+        public string TimeSlot { get; set; }     
         public string TransactionDate { get; set; }
         public string ReceiptURL { get; set; }
         public decimal Amount { get; set; }

@@ -21,6 +21,8 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
             this.mapper = mapper;
         }
+
+
         public async Task<AppointmentDTO> Create(AppointmentDTO appointmentDTO)
         {
             try
@@ -34,6 +36,8 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
                     Id = appointmentDTO.Id,
 
                     Status = 0,
+
+                    IsCompleted = 0,
 
                     AppointmentDate = appointmentDTO.AppointmentDate,
 
@@ -116,7 +120,11 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
                                     {
                                         Id = appointment.Id,
 
+                                        PatientId = appointment.PatientId,
+
                                         Status = appointment.Status,
+
+                                        IsCompleted = appointment.IsCompleted,
 
                                         CreateDate = appointment.CreateDate,
 
@@ -167,6 +175,8 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
                                         Id = appointment.Id,
 
                                         Status = appointment.Status,
+
+                                        IsCompleted = appointment.IsCompleted,
 
                                         CreateDate = appointment.CreateDate,
 

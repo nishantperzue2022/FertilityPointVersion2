@@ -1,4 +1,5 @@
-﻿function ShowLoader() {
+﻿
+function ShowLoader() {
 
     $("#loadMe").modal('show');
 }
@@ -9,6 +10,9 @@ function HideLoader() {
 }
 
 $(() => {
+
+
+
     LoadAppointmentsData();
 
     LoadAppointmentsNotificationsCount();
@@ -29,7 +33,101 @@ $(() => {
 
     LoadAppointmentsNotificationSummary();
 
+
     function LoadAppointmentsData() {
+
+
+        var t = $('#tblAppointment').DataTable({
+
+            "ajax": {
+                "url": "/Admin/Appointments/GetAppointments",
+                "type": "GET",
+                "datatype": "json"
+            },
+
+            "columns": [
+
+                { 'data': 'id' },
+
+                { 'data': 'fullName' },
+
+                {
+                    data: null,
+
+                    mRender: function (data, type, row) {
+
+                        return "<p >" + row.newAppDate + "  <br />   " + row.timeSlot + " </p>"
+
+                    }
+                },
+
+                { 'data': 'newCreateDate' },
+
+                {
+                    data: null,
+
+                    mRender: function (data, type, row) {
+
+                        var status = row.status;
+
+                        if (status == 0) {
+
+                            return "<span class='pending'> Pending Approval </span>"
+                        }
+                        else {
+                            return "<span class='activeUser'> Approved </span>"
+                        }
+
+
+                    }
+                },
+
+                {
+                    data: null,
+
+                    mRender: function (data, type, row) {
+
+                        console.log(data);
+                        var status = row.status;
+
+                        if (status == 0) {
+                            return "<a href='#' class='btn btn-success btn-sm '    onclick=GetAppointment('" + row.id + "'); >Approve </a> / <a href='#' class='btn btn-primary btn-sm'   onclick=GetRescheduleDetails('" + row.id + "'); >Reschedule</a>";
+
+                        }
+
+                        if (status == 1) {
+                            return "<a href='#' class='btn btn-success btn-sm '    onclick=StartVideoCall('" + row.patientId + "'); >Start Video Call </a> ";
+
+                        }
+
+                    }
+                }
+
+
+
+            ]
+
+        });
+
+
+
+        t.on('order.dt search.dt', function () {
+            t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
+    }
+
+
+
+
+
+
+
+
+
+
+    function LoadAppointmentsData1() {
 
         var tr = '';
 
@@ -54,14 +152,19 @@ $(() => {
                      <span class="text-primary d-block">${v.timeSlot}</span>
                      </td>
 
-                    <td>${v.newCreateDate}</td>
+                   
 
-                      <td>
-                                              
+                 <td>${v.newCreateDate}</td>
 
-                     <span class="pending">Pending Approval</span>
-                                            
-                    </td>
+                 <td>${{
+                            result: v.status,
+
+
+                        }
+
+                        }</td>
+
+
 
 
                       <td class="text-end">
@@ -86,6 +189,10 @@ $(() => {
 
 
     }
+
+
+
+
 
     function LoadAppointmentsNotificationsCount() {
 
@@ -502,4 +609,14 @@ function IsRadioChecked() {
 
 
     });
+}
+
+function StartVideoCall(e) {
+
+    var id = e;
+
+  
+    window.location.href = "/Admin/VideoChat/Index/" + id;
+
+
 }

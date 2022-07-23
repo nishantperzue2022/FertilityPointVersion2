@@ -3,9 +3,9 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-<link href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" type="text/css" />
 
 <body>
     <div class="page-wrapper" style="min-height: 754px;background-color: #f8f9fa;">
@@ -24,7 +24,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <table id="appointment" class="table table-sm">
+                    <table id="tblAppointment" class="table table-sm" style="width:100%;">
                         <thead>
                             <tr>
 
@@ -37,8 +37,7 @@
                             </tr>
                         </thead>
 
-                        <tbody id="tblAppointment">
-                        </tbody>
+                     
                     </table>
                 </div>
             </div>
@@ -247,13 +246,11 @@
         width: 11rem;
         color: #455A64;
     }
-
         .label input {
             position: absolute;
             display: none;
             color: #fff !important;
         }
-
     .img {
         height: 3em;
         margin-top: -0.5em;
@@ -287,10 +284,8 @@
 </style>
 
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
 <script src="~/fertilitypoint/getAppointments.js"></script>
 
@@ -300,16 +295,7 @@
 <script type="text/javascript">
 
 
-    $(document).ready(function() {
-        $('#appointment').DataTable();
-    });
-
     $(function() {
         $("#txtAppointmentDateReschedule").datepicker();
     });
-
 </script>
-
-
-
-

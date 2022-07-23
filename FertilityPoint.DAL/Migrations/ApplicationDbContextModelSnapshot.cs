@@ -36,6 +36,9 @@ namespace FertilityPoint.DAL.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<byte>("IsCompleted")
+                        .HasColumnType("tinyint");
+
                     b.Property<Guid>("PatientId")
                         .HasColumnType("uniqueidentifier");
 

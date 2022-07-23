@@ -1,0 +1,137 @@
+﻿@{
+    ViewData["Title"] = "Video";
+    //Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+   
+
+    <link rel="stylesheet" href="~/dashboard/assets/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="~/dashboard/assets/css/style.css">
+
+    <link href="~/SweetAlart/sweetalert.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="~/chat/video/css/webrtc.css" type="text/css" />
+
+
+<body>
+
+    <div class="page-wrapper" style="min-height: 754px; margin-bottom:5rem;">
+        <div class="content container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="profile-header">
+                        <div class="row align-items-center">
+                            <div class="col-auto profile-image">
+                                <a href="#">
+                                    <img class="rounded-circle" alt="User Image" src="/dashboard/assets/img/profiles/avatar-01.jpg">
+                                </a>
+                            </div>
+                            <div class="col ml-md-n2 profile-user-info">
+                                <h4 class="user-name mb-0">Alex Jobs</h4>
+                                <h6 class="text-muted">admin@gmail.com</h6>
+                                <h6 class="text-muted" id="roomNameTxt">Room ID : 12502</h6>
+                            </div>
+                            <div class="col-auto profile-btn">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row mt-3">
+
+                <div class="col-md-4">
+
+                    <div class="roomCreate">
+                        <label for="name">Room Name:</label>
+                        <input type="text" id="roomNameTxt" />
+                        <button id="createRoomBtn">Create</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="videoArea">
+                <div class="">
+
+                    <video id="localVideo" autoplay playsinline></video>
+
+
+                </div>
+
+                <div class="">
+
+                    <video id="remoteVideo" autoplay playsinline></video>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+        <div>
+            <table id="roomTable" class="display" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>Room ID</th>
+                        <th>Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="borderLine"></div>
+
+        <div>
+            <div class="connectionStatus">
+                <p id="connectionStatusMessage">*You can create your own room or join the other room.</p>
+            </div>
+            <h5>Video chat</h5>
+
+
+
+            <h5>File sharing</h5>
+            <div id="fileShare">
+                <input type="file" id="fileInput">
+                <button id="sendFileBtn" class="sendFileBtn">Send</button>
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+<script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="~/chat/video/js/webrtc.js"></script>
+

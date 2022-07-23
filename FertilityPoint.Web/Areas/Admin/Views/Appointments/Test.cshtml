@@ -1,34 +1,18 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
+﻿@{
+    ViewData["Title"] = "CreatePayment";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-<link href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
-
 
 <body>
     <div class="page-wrapper" style="min-height: 754px;background-color: #f8f9fa;">
         <div class="content container-fluid">
-
-            <div class="row">
-                <div class="col-sm-3 col-auto">
-                    <h3 class="page-title">List of Appointments</h3>
-                </div>
-                <div class="col-md-9">
-                    @*                    <button type="button" class="btn btn-success btn-sm  pull-right" data-toggle="modal" data-target="#ModalApproveAppointment" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  </button>
-                    *@
-                </div>
-            </div>
-
             <div class="card">
                 <div class="card-body">
 
-                    <table id="appointment" class="table table-sm">
+                    <table id="tblSlots" class="table table-sm">
                         <thead>
                             <tr>
-                            
+                                <th>SN.</th>
                                 <th>Patient Name</th>
                                 <th>Appointment Time</th>
                                 <th>Date Created</th>
@@ -36,240 +20,20 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                           
-                        </tbody>
+
                     </table>
+
+
                 </div>
             </div>
+
+
         </div>
     </div>
 </body>
 
-
-<!-- Approve appointment -->
-
-<div class="modal fade" id="ModalApproveAppointment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">
-                    Approve Appointment
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body ">
-
-                <form id="frmApproveAppointment">
-
-                    <input type="hidden" id="txtAppointmentId" name="Id" />
-
-                    <div class="form-group row">
-                        <div class="bg-dark col-12 text-center text-white" style="width:100px;height:50px; font-size:20px; margin-top:-1rem;">
-                            <div class="text-center">
-                                <label id="txtPatientName">   </label>
-                            </div>
-                            <div class="">
-                                <img src="~/dashboard/assets/img/patient-user-settings.png" class="img" />
-
-                            </div>
-                        </div>
-                        <br />
-
-                        <div class="col-lg-12">
-
-                            <div class="text-dark" style="font-size:15px; font-weight:bold;">
-                                <label id="NewCreateDate"></label>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="">
-
-                        <div class="">
-                            <label><strong>Phone Number:</strong></label>
-                            <label id="txtPhoneNumber">   </label>
-                        </div>
-
-                        <div class="">
-                            <label><strong>Email:</strong></label>
-                            <label id="txtEmail">   </label>
-                        </div>
-
-                        <div class="">
-                            <label><strong>Appointment Time:</strong></label>
-                            <label id="txtAppointmentTime">   </label>
-                        </div>
-                        <div class="">
-                            <label><strong>Appointment Date:</strong></label>
-                            <label id="txtAppointmentDate">   </label>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                <button onclick="ApproveAppointment(this)" type="button" class="btn btn-success">Approve</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- End Approve appointment -->
-<!-- Reschedule appointment -->
-
-<div class="modal fade" id="ModalRescheduleAppointment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-lg " role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">
-                    Reschedule Appointment
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body ">
-
-                <form id="frmRescheduleAppointment">
-
-                    <input type="hidden" id="txtAppointmentId1" name="Id" />
-                    <input type="hidden" id="txtTimeSlotIdId1" name="OldTimeSlotId" />
-
-                    <div class="form-group row">
-                        <div class="bg-dark col-12 text-center text-white" style="width:100px;height:50px; font-size:20px; margin-top:-1rem;">
-                            <div class="text-center">
-                                <label id="txtPatientName1">   </label>
-                            </div>
-                            <div class="">
-                                <img src="~/dashboard/assets/img/patient-user-settings.png" class="img" />
-
-                            </div>
-                        </div>
-                        <br />
-
-                        <div class="col-lg-12">
-
-                            <div class="text-dark" style="font-size:15px; font-weight:bold;">
-                                <label id="NewCreateDate"></label>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="container">
-
-                        <div class="row">
-
-                            <div class="col-md-6">
-                                <label><strong>Phone Number:</strong></label>
-                                <label id="txtPhoneNumber1">   </label>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label><strong>Email:</strong></label>
-                                <label id="txtEmail1">   </label>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label><strong>Appointment Time:</strong></label>
-                                <label id="txtAppointmentTime1">   </label>
-                            </div>
-                            <div class="col-md-6">
-                                <label><strong>Appointment Date:</strong></label>
-                                <label id="txtAppointmentDate1">   </label>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <hr />
-
-                    <div class="container">
-
-                        <div class="row">
-                            <div class="col-md-12">
-
-                                <div class="form-group">
-                                    <div class="form-group">
-                                        <label>Select Appointment Date</label>
-                                        <input type="text" name="NewAppointmentDate" onchange="GetSlotsByDateReschedule(this)" id="txtAppointmentDateReschedule" class="form-control" value='@DateTime.Now.ToString("MM/dd/yyyy")' autocomplete="off" />
-                                    </div>
-
-
-                                    <div class="">
-                                        <div id="slots">
-                                        </div>
-                                    </div>
-
-                                    <div class="">
-                                        <div id="divShowMessage" style="display:none;">
-                                            <div class="alert alert-danger" role="alert" id="error">
-                                                <div id="divmessage"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                <button onclick="RescheduleAppointment(this)" type="button" class="btn btn-success">Submit</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- End Reschedule appointment -->
-
-
-
-<style>
-    .label {
-        border: 1px solid;
-        margin: 5px;
-        padding: 10px;
-        cursor: pointer;
-        width: 11rem;
-        color: #455A64;
-    }
-
-        .label input {
-            position: absolute;
-            display: none;
-            color: #fff !important;
-        }
-
-    .img {
-        height: 3em;
-        margin-top: -0.5em;
-        background: transparent;
-        border: 5px solid white;
-        border-radius: 40px;
-    }
-</style>
-
-
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
-<script src="~/fertilitypoint/getAppointments.js"></script>
 
 
 
@@ -277,15 +41,81 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
-        $('#appointment').DataTable();
+        GetSlots();
     });
 
-    $(function() {
-        $("#txtAppointmentDateReschedule").datepicker();
-    });
+
+    function GetSlots() {
+
+
+        var t = $('#tblSlots').DataTable({
+
+            "ajax": {
+                "url": "/Admin/Appointments/AjaxMethod",
+                "type": "GET",
+                "datatype": "json"
+            },
+
+            "columns": [
+
+                { 'data': 'id' },
+
+                { 'data': 'fullName' },
+
+                {
+                    data: null,
+
+                    mRender: function(data, type, row) {
+
+                    return "<p >" + row.newAppDate + "  <br />   " + row.timeSlot + " </p>"
+                                           
+                    }
+                },
+
+                { 'data': 'newCreateDate' },
+
+                {
+                    data: null,
+
+                    mRender: function(data, type, row) {
+
+                        var status = row.status;
+
+                        if (status == 0) {
+
+                            return "<span class='pending'> Pending Approval </span>"
+                        }
+                        else {
+                            return "<span class='disabledUser'> Booked </span>"
+                        }
+
+
+                    }
+                },                
+
+                {
+                    data: null,
+                    mRender: function(data, type, row) {
+                        return "<a href='#' class='btn btn-success btn-sm '    onclick=GetAppointment('" + row.id + "'); >Approve </a> / <a href='#' class='btn btn-primary btn-sm'   onclick=GetRescheduleDetails('" + row.id + "'); >Reschedule</a>";
+
+                    }
+                }
+
+
+
+            ]
+
+        });
+        t.on('order.dt search.dt', function() {
+            t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function(cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
+    }
+
+
+
+
+
 
 </script>
-
-
-
-

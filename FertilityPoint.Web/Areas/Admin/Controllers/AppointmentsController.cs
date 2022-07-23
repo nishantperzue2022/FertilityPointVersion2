@@ -67,12 +67,33 @@ namespace FertilityPoint.Web.Areas.Admin.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<ActionResult> GetAppointments()
+
+
+        public async Task<IActionResult> GetAppointments()
         {
             try
             {
-                var appointments = (await appointmentRepository.GetAll()).Where(x => x.Status == 0).OrderBy(x => x.CreateDate);
+                var slots = (await appointmentRepository.GetAll()).OrderBy(x => x.CreateDate).ToList();
+
+                return Json(new { data = slots });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+        }
+
+
+
+
+        [HttpGet]
+        public async Task<ActionResult> GetAppointments1()
+        {
+            try
+            {
+                var appointments = (await appointmentRepository.GetAll()).Where(x => x.IsCompleted == 0).OrderBy(x => x.CreateDate);
 
                 var withSequence = appointments.AsEnumerable()
 

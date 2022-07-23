@@ -1,13 +1,10 @@
 ﻿$(document).ready(function () {
-
-
-
     GetSlots();
-
 });
 
 
 function GetSlots() {
+       
 
     var t = $('#tblSlots').DataTable({
 
