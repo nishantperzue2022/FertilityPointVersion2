@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FertilityPoint.DTO.VideoChatModule;
 
 namespace FertilityPoint.BLL.Repositories.AppointmentModule
 {
@@ -21,8 +22,6 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
 
             this.mapper = mapper;
         }
-
-
         public async Task<AppointmentDTO> Create(AppointmentDTO appointmentDTO)
         {
             try
@@ -373,7 +372,6 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
                 return null;
             }
         }
-
         public bool VacateSlot(Guid TimeSlotId)
         {
             var getSlot = context.TimeSlots.Find(TimeSlotId);
@@ -392,6 +390,27 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
             }
 
             return false;
+        }
+        public async Task<RemarkDTO> SaveVideoChatRemark(RemarkDTO remarkDTO)
+        {
+            try
+            {
+                remarkDTO.CreateDate = DateTime.Now;
+
+                var remark = mapper.Map<Remark>(remarkDTO);
+
+                context.Remarks.Add(remark);
+
+                await context.SaveChangesAsync();
+
+                return remarkDTO;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
         }
     }
 }

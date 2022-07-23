@@ -1,4 +1,5 @@
 ﻿using FertilityPoint.DTO.AppointmentModule;
+using FertilityPoint.DTO.VideoChatModule;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,5 +15,6 @@ namespace FertilityPoint.BLL.Repositories.AppointmentModule
         AppointmentDTO GetTransaction(Guid Id);
         Task<bool> ApproveAppointment(AppointmentDTO appointmentDTO);
         Task<bool> Delete(Guid Id);
+        Task<RemarkDTO> SaveVideoChatRemark(RemarkDTO remarkDTO);
     }
 }

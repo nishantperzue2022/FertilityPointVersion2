@@ -12,6 +12,7 @@ using FertilityPoint.DTO.ServiceModule;
 using FertilityPoint.DTO.SpecialityModule;
 using FertilityPoint.DTO.SubCountyModule;
 using FertilityPoint.DTO.TimeSlotModule;
+using FertilityPoint.DTO.VideoChatModule;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -47,6 +48,8 @@ namespace FertilityPoint.DAL.MapperProfiles
             CreateMap<PaypalPayment, PaypalPaymentDTO>().ReverseMap();
 
             CreateMap<SentMail, SentMailDTO>().ReverseMap();
+
+            CreateMap<Remark, RemarkDTO>().ReverseMap();
 
         }
     }

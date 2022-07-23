@@ -1,4 +1,4 @@
-﻿@model FertilityPoint.DTO.PatientModule.PatientDTO
+﻿@model FertilityPoint.DTO.AppointmentModule.AppointmentDTO
 
 @{
     ViewData["Title"] = "Video";
@@ -77,33 +77,34 @@
                     <video id="remoteVideo" autoplay playsinline></video>
                 </div>
 
-
-
                 <div class="col-lg-12 mt-3">
 
-                    <input type="text" name="PatientId" value="@Model.Id" />
+                    <input type="hidden" id="txtPatientId" name="PatientId" value="@Model.PatientId" />
+
+                    <input type="hidden" id="txtAppointmentId" name="AppointmentId" value="@Model.Id" />
 
                     <h6>
                         Remarks
                     </h6>
                     <div>
-                        <textarea class="form-control" style="height:5em;" id="txtDoshComment" name="DoshComment"></textarea>
+                        <textarea class="form-control" style="height:5em;" id="txtRemarks" name="Remarks"></textarea>
                     </div>
 
                     <div class="pull-right mt-2">
                         <button type="button" id="btnSubmitRemark" class="btn btn-primary btn-sm">Submit</button>
+
+                    </div>                                
+
+                <div id="divShowMessage" style="display:none;margin-top: 3rem;">
+                    <div class="alert alert-success" role="alert" id="error">
+                        <div id="msg"></div>
                     </div>
                 </div>
-
-
+                  </div>
 
             </div>
 
-
-
         </div>
-
-
     </div>
 </body>
 
@@ -117,5 +118,87 @@
 
 <script>
 
+    function ShowLoader() {
+
+        $("#loadMe").modal('show');
+    }
+
+    function HideLoader() {
+
+        $("#loadMe").modal('hide');
+    }
+
+
+    $("#btnSubmitRemark").on('click', function(e) {
+
+        ShowLoader();
+
+        e.preventDefault();
+
+        var userDetails = {};
+
+        userDetails.PatientId = $("#txtPatientId").val();
+
+        userDetails.AppointmentId = $("#txtAppointmentId").val();
+
+        userDetails.Remarks = $("#txtRemarks").val();
+
+        var jsonData = JSON.stringify({
+            userDetails: userDetails
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "/Admin/VideoChat/SaveRemark",
+            data: userDetails,
+
+
+
+            success: function(response) {
+
+                if (response.success) {
+
+                    $("#msg").html(response.responseText).css("color", "green");
+
+                    $("#txtRemarks").val("");
+
+                    $("#loadMe").modal('hide');
+
+                    $('#divShowMessage').show();
+
+                } else {
+
+                    $("#msg").html(response.responseText).css("color", "red");
+                }
+            },
+
+            error: function(response) {
+                alert("error!");
+            },
+            complete: function() {
+                HideLoader();
+            }
+
+
+
+
+        });
+
+
+        function OnSuccess(response) {
+
+            $("#msg").html("New record addded successfully").css("color", "green");
+
+
+        }
+
+        function OnErrorCall(response) {
+            $("#msg").html("Error occurs  :(").css("color", "red");
+        }
+
+
+
+
+    })
 
 </script>

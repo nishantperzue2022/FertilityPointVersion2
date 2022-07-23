@@ -96,7 +96,7 @@ $(() => {
                         }
 
                         if (status == 1) {
-                            return "<a href='#' class='btn btn-success btn-sm '    onclick=StartVideoCall('" + row.patientId + "'); >Start Video Call </a> ";
+                            return "<a href='#' class='btn btn-success btn-sm '    onclick=StartVideoCall('" + row.id + "'); >Start Video Call </a> ";
 
                         }
 
@@ -614,8 +614,7 @@ function IsRadioChecked() {
 function StartVideoCall(e) {
 
     var id = e;
-
-  
+    
     window.location.href = "/Admin/VideoChat/Index/" + id;
 
 

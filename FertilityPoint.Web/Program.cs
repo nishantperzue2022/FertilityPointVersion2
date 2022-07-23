@@ -20,7 +20,7 @@ using FertilityPoint.BLL.Repositories.EnquiryModule;
 using FertilityPoint.BLL.Repositories.PayPalModule;
 using FertilityPoint.Web.Helpers;
 using FertilityPoint.Chat.VideoChart;
-using FertilityPoint.Chat.AudioChat;
+
 using FertilityPoint.Chat.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -123,11 +123,6 @@ app.MapHub<SignalrServer>("/signalrServer");
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<VideoHub>("/VideoHub");
-
-    endpoints.MapHub<AudioHub>("/AudioHub", options =>
-    {
-        options.Transports = Microsoft.AspNetCore.Http.Connections.HttpTransportType.WebSockets;
-    });
 
     endpoints.MapControllerRoute(
     name: "Admin",

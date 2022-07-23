@@ -81,6 +81,9 @@ $("#btnSubmitSpeciality").click(function () {
         complete: function () {
             HideLoader();
         }
+
+
+
     })
 
 })
